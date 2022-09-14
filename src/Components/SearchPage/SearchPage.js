@@ -8,13 +8,39 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 // import axios from 'axios';
-// import { useState } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
 
 export default function SearchPage() {
+  const [search, setSearch] = useState('');
+  const [productsList, setProductsList] = useState([]);
+
+  function handleSearch(e) {
+    setSearch(e.target.value);
+  }
+
+  async function searchItem(e) {
+    e.preventDefault();
+    if (!search) {
+      alert('Por gentileza, preencha o campo de pesquisa para efetuar a busca');
+      return;
+    }
+    const query = search.replace(' ', '+');
+
+    try {
+      const filteredProducts = await axios.get(
+        `http://localhost:5000/search?q=${query}`
+      );
+      setProductsList(filteredProducts.data);
+    } catch (error) {
+      alert(error.response.data);
+    }
+  }
+
   return (
     <>
       <HeaderMenu />
@@ -26,9 +52,14 @@ export default function SearchPage() {
             do produto ou alguma especificação.
           </span>
         </div>
-        <form>
+        <form onSubmit={searchItem}>
           <ion-icon name="search-outline" />
-          <input type="search" placeholder="Produto X" />
+          <input
+            type="search"
+            placeholder="Produto X"
+            value={search}
+            onChange={handleSearch}
+          />
         </form>
       </Wrapper>
       <BottomMenu />

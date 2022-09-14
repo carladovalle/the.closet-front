@@ -46,5 +46,14 @@ const FormStyle = styled.form`
     color: #fefae0;
     font-size: 16px;
     font-weight: 700;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(0.9);
+    }
+    &:active {
+      filter: brightness(0.85);
+      transform: scale(95%);
+    }
   }
 `;

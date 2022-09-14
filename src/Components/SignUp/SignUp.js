@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 /* eslint-disable react/button-has-type */
@@ -7,13 +9,13 @@
 /* eslint-disable react/react-in-jsx-scope */
 import axios from 'axios';
 import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Form from '../../Common/Form';
 
 export default function SignUp() {
   const [signupData, setSignupData] = useState({});
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   function handleForm(e) {
     setSignupData({
@@ -24,9 +26,9 @@ export default function SignUp() {
 
   async function sendForm(e) {
     e.preventDefault();
-    const { user, email, password, confirmPassword } = signupData;
+    const { name, email, password, confirmPassword } = signupData;
 
-    if (!user || !email || !password) {
+    if (!name || !email || !password) {
       alert(
         'Todos os campos são de preenchimento obrigatório!\nPor gentileza, revise seus dados!'
       );
@@ -41,25 +43,29 @@ export default function SignUp() {
     }
 
     try {
-      await axios.post('http://localhost:5000/signup', signupData);
+      await axios.post('http://localhost:5000/signup', {
+        name,
+        email,
+        password,
+      });
       alert('Usuário criado com sucesso! :)');
       // navigate('/login');
     } catch (error) {
-      console.log('não');
+      alert(error.response.data);
     }
   }
 
   return (
     <Wrapper>
       <LoginContainer>
-        <ion-icon name="shirt-outline" />
-        <h1>Crie sua conta!</h1>
+        <ion-icon name="person-circle-outline" />
+        <h1>Crie sua conta</h1>
         <Form onSubmit={sendForm}>
           <section>
             <label htmlFor="user">Nome de usuário:</label>
             <input
               type="text"
-              name="user"
+              name="name"
               id="user"
               placeholder="Digite seu username"
               onChange={handleForm}
@@ -98,7 +104,9 @@ export default function SignUp() {
           <button>Cadastrar</button>
         </Form>
       </LoginContainer>
-      <span>Já possui um usuário? Faça já seu login!</span>
+      <span onClick={() => navigate('/')}>
+        Já possui um usuário? Faça já seu login!
+      </span>
     </Wrapper>
   );
 }
@@ -112,15 +120,15 @@ const Wrapper = styled.main`
   justify-content: center;
 
   h1 {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 500;
     color: #d4a373;
   }
 
   ion-icon {
     font-size: 26px;
-    margin-bottom: 15px;
+
     color: #683401;
   }
 
@@ -129,6 +137,12 @@ const Wrapper = styled.main`
     font-size: 12px;
     font-weight: 700;
     text-decoration: underline;
+    color: #d4a373;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(0.9);
+    }
   }
 `;
 

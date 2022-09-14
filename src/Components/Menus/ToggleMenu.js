@@ -1,45 +1,51 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/react-in-jsx-scope */
 
 import styled from 'styled-components';
 
-/* eslint-disable react/react-in-jsx-scope */
-export default function ToggleMenu() {
+export default function ToggleMenu({ isOpened, setIsOpened }) {
   return (
-    <Toggle>
-      <button>X</button>
-      <div>
-        <ion-icon name="person" />
-        <h3>Olá, Fulano!!</h3>
-      </div>
-      <ul>
-        <li>
-          Camisetas
-          <ion-icon name="caret-forward-outline" />
-        </li>
-        <li>
-          Calças
-          <ion-icon name="caret-forward-outline" />
-        </li>
-        <li>
-          Bermudas
-          <ion-icon name="caret-forward-outline" />
-        </li>
-        <li>
-          Vestidos
-          <ion-icon name="caret-forward-outline" />
-        </li>
-        <li>
-          Inverno
-          <ion-icon name="caret-forward-outline" />
-        </li>
-        <li>
-          Calçados
-          <ion-icon name="caret-forward-outline" />
-        </li>
-      </ul>
-      <footer>© 2022 - Desenvolvido por Carla do Valle e Filipe Garrote</footer>
-    </Toggle>
+    <>
+      <Toggle isOpened={isOpened}>
+        <button onClick={() => setIsOpened(false)}>X</button>
+        <div>
+          <ion-icon name="person" />
+          <h3>Olá, Fulano!!</h3>
+        </div>
+        <ul>
+          <li>
+            Camisetas
+            <ion-icon name="chevron-forward-outline" />
+          </li>
+          <li>
+            Calças
+            <ion-icon name="chevron-forward-outline" />
+          </li>
+          <li>
+            Bermudas
+            <ion-icon name="chevron-forward-outline" />
+          </li>
+          <li>
+            Vestidos
+            <ion-icon name="chevron-forward-outline" />
+          </li>
+          <li>
+            Inverno
+            <ion-icon name="chevron-forward-outline" />
+          </li>
+          <li>
+            Calçados
+            <ion-icon name="chevron-forward-outline" />
+          </li>
+        </ul>
+        <footer>
+          © 2022 - Desenvolvido por Carla do Valle e Filipe Garrote
+        </footer>
+      </Toggle>
+      <Background isOpened={isOpened} />
+    </>
   );
 }
 
@@ -50,7 +56,11 @@ const Toggle = styled.section`
   background-color: #5b3e40;
   display: flex;
   flex-direction: column;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: ${(props) => (props.isOpened ? '0' : '-400px')};
+  transition: all 0.5s linear;
+  z-index: 3;
 
   button {
     position: absolute;
@@ -62,9 +72,11 @@ const Toggle = styled.section`
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    border: none;
-    color: red;
-    font-size: 18px;
+    border: 1px solid #d7d7d7;
+    border-radius: 50px;
+    box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-size: 14px;
     font-weight: 700;
     margin-bottom: 30px;
   }
@@ -98,4 +110,15 @@ const Toggle = styled.section`
     padding-left: 20px;
     color: #312223;
   }
+`;
+
+const Background = styled.div`
+  background-color: rgba(0, 0, 0, 0.6);
+  display: ${(props) => (props.isOpened ? 'inline' : 'none')};
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  transition: all 0.5s linear;
 `;

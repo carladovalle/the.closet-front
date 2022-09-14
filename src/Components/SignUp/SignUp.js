@@ -62,7 +62,9 @@ export default function SignUp() {
       <HeaderMenu />
       <Wrapper>
         <LoginContainer>
-          <ion-icon name="person-circle-outline" />
+          <legend>
+            <ion-icon name="person-circle-outline" />
+          </legend>
           <h1>Crie sua conta</h1>
           <Form onSubmit={sendForm}>
             <section>
@@ -126,16 +128,20 @@ const Wrapper = styled.main`
   justify-content: center;
 
   h1 {
+    text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: 500;
     color: #d4a373;
   }
 
-  ion-icon {
-    font-size: 26px;
-
-    color: #683401;
+  legend {
+    font-size: 38px;
+    color: #5b3e40;
+    background-color: #ffffff;
+    overflow: hidden;
+    border-radius: 50px;
+    margin-left: calc(50% - 18px);
   }
 
   span {
@@ -152,13 +158,14 @@ const Wrapper = styled.main`
   }
 `;
 
-const LoginContainer = styled.div`
+const LoginContainer = styled.fieldset`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 90%;
   height: auto;
   border-radius: 20px;
+  border: 1px solid #c3c3c3;
   padding: 12px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: #ffffff;

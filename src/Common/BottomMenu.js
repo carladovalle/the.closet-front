@@ -1,14 +1,17 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function BottomMenu() {
+  const navigate = useNavigate();
+
   return (
     <Menu>
-      <ion-icon name="home-outline" />
-      <ion-icon name="search-outline" />
-      <ion-icon name="heart-outline" />
-      <ion-icon name="cart-outline" />
+      <ion-icon name="home-outline" onClick={() => navigate('/')} />
+      <ion-icon name="search-outline" onClick={() => navigate('/search')} />
+      <ion-icon name="heart-outline" onClick={() => navigate('/wishlist')} />
+      <ion-icon name="cart-outline" onClick={() => navigate('/checkout')} />
     </Menu>
   );
 }

@@ -12,8 +12,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Form from '../../Common/Form';
-import BottomMenu from '../Menus/BottomMenu';
-import HeaderMenu from '../Menus/HeaderMenu';
+import BottomMenu from '../../Common/BottomMenu';
+import HeaderMenu from '../../Common/TopBar/TopMenu';
 
 export default function SignUp() {
   const [signupData, setSignupData] = useState({});
@@ -51,7 +51,7 @@ export default function SignUp() {
         password,
       });
       alert('Usuário criado com sucesso! :)');
-      // navigate('/login');
+      navigate('/login');
     } catch (error) {
       alert(error.response.data);
     }

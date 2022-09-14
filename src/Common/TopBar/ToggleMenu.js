@@ -1,18 +1,28 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function ToggleMenu({ isOpened, setIsOpened }) {
+  const navigate = useNavigate();
+  const user = true;
+
   return (
     <>
       <Toggle isOpened={isOpened}>
         <button onClick={() => setIsOpened(false)}>X</button>
         <div>
           <ion-icon name="person" />
-          <h3>Olá, Fulano!!</h3>
+          {user ? (
+            <h3>Olá, Fulano!!</h3>
+          ) : (
+            <h3 onClick={() => navigate('/login')}>Entrar</h3>
+          )}
         </div>
         <ul>
           <li>
@@ -60,6 +70,7 @@ const Toggle = styled.section`
   bottom: 0;
   left: ${(props) => (props.isOpened ? '0' : '-400px')};
   transition: all 0.5s linear;
+  box-shadow: 0 -4px 8px 2px rgba(0, 0, 0, 0.4);
   z-index: 3;
 
   button {
@@ -89,6 +100,7 @@ const Toggle = styled.section`
     gap: 15px;
     margin-bottom: 20px;
     color: #ffffff;
+    box-shadow: -4px 0 8px 2px rgba(0, 0, 0, 0.4);
     font-size: 26px;
     font-weight: 500;
     padding-left: 20px;
@@ -113,12 +125,12 @@ const Toggle = styled.section`
 `;
 
 const Background = styled.div`
-  background-color: rgba(0, 0, 0, 0.6);
-  display: ${(props) => (props.isOpened ? 'inline' : 'none')};
+  background-color: rgba(0, 0, 0, 1);
+  opacity: ${(props) => (props.isOpened ? '0.6' : '0')};
   position: fixed;
   top: 0;
-  right: 0;
+  right: ${(props) => (props.isOpened ? '0' : '-500px')};
   height: 100vh;
   width: 100%;
-  transition: all 0.5s linear;
+  transition: opacity 0.5s;
 `;

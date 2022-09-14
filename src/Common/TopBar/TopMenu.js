@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
 import ToggleMenu from './ToggleMenu';
 
-export default function HeaderMenu() {
+export default function TopMenu() {
   const [isOpened, setIsOpened] = useState(false);
   return (
     <Header>

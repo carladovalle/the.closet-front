@@ -22,6 +22,7 @@ export default function SearchPage() {
 
   function handleSearch(e) {
     setSearch(e.target.value);
+    setProductsList([1, 2, 3, 4, 5]);
   }
 
   async function searchItem(e) {
@@ -62,7 +63,19 @@ export default function SearchPage() {
             onChange={handleSearch}
           />
         </form>
-        <ProductResults />
+        <section>
+          {productsList.length > 0 ? (
+            productsList.map(() => <ProductResults />)
+          ) : (
+            <>
+              <span>
+                Infelizmente, não há produtos para mostrar, ainda. Por
+                gentileza, faça uma nova busca
+              </span>
+              <ion-icon name="sad-outline" />
+            </>
+          )}
+        </section>
       </Wrapper>
       <BottomMenu />
     </>
@@ -70,7 +83,7 @@ export default function SearchPage() {
 }
 
 const Wrapper = styled.main`
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -109,6 +122,25 @@ const Wrapper = styled.main`
       &:focus {
         width: 90%;
       }
+    }
+  }
+
+  section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+
+    span {
+      font-size: 22px;
+      text-align: center;
+      color: #c3c3c3;
+    }
+
+    ion-icon {
+      font-size: 30px;
+      color: #c3c3c3;
     }
   }
 `;

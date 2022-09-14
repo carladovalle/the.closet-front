@@ -20,7 +20,7 @@ export default function ProductResults() {
   );
 }
 
-const ProductCard = styled.section`
+const ProductCard = styled.article`
   width: 100%;
   height: 120px;
   background-color: white;

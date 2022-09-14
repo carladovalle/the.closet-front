@@ -12,6 +12,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Form from '../../Common/Form';
+import BottomMenu from '../Menus/BottomMenu';
+import HeaderMenu from '../Menus/HeaderMenu';
 
 export default function SignUp() {
   const [signupData, setSignupData] = useState({});
@@ -56,58 +58,62 @@ export default function SignUp() {
   }
 
   return (
-    <Wrapper>
-      <LoginContainer>
-        <ion-icon name="person-circle-outline" />
-        <h1>Crie sua conta</h1>
-        <Form onSubmit={sendForm}>
-          <section>
-            <label htmlFor="user">Nome de usuário:</label>
-            <input
-              type="text"
-              name="name"
-              id="user"
-              placeholder="Digite seu username"
-              onChange={handleForm}
-            />
-          </section>
-          <section>
-            <label htmlFor="email"> E-mail:</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Digite seu e-mail"
-              onChange={handleForm}
-            />
-          </section>
-          <section>
-            <label htmlFor="password"> Senha:</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Digite sua senha"
-              onChange={handleForm}
-            />
-          </section>
-          <section>
-            <label htmlFor="confirmPassword"> Confirme sua senha:</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="Confirme a senha"
-              onChange={handleForm}
-            />
-          </section>
-          <button>Cadastrar</button>
-        </Form>
-      </LoginContainer>
-      <span onClick={() => navigate('/')}>
-        Já possui um usuário? Faça já seu login!
-      </span>
-    </Wrapper>
+    <>
+      <HeaderMenu />
+      <Wrapper>
+        <LoginContainer>
+          <ion-icon name="person-circle-outline" />
+          <h1>Crie sua conta</h1>
+          <Form onSubmit={sendForm}>
+            <section>
+              <label htmlFor="user">Nome de usuário:</label>
+              <input
+                type="text"
+                name="name"
+                id="user"
+                placeholder="Digite seu username"
+                onChange={handleForm}
+              />
+            </section>
+            <section>
+              <label htmlFor="email"> E-mail:</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Digite seu e-mail"
+                onChange={handleForm}
+              />
+            </section>
+            <section>
+              <label htmlFor="password"> Senha:</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Digite sua senha"
+                onChange={handleForm}
+              />
+            </section>
+            <section>
+              <label htmlFor="confirmPassword"> Confirme sua senha:</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirme a senha"
+                onChange={handleForm}
+              />
+            </section>
+            <button>Cadastrar</button>
+          </Form>
+        </LoginContainer>
+        <span onClick={() => navigate('/')}>
+          Já possui um usuário? Faça já seu login!
+        </span>
+      </Wrapper>
+      <BottomMenu />
+    </>
   );
 }
 

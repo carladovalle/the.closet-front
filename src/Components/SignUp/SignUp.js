@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Form from '../../Common/Form';
 
 export default function SignUp() {
   const [signupData, setSignupData] = useState({});
@@ -44,7 +45,7 @@ export default function SignUp() {
       alert('Usuário criado com sucesso! :)');
       // navigate('/login');
     } catch (error) {
-      console.log(error.response.data);
+      console.log('não');
     }
   }
 
@@ -90,7 +91,7 @@ export default function SignUp() {
               type="password"
               name="confirmPassword"
               id="confirmPassword"
-              placeholder="Confirme a senha digitada anteriormente"
+              placeholder="Confirme a senha"
               onChange={handleForm}
             />
           </section>
@@ -141,45 +142,4 @@ const LoginContainer = styled.div`
   padding: 12px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
-`;
-
-const Form = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  section {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0 10%;
-    gap: 8px;
-    font-size: 13px;
-
-    input {
-      width: 100%;
-      margin-bottom: 15px;
-      border: none;
-      border-bottom: 1px solid #c3c3c3;
-      background-color: inherit;
-      padding: 5px;
-    }
-  }
-
-  button {
-    width: 40%;
-    height: 40px;
-    border: none;
-    border-radius: 11px;
-    background-image: linear-gradient(#d4a373 60%, #fefae0);
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-    margin: 10px 0;
-    color: #fefae0;
-    font-size: 16px;
-    font-weight: 700;
-  }
 `;

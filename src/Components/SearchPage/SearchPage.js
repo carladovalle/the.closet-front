@@ -14,6 +14,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
+import ProductResults from './ProductResults';
 
 export default function SearchPage() {
   const [search, setSearch] = useState('');
@@ -61,6 +62,7 @@ export default function SearchPage() {
             onChange={handleSearch}
           />
         </form>
+        <ProductResults />
       </Wrapper>
       <BottomMenu />
     </>

@@ -6,7 +6,7 @@ import Form from '../../Common/Form';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
 
-export default function SignIn() {
+export default function Login() {
   const [loginData, setLoginData] = useState({});
   const navigate = useNavigate();
 

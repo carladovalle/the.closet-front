@@ -5,7 +5,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-export default function ProductInChart({ productsNumber, setProductsNumber }) {
+export default function ProductInChart({
+  productsNumber,
+  setProductsNumber,
+  totalValue,
+  setTotalValue,
+}) {
   const [countProduct, setCountProduct] = useState(1);
   const valor = 259.99;
 
@@ -30,6 +35,7 @@ export default function ProductInChart({ productsNumber, setProductsNumber }) {
               if (countProduct > 1) {
                 setProductsNumber(productsNumber - 1);
                 setCountProduct(countProduct - 1);
+                setTotalValue(totalValue - valor);
               }
             }}
           />
@@ -39,6 +45,7 @@ export default function ProductInChart({ productsNumber, setProductsNumber }) {
             onClick={() => {
               setCountProduct(countProduct + 1);
               setProductsNumber(productsNumber + 1);
+              setTotalValue(totalValue + valor);
             }}
           />
         </div>

@@ -13,6 +13,7 @@ import checkout from '../../assets/checkchart.png';
 
 export default function ChartPage() {
   const myChart = [1];
+  const [totalValue, setTotalValue] = useState(0);
   const [productsNumber, setProductsNumber] = useState(myChart.length);
   return (
     <>
@@ -26,10 +27,15 @@ export default function ChartPage() {
                 <ProductInChart
                   productsNumber={productsNumber}
                   setProductsNumber={setProductsNumber}
+                  totalValue={totalValue}
+                  setTotalValue={setTotalValue}
                 />
               ))}
             </div>
-            <OrderSummary productsNumber={productsNumber} />
+            <OrderSummary
+              productsNumber={productsNumber}
+              totalValue={totalValue}
+            />
           </>
         ) : (
           <EmptyChart />
@@ -40,13 +46,13 @@ export default function ChartPage() {
   );
 }
 
-function OrderSummary({ productsNumber }) {
+function OrderSummary({ productsNumber, totalValue }) {
   const [isDone, setIsDone] = useState(false);
   return (
     <Container isDone={isDone}>
       <div>
         <p>{productsNumber} Itens</p>
-        <span>R$ 2500.00</span>
+        <span>{totalValue}</span>
       </div>
 
       <button onClick={() => setIsDone(true)}>

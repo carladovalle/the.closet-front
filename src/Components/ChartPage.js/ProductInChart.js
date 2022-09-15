@@ -1,11 +1,14 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
+import { useState } from 'react';
 import styled from 'styled-components';
 
 export default function ProductInChart() {
+  const [countProduct, setCountProduct] = useState(1);
+
   return (
-    <Card>
+    <Card countProduct={countProduct}>
       <div>
         <ion-icon name="close-circle-outline" />
         <img
@@ -19,9 +22,19 @@ export default function ProductInChart() {
       </div>
       <aside>
         <div>
-          <ion-icon name="remove-circle-outline" />
-          <p>0</p>
-          <ion-icon name="add-circle-outline" />
+          <ion-icon
+            name="remove-circle-outline"
+            onClick={() => {
+              if (countProduct > 1) setCountProduct(countProduct - 1);
+            }}
+          />
+          <p>{countProduct}</p>
+          <ion-icon
+            name="add-circle-outline"
+            onClick={() => {
+              setCountProduct(countProduct + 1);
+            }}
+          />
         </div>
         <h4>
           Total: <strong>R$259,99</strong>
@@ -41,6 +54,7 @@ const Card = styled.section`
   align-items: center;
   justify-content: space-between;
   border-radius: 8px;
+  border-bottom: 1px solid #e9e9e9;
 
   > div {
     gap: 10px;
@@ -101,6 +115,14 @@ const Card = styled.section`
       gap: 5px;
       font-size: 18px;
       font-weight: 500;
+
+      ion-icon {
+        color: #5b3e40;
+      }
+
+      ion-icon:nth-of-type(1) {
+        color: ${(props) => (props.countProduct === 1 ? '#b5b5b5' : '#5b3e40')};
+      }
     }
   }
 `;

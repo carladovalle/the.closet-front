@@ -8,13 +8,17 @@ import EmptyChart from './EmptyChart';
 import ProductInChart from './ProductInChart';
 
 export default function ChartPage() {
-  const myChart = [1];
+  const myChart = [1, 2, 3, 4];
   return (
     <>
       <TopMenu />
       <Wrapper>
         <h1>Meu Carrinho</h1>
-        {myChart.length > 0 ? <ProductInChart /> : <EmptyChart />}
+        {myChart.length > 0 ? (
+          myChart.map(() => <ProductInChart />)
+        ) : (
+          <EmptyChart />
+        )}
       </Wrapper>
       <BottomMenu />
     </>

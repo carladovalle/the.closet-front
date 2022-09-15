@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
 import { useState } from 'react';
 import styled from 'styled-components';
 
-export default function ProductInChart() {
+export default function ProductInChart({ productsNumber, setProductsNumber }) {
   const [countProduct, setCountProduct] = useState(1);
   const valor = 259.99;
 
@@ -26,7 +27,10 @@ export default function ProductInChart() {
           <ion-icon
             name="remove-circle-outline"
             onClick={() => {
-              if (countProduct > 1) setCountProduct(countProduct - 1);
+              if (countProduct > 1) {
+                setProductsNumber(productsNumber - 1);
+                setCountProduct(countProduct - 1);
+              }
             }}
           />
           <p>{countProduct}</p>
@@ -34,6 +38,7 @@ export default function ProductInChart() {
             name="add-circle-outline"
             onClick={() => {
               setCountProduct(countProduct + 1);
+              setProductsNumber(productsNumber + 1);
             }}
           />
         </div>
@@ -54,7 +59,6 @@ const Card = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 8px;
   border-bottom: 1px solid #e9e9e9;
 
   > div {

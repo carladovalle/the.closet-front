@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Form from '../../Common/Form';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
 
 export default function SignIn() {
+  const navigate = useNavigate();
+
   return (
     <>
       <HeaderMenu />
@@ -35,7 +38,7 @@ export default function SignIn() {
             <button>Entrar</button>
           </Form>
         </LoginContainer>
-        <span>
+        <span onClick={() => navigate('/signup')}>
           Ainda não é cadastrado? Faça já o seu cadastro!
         </span>
       </Wrapper>

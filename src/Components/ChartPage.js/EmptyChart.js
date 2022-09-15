@@ -17,7 +17,7 @@ export default function EmptyChart() {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;

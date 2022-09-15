@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
@@ -8,9 +9,10 @@ import BottomMenu from '../../Common/BottomMenu';
 import TopMenu from '../../Common/TopBar/TopMenu';
 import EmptyChart from './EmptyChart';
 import ProductInChart from './ProductInChart';
+import checkout from '../../assets/checkchart.png';
 
 export default function ChartPage() {
-  const myChart = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const myChart = [1];
   const [productsNumber, setProductsNumber] = useState(myChart.length);
   return (
     <>
@@ -39,9 +41,18 @@ export default function ChartPage() {
 }
 
 function OrderSummary({ productsNumber }) {
+  const [isDone, setIsDone] = useState(false);
   return (
-    <Container>
-      <p>{productsNumber}</p>
+    <Container isDone={isDone}>
+      <div>
+        <p>{productsNumber} Itens</p>
+        <span>R$ 2500.00</span>
+      </div>
+
+      <button onClick={() => setIsDone(true)}>
+        <img src={checkout} alt="" />
+        <span>Checkout</span>
+      </button>
     </Container>
   );
 }
@@ -51,15 +62,15 @@ const Wrapper = styled.main`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 65px 20px;
+  padding: 65px 0;
 
   > div {
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    border: 1px dashed #d4a373;
     border-radius: 6px;
     overflow-y: auto;
+    margin-bottom: 35px;
 
     ::-webkit-scrollbar {
       display: none;
@@ -68,6 +79,7 @@ const Wrapper = styled.main`
 
   > h1 {
     margin-bottom: 10px;
+    margin-left: 20px;
     font-size: 28px;
     font-weight: 500;
     color: #5b3e40;
@@ -75,11 +87,60 @@ const Wrapper = styled.main`
 `;
 
 const Container = styled.section`
-  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 50px;
   width: 100%;
   position: fixed;
   left: 0;
   bottom: 50px;
-  background-color: white;
+  background-image: linear-gradient(#dbebdb 60%, #ffffff);
+  padding: 0 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   border-top: 1px solid #c3c3c3;
+
+  div {
+    p {
+      font-size: 16px;
+      font-weight: 500;
+      color: #737373;
+    }
+
+    span {
+      font-size: 14px;
+      font-weight: 700;
+      color: #737373;
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 40%;
+    background-color: lightgreen;
+    border: 1px solid #67af67;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 40px;
+    position: relative;
+
+    img {
+      height: 35px;
+      position: absolute;
+      left: ${(props) => (props.isDone ? '150px' : '5px')};
+      bottom: 2px;
+      transition: all 1s;
+    }
+
+    span {
+      font-size: 15px;
+      font-weight: 700;
+      color: #737373;
+      margin-left: ${(props) => (props.isDone ? '20px' : '40px')};
+      transition: all 1s;
+    }
+  }
 `;

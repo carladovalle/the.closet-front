@@ -21,7 +21,7 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
           {user ? (
             <h3>Olá, Fulano!!</h3>
           ) : (
-            <h3 onClick={() => navigate('/login')}>Entrar</h3>
+            <h3 onClick={() => navigate('/login')}>Login / Cadastro</h3>
           )}
         </div>
         <ul>
@@ -97,7 +97,7 @@ const Toggle = styled.section`
     display: flex;
     align-items: center;
     background-color: #462f30;
-    gap: 15px;
+    gap: 8px;
     margin-bottom: 20px;
     color: #ffffff;
     box-shadow: -4px 0 8px 2px rgba(0, 0, 0, 0.4);

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-console */
@@ -15,6 +16,7 @@ import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
 import ProductResults from './ProductResults';
+import searchGif from '../../assets/search.gif';
 
 export default function SearchPage() {
   const [search, setSearch] = useState('');
@@ -22,7 +24,6 @@ export default function SearchPage() {
 
   function handleSearch(e) {
     setSearch(e.target.value);
-    setProductsList([1, 2, 3, 4, 5]);
   }
 
   async function searchItem(e) {
@@ -35,7 +36,7 @@ export default function SearchPage() {
 
     try {
       const filteredProducts = await axios.get(
-        `http://localhost:5000/search?q=${query}`
+        `http://localhost:5000/search/?keyword=${query}`
       );
       setProductsList(filteredProducts.data);
     } catch (error) {
@@ -58,21 +59,24 @@ export default function SearchPage() {
           <ion-icon name="search-outline" />
           <input
             type="search"
-            placeholder="Produto X"
+            placeholder="Pesquise o produto dos sonhos"
             value={search}
             onChange={handleSearch}
           />
         </form>
         <section>
           {productsList.length > 0 ? (
-            productsList.map(() => <ProductResults />)
+            productsList.map(({ name }, index) => (
+              <ProductResults key={index} name={name} />
+            ))
           ) : (
             <>
               <span>
                 Infelizmente, não há produtos para mostrar, ainda. Por
                 gentileza, faça uma nova busca
               </span>
-              <ion-icon name="sad-outline" />
+              {/* <ion-icon name="sad-outline" /> */}
+              <img src={searchGif} alt="gif" width="130px" />
             </>
           )}
         </section>
@@ -135,11 +139,6 @@ const Wrapper = styled.main`
     span {
       font-size: 22px;
       text-align: center;
-      color: #c3c3c3;
-    }
-
-    ion-icon {
-      font-size: 30px;
       color: #c3c3c3;
     }
   }

@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 
 import styled from 'styled-components';
 
 /* eslint-disable react/react-in-jsx-scope */
-export default function ProductResults() {
+export default function ProductResults({ name }) {
   return (
     <ProductCard>
       <img
@@ -11,7 +12,7 @@ export default function ProductResults() {
         alt="tenis"
       />
       <div>
-        <h2>Tênis manero</h2>
+        <h2>{name}</h2>
         <h3>FRETE GRÁTIS</h3>
         <h4>R$ 239,99</h4>
         <h5>ou 6x de R$40,00</h5>

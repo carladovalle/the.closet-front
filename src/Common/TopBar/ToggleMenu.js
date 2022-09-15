@@ -116,11 +116,12 @@ const Toggle = styled.section`
   }
 
   footer {
-    margin-top: 280px;
     width: 90%;
     font-size: 15px;
     padding-left: 20px;
     color: #312223;
+    position: absolute;
+    bottom: 50px;
   }
 `;
 

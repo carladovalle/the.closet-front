@@ -11,7 +11,6 @@
 // import axios from 'axios';
 import axios from 'axios';
 import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';

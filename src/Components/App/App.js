@@ -2,6 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { GlobalStyle, Reset } from '../../Common/globalStyle';
+import ChartPage from '../ChartPage.js/ChartPage';
 import SearchPage from '../SearchPage/SearchPage';
 import SignUp from '../SignUp/SignUp';
 
@@ -14,6 +15,7 @@ export default function App() {
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/chart" element={<ChartPage />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -5,6 +5,7 @@ import { GlobalStyle, Reset } from '../../Common/globalStyle';
 import ChartPage from '../ChartPage.js/ChartPage';
 import SearchPage from '../SearchPage/SearchPage';
 import SignUp from '../SignUp/SignUp';
+import Login from '../Login/Login';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/chart" element={<ChartPage />} />
         </Routes>

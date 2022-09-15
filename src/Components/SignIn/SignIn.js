@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Form from '../../Common/Form';
@@ -5,7 +7,31 @@ import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
 
 export default function SignIn() {
+  const [loginData, setLoginData] = useState({});
   const navigate = useNavigate();
+
+  function handleForm(e) {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  async function sendForm(e) {
+    e.preventDefault();
+    const { email, password } = loginData;
+
+    try {
+      await axios.post('http://localhost:5000/login', {
+        email,
+        password,
+      });
+      alert('Login feito com sucesso! :)');
+      navigate('/');
+    } catch (error) {
+      alert(error.response.data);
+    }
+  }
 
   return (
     <>
@@ -16,7 +42,7 @@ export default function SignIn() {
             <ion-icon name="person-circle-outline" />
           </legend>
           <h1>Faça o seu login</h1>
-          <Form>
+          <Form onSubmit={sendForm}>
             <section>
               <label htmlFor="email"> E-mail:</label>
               <input
@@ -24,6 +50,7 @@ export default function SignIn() {
                 name="email"
                 id="email"
                 placeholder="Digite seu e-mail"
+                onChange={handleForm}
               />
             </section>
             <section>
@@ -33,6 +60,7 @@ export default function SignIn() {
                 name="password"
                 id="password"
                 placeholder="Digite sua senha"
+                onChange={handleForm}
               />
             </section>
             <button>Entrar</button>

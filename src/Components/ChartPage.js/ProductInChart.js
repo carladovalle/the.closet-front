@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 export default function ProductInChart() {
   const [countProduct, setCountProduct] = useState(1);
+  const valor = 259.99;
 
   return (
     <Card countProduct={countProduct}>
@@ -17,7 +18,7 @@ export default function ProductInChart() {
         />
         <article>
           <h2>Tênis Manero</h2>
-          <h3>R$ 259,99</h3>
+          <h3>{valor}</h3>
         </article>
       </div>
       <aside>
@@ -37,7 +38,7 @@ export default function ProductInChart() {
           />
         </div>
         <h4>
-          Total: <strong>R$259,99</strong>
+          Total: <strong>{(valor * countProduct).toFixed(2)}</strong>
         </h4>
       </aside>
     </Card>

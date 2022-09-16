@@ -11,7 +11,7 @@ export default function BottomMenu() {
       <ion-icon name="home-outline" onClick={() => navigate('/')} />
       <ion-icon name="search-outline" onClick={() => navigate('/search')} />
       <ion-icon name="heart-outline" onClick={() => navigate('/wishlist')} />
-      <ion-icon name="cart-outline" onClick={() => navigate('/checkout')} />
+      <ion-icon name="cart-outline" onClick={() => navigate('/chart')} />
     </Menu>
   );
 }

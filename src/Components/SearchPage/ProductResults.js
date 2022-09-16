@@ -4,18 +4,26 @@
 import styled from 'styled-components';
 
 /* eslint-disable react/react-in-jsx-scope */
-export default function ProductResults({ name }) {
+export default function ProductResults({ name, price, image }) {
   return (
     <ProductCard>
-      <img
-        src="https://imgcentauro-a.akamaihd.net/230x230/96943362.jpg"
-        alt="tenis"
-      />
+      <img src={image} alt="tenis" />
       <div>
         <h2>{name}</h2>
         <h3>FRETE GRÁTIS</h3>
-        <h4>R$ 239,99</h4>
-        <h5>ou 6x de R$40,00</h5>
+        <h4>
+          {(price / 100).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        </h4>
+        <h5>
+          ou 6x de{' '}
+          {(price / 100 / 6).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        </h5>
       </div>
     </ProductCard>
   );

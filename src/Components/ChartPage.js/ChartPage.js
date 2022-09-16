@@ -39,8 +39,9 @@ export default function ChartPage() {
           return acc + curr.price;
         }, 0);
         setTotalValue(total);
+        return;
       } catch (error) {
-        alert('error.response.data');
+        alert(error.response.data);
       }
     }
     fetchData();
@@ -63,6 +64,7 @@ export default function ChartPage() {
                   setTotalValue={setTotalValue}
                   product={product}
                   config={config}
+                  setMyChart={setMyChart}
                 />
               ))}
             </div>

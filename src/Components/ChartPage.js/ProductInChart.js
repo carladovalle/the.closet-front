@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
@@ -14,6 +15,7 @@ export default function ProductInChart({
   setTotalValue,
   product,
   config,
+  setMyChart,
 }) {
   const [countProduct, setCountProduct] = useState(1);
   const { _id, name, price, image } = product;
@@ -21,8 +23,19 @@ export default function ProductInChart({
 
   async function removeProduct() {
     try {
-      await axios.delete(`http://localhost:5000/chart/${_id}`, config);
-      navigate('/chart');
+      if (
+        window.confirm(
+          'Você tem certeza que quer tirar esse item do seu carrinho?'
+        )
+      ) {
+        await axios.delete(`http://localhost:5000/chart/${_id}`, config);
+        const newProductsChoosed = await axios.get(
+          'http://localhost:5000/chart',
+          config
+        );
+        setMyChart(newProductsChoosed.data);
+        setTotalValue(totalValue - countProduct * price);
+      }
     } catch (error) {
       alert(error.response.data);
       navigate('/');

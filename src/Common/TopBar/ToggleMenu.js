@@ -7,6 +7,7 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -21,6 +22,17 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
       setUserInfo(JSON.parse(localStorage.getItem('userData')));
     }
   }, []);
+
+  async function logout() {
+    try {
+      await axios.delete(`http://localhost:5000/sessions/${userInfo.token}`);
+      alert(`Até mais, ${userInfo.name}`);
+      localStorage.clear();
+      window.location.reload();
+    } catch (error) {
+      alert(error.response.data);
+    }
+  }
 
   return (
     <>
@@ -59,15 +71,7 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
         <footer>
           {storedData ? (
             <>
-              <p
-                onClick={() => {
-                  alert(`Até mais, ${userInfo.name}`);
-                  localStorage.clear();
-                  window.location.reload();
-                }}
-              >
-                Precisa ir? Clique aqui para sair.
-              </p>
+              <p onClick={logout}>Precisa ir? Clique aqui para sair.</p>
               <em>(mas volta logo, tá?)</em>
             </>
           ) : (

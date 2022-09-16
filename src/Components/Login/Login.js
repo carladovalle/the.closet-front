@@ -1,14 +1,16 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Form from '../../Common/Form';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
+import TokenContext from "../../Contexts/TokenContext";
 
 export default function Login() {
   const [loginData, setLoginData] = useState({});
   const navigate = useNavigate();
+  const { token, setToken } = useContext(TokenContext);
 
   function handleForm(e) {
     setLoginData({
@@ -22,12 +24,14 @@ export default function Login() {
     const { email, password } = loginData;
 
     try {
-      await axios.post('http://localhost:5000/login', {
+      const { data } = await axios.post('http://localhost:5000/login', {
         email,
         password,
       });
       alert('Login feito com sucesso! :)');
       navigate('/');
+      setToken(data.token);
+      console.log(data.token);
     } catch (error) {
       alert(error.response.data);
     }

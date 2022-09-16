@@ -1,12 +1,17 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
+import TokenContext from "../../Contexts/TokenContext";
 
 export default function Product() {
 
   const [product, setProduct] = useState([]);
+  const { token } = useContext(TokenContext);
+  const [productData, setProductData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -25,18 +30,63 @@ export default function Product() {
     
   }, []);
 
+  function handleForm(e) {
+    setProductData({
+      ...productData,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  async function addCart() {
+    
+    const { color, size } = productData;
+
+    const config = {
+      headers: {Authorization: `Bearer ${token}`}
+    }
+
+    try {
+      const { data } = await axios.post('http://localhost:5000/cart', {
+        color,
+        size
+      }, config);
+      alert('Produto adicionado com sucesso no carrinho!');
+      navigate('/');
+      console.log(data.token);
+    } catch (error) {
+      alert(error.response.data);
+    }
+  }
+
   return (
     <>
         <HeaderMenu />
         <Wrapper>
-            <div>
                 <h2>{product.name}</h2>
                 <h2>{product.price}</h2>
                 <img src={product.image} />
                 <h2>{product.description}</h2>
-                <h2>{product.size}</h2>
-                <h2>{product.color}</h2>
-            </div>
+                <input
+                type="text"
+                name="color"
+                id="color"
+                placeholder="Digite a cor"
+                onChange={handleForm}
+                />
+                <input
+                type="size"
+                name="size"
+                id="size"
+                placeholder="Digite o tamanho"
+                onChange={handleForm}
+              />
+            <Button onClick={() => addCart()}>Adicionar ao carrinho</Button>
+            <Button>Adicionar na lista de desejos</Button>
+            <form>
+              <Input />
+              <Input />
+              <Button>Enviar comentário</Button>
+            </form>
         </Wrapper>
         <BottomMenu />
     </>
@@ -44,18 +94,25 @@ export default function Product() {
 }
 
 const Wrapper = styled.main`
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  overflow-y: scroll;
 
   h2 {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 12px;
     font-weight: 500;
     color: #d4a373;
   }
 `;
+const Button = styled.button`
+  width: 50px;
+  height: 50px;
+  background-color: #d4a373;
+  font-size: 6px;
+`
+const Input = styled.input`
+  width: 50px;
+  height: 50px;
+`

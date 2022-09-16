@@ -12,6 +12,8 @@ export default function Product() {
   const { token } = useContext(TokenContext);
   const [productData, setProductData] = useState({});
   const navigate = useNavigate();
+  const [nameComment,setNameComment] = useState("");
+  const [comment,setComment] = useState("");
 
   useEffect(() => {
 
@@ -58,6 +60,40 @@ export default function Product() {
     }
   }
 
+  async function addWishlist() {
+    
+    const { color, size } = productData;
+
+    const config = {
+      headers: {Authorization: `Bearer ${token}`}
+    }
+
+    try {
+      const { data } = await axios.post('http://localhost:5000/wishlist', {
+        color,
+        size
+      }, config);
+      alert('Produto adicionado com sucesso na lista de desejos!');
+      navigate('/');
+      console.log(data.token);
+    } catch (error) {
+      alert(error.response.data);
+    }
+  }
+
+  async function addComment(e) {
+    e.preventDefault();
+    try {
+      await axios.post('http://localhost:5000/reviews', {
+        nameComment,
+        comment
+      });
+      alert('Comentário adicionado com sucesso');
+    } catch (error) {
+      alert(error.response.data);
+    }
+  }
+
   return (
     <>
         <HeaderMenu />
@@ -81,11 +117,11 @@ export default function Product() {
                 onChange={handleForm}
               />
             <Button onClick={() => addCart()}>Adicionar ao carrinho</Button>
-            <Button>Adicionar na lista de desejos</Button>
+            <Button onClick={() => addWishlist()}>Adicionar na lista de desejos</Button>
             <form>
-              <Input />
-              <Input />
-              <Button>Enviar comentário</Button>
+              <input placeholder="Digite seu nome" value={nameComment} onChange={e => setNameComment(e.target.value)} />
+              <input placeholder="Digite seu comentário" value={comment} onChange={e => setComment(e.target.value)} />
+              <Button onClick={addComment}>Enviar comentário</Button>
             </form>
         </Wrapper>
         <BottomMenu />

@@ -51,7 +51,6 @@ export default function ProductInChart({
         { amount: countProduct - 1 },
         config
       );
-      console.log(countProduct - 1);
     } catch (error) {
       alert(error.response.data);
     }
@@ -67,7 +66,6 @@ export default function ProductInChart({
         { amount: countProduct + 1 },
         config
       );
-      console.log(countProduct + 1);
     } catch (error) {
       alert(error.response.data);
     }

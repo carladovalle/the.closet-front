@@ -9,6 +9,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import BottomMenu from '../../Common/BottomMenu';
 import TopMenu from '../../Common/TopBar/TopMenu';
 import EmptyChart from './EmptyChart';
@@ -78,6 +79,7 @@ export default function ChartPage() {
 
 function OrderSummary({ totalValue }) {
   const [isDone, setIsDone] = useState(false);
+  const navigate = useNavigate();
   return (
     <Container isDone={isDone}>
       <div>
@@ -90,7 +92,14 @@ function OrderSummary({ totalValue }) {
         </span>
       </div>
 
-      <button onClick={() => setIsDone(true)}>
+      <button
+        onClick={() => {
+          setTimeout(() => {
+            navigate('/checkout');
+          }, 1000);
+          setIsDone(true);
+        }}
+      >
         <img src={checkout} alt="" />
         <span>Checkout</span>
       </button>

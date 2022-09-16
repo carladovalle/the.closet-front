@@ -32,8 +32,8 @@ export default function Login() {
       });
       alert('Login feito com sucesso! :)');
       setTokenInfo(auth.data)
-      localStorage.setItem("token", auth.data.token)
-      navigate('/signup');
+      localStorage.setItem("userData", JSON.stringify(auth.data))
+      navigate('/');
     } catch (error) {
       alert(error.response.data);
     }

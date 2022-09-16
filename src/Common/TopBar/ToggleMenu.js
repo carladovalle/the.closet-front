@@ -5,14 +5,19 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
-import { useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import UserContext from '../../Contexts/UserContext';
 
 export default function ToggleMenu({ isOpened, setIsOpened }) {
-  const { tokenInfo } = useContext(UserContext);
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState();
+
+  useEffect(() => {
+    if (localStorage.getItem('userData')) {
+      setUserInfo(JSON.parse(localStorage.getItem('userData')));
+    }
+  }, []);
 
   return (
     <>
@@ -20,8 +25,8 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
         <button onClick={() => setIsOpened(false)}>X</button>
         <div>
           <ion-icon name="person" />
-          {tokenInfo.token ? (
-            <h3>Olá, {tokenInfo.name}!!</h3>
+          {userInfo ? (
+            <h3>Olá, {userInfo.name}!!</h3>
           ) : (
             <h3 onClick={() => navigate('/login')}>Login / Cadastro</h3>
           )}

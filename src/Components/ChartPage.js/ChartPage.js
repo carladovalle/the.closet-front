@@ -20,7 +20,7 @@ import AlertWindow from '../../Common/AlertWindow';
 export default function ChartPage() {
   const [myChart, setMyChart] = useState([]);
   const [totalValue, setTotalValue] = useState(0);
-  const token = localStorage.getItem('token');
+  const { token } = JSON.parse(localStorage.getItem('userData'));
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
   if (!token) {

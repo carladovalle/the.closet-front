@@ -1,15 +1,21 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import { GlobalStyle, Reset } from '../../Common/globalStyle';
 import ChartPage from '../ChartPage.js/ChartPage';
 import SearchPage from '../SearchPage/SearchPage';
 import SignUp from '../SignUp/SignUp';
 import Login from '../Login/Login';
+import UserContext from '../../Contexts/UserContext';
 
 export default function App() {
+  const [tokenInfo, setTokenInfo] = useState({});
+  console.log(tokenInfo);
+
   return (
-    <>
+    <UserContext.Provider value={{ tokenInfo, setTokenInfo }}>
       <Reset />
       <GlobalStyle />
       <BrowserRouter>
@@ -20,6 +26,6 @@ export default function App() {
           <Route path="/chart" element={<ChartPage />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </UserContext.Provider>
   );
 }

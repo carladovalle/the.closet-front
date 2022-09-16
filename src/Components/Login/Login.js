@@ -1,12 +1,16 @@
+/* eslint-disable*/
+
 import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Form from '../../Common/Form';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
+import UserContext from '../../Contexts/UserContext';
 
 export default function Login() {
+  const {setTokenInfo} = useContext(UserContext)
   const [loginData, setLoginData] = useState({});
   const navigate = useNavigate();
 
@@ -22,12 +26,14 @@ export default function Login() {
     const { email, password } = loginData;
 
     try {
-      await axios.post('http://localhost:5000/login', {
+      const auth = await axios.post('http://localhost:5000/login', {
         email,
         password,
       });
       alert('Login feito com sucesso! :)');
-      navigate('/');
+      setTokenInfo(auth.data)
+      localStorage.setItem("token", auth.data.token)
+      navigate('/signup');
     } catch (error) {
       alert(error.response.data);
     }

@@ -110,7 +110,7 @@ export default function SignUp() {
             <button>Cadastrar</button>
           </Form>
         </LoginContainer>
-        <span onClick={() => navigate('/')}>
+        <span onClick={() => navigate('/login')}>
           Já possui um usuário? Faça já seu login!
         </span>
       </Wrapper>

@@ -1,6 +1,5 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable consistent-return */
 /* eslint-disable no-alert */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
@@ -23,19 +22,15 @@ export default function ChartPage() {
   const [totalValue, setTotalValue] = useState(0);
   const storedData = localStorage.getItem('userData');
   let config;
-
-  if (!storedData) {
-    return <AlertWindow />;
-  }
+  let userData;
 
   useEffect(() => {
-    const userData = JSON.parse(storedData);
-    config = { headers: { Authorization: `Bearer ${userData.token}` } };
-
     async function fetchData() {
+      userData = JSON.parse(storedData);
+      config = { headers: { Authorization: `Bearer ${userData.token}` } };
       try {
         const productsChoosed = await axios.get(
-          'http://localhost:5000/chart',
+          'https://back-projeto14-the-closet.herokuapp.com/chart',
           config
         );
         setMyChart(productsChoosed.data);
@@ -48,8 +43,14 @@ export default function ChartPage() {
         alert(error.response.data);
       }
     }
-    fetchData();
+    if (storedData) {
+      fetchData();
+    }
   }, []);
+
+  if (!storedData) {
+    return <AlertWindow />;
+  }
 
   return (
     <>

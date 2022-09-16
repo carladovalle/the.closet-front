@@ -9,6 +9,7 @@ import SearchPage from '../SearchPage/SearchPage';
 import SignUp from '../SignUp/SignUp';
 import Login from '../Login/Login';
 import UserContext from '../../Contexts/UserContext';
+import Home from '../Home.js/Home';
 
 export default function App() {
   const [tokenInfo, setTokenInfo] = useState({});
@@ -19,6 +20,7 @@ export default function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/search" element={<SearchPage />} />

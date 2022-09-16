@@ -10,11 +10,18 @@ import TopMenu from '../../Common/TopBar/TopMenu';
 import EmptyChart from './EmptyChart';
 import ProductInChart from './ProductInChart';
 import checkout from '../../assets/checkchart.png';
+import AlertWindow from '../../Common/AlertWindow';
 
 export default function ChartPage() {
   const myChart = [1];
+  const token = localStorage.getItem('token');
   const [totalValue, setTotalValue] = useState(0);
   const [productsNumber, setProductsNumber] = useState(myChart.length);
+
+  if (!token) {
+    return <AlertWindow />;
+  }
+
   return (
     <>
       <TopMenu />

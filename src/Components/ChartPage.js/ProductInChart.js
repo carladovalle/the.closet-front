@@ -40,6 +40,39 @@ export default function ProductInChart({
     }
   }
 
+  async function decreaseAmount() {
+    if (countProduct <= 1) return;
+    setCountProduct(countProduct - 1);
+    setTotalValue(totalValue - price);
+
+    try {
+      await axios.put(
+        `http://localhost:5000/chart/${_id}`,
+        { amount: countProduct - 1 },
+        config
+      );
+      console.log(countProduct - 1);
+    } catch (error) {
+      alert(error.response.data);
+    }
+  }
+
+  async function increaseAmount() {
+    setCountProduct(countProduct + 1);
+    setTotalValue(totalValue + price);
+
+    try {
+      await axios.put(
+        `http://localhost:5000/chart/${_id}`,
+        { amount: countProduct + 1 },
+        config
+      );
+      console.log(countProduct + 1);
+    } catch (error) {
+      alert(error.response.data);
+    }
+  }
+
   return (
     <Card countProduct={countProduct}>
       <div>
@@ -57,23 +90,9 @@ export default function ProductInChart({
       </div>
       <aside>
         <div>
-          <ion-icon
-            name="remove-circle-outline"
-            onClick={() => {
-              if (countProduct > 1) {
-                setCountProduct(countProduct - 1);
-                setTotalValue(totalValue - price);
-              }
-            }}
-          />
+          <ion-icon name="remove-circle-outline" onClick={decreaseAmount} />
           <p>{countProduct}</p>
-          <ion-icon
-            name="add-circle-outline"
-            onClick={() => {
-              setCountProduct(countProduct + 1);
-              setTotalValue(totalValue + price);
-            }}
-          />
+          <ion-icon name="add-circle-outline" onClick={increaseAmount} />
         </div>
         <h4>
           Subtotal:{' '}

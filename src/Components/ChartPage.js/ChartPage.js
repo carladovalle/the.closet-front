@@ -1,10 +1,14 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable consistent-return */
+/* eslint-disable no-alert */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import BottomMenu from '../../Common/BottomMenu';
 import TopMenu from '../../Common/TopBar/TopMenu';
 import EmptyChart from './EmptyChart';
@@ -13,14 +17,30 @@ import checkout from '../../assets/checkchart.png';
 import AlertWindow from '../../Common/AlertWindow';
 
 export default function ChartPage() {
-  const myChart = [1];
-  const token = localStorage.getItem('token');
+  const [myChart, setMyChart] = useState([]);
   const [totalValue, setTotalValue] = useState(0);
   const [productsNumber, setProductsNumber] = useState(myChart.length);
+  const token = localStorage.getItem('token');
+  const config = { headers: { Authorization: `Bearer ${token}` } };
 
   if (!token) {
     return <AlertWindow />;
   }
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const productsChoosed = await axios.get(
+          'http://localhost:5000/chart',
+          config
+        );
+        setMyChart(productsChoosed.data);
+      } catch (error) {
+        alert('error.response.data');
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -30,12 +50,14 @@ export default function ChartPage() {
         {myChart.length > 0 ? (
           <>
             <div>
-              {myChart.map(() => (
+              {myChart.map((product, index) => (
                 <ProductInChart
+                  key={index}
                   productsNumber={productsNumber}
                   setProductsNumber={setProductsNumber}
                   totalValue={totalValue}
                   setTotalValue={setTotalValue}
+                  product={product}
                 />
               ))}
             </div>

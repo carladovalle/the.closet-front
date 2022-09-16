@@ -1,11 +1,14 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomMenu from './BottomMenu';
 import TopMenu from './TopBar/TopMenu';
 
 export default function AlertWindow() {
+  const navigate = useNavigate();
+
   return (
     <Wrapper>
       <TopMenu />
@@ -13,8 +16,8 @@ export default function AlertWindow() {
         <ion-icon name="alert-circle" />
         <h1>Para ter acesso a esta página, você precisa fazer o login.</h1>
         <div>
-          <button>Login</button>
-          <button>Cadastro</button>
+          <button onClick={() => navigate('/login')}>Login</button>
+          <button onClick={() => navigate('/signup')}>Cadastro</button>
         </div>
       </Alert>
       <BottomMenu />
@@ -34,7 +37,7 @@ const Alert = styled.section`
   width: 280px;
   margin: auto auto;
   background-color: #ffffff;
-  box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   display: flex;
   flex-direction: column;

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
 /* eslint-disable no-alert */
@@ -20,14 +21,17 @@ import AlertWindow from '../../Common/AlertWindow';
 export default function ChartPage() {
   const [myChart, setMyChart] = useState([]);
   const [totalValue, setTotalValue] = useState(0);
-  const { token } = JSON.parse(localStorage.getItem('userData'));
-  const config = { headers: { Authorization: `Bearer ${token}` } };
+  const storedData = localStorage.getItem('userData');
+  let config;
 
-  if (!token) {
+  if (!storedData) {
     return <AlertWindow />;
   }
 
   useEffect(() => {
+    const userData = JSON.parse(storedData);
+    config = { headers: { Authorization: `Bearer ${userData.token}` } };
+
     async function fetchData() {
       try {
         const productsChoosed = await axios.get(

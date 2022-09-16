@@ -65,8 +65,13 @@ export default function SearchPage() {
         </form>
         <section>
           {productsList.length > 0 ? (
-            productsList.map(({ name }, index) => (
-              <ProductResults key={index} name={name} />
+            productsList.map(({ name, price, image }, index) => (
+              <ProductResults
+                key={index}
+                name={name}
+                price={price}
+                image={image}
+              />
             ))
           ) : (
             <>

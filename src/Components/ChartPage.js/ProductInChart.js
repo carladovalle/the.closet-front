@@ -9,16 +9,14 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function ProductInChart({
-  productsNumber,
-  setProductsNumber,
   totalValue,
   setTotalValue,
   product,
   config,
   setMyChart,
 }) {
-  const [countProduct, setCountProduct] = useState(1);
-  const { _id, name, price, image } = product;
+  const { _id, name, price, image, amount } = product;
+  const [countProduct, setCountProduct] = useState(amount);
   const navigate = useNavigate();
 
   async function removeProduct() {
@@ -49,7 +47,12 @@ export default function ProductInChart({
         <img src={image} alt="Foto do produto" />
         <article>
           <h2>{name}</h2>
-          <h3>{price}</h3>
+          <h3>
+            {(price / 100).toLocaleString('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </h3>
         </article>
       </div>
       <aside>
@@ -58,7 +61,6 @@ export default function ProductInChart({
             name="remove-circle-outline"
             onClick={() => {
               if (countProduct > 1) {
-                setProductsNumber(productsNumber - 1);
                 setCountProduct(countProduct - 1);
                 setTotalValue(totalValue - price);
               }
@@ -69,13 +71,18 @@ export default function ProductInChart({
             name="add-circle-outline"
             onClick={() => {
               setCountProduct(countProduct + 1);
-              setProductsNumber(productsNumber + 1);
               setTotalValue(totalValue + price);
             }}
           />
         </div>
         <h4>
-          Total: <strong>{(price * countProduct).toFixed(2)}</strong>
+          Subtotal:{' '}
+          <strong>
+            {((price * countProduct) / 100).toLocaleString('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </strong>
         </h4>
       </aside>
     </Card>
@@ -142,6 +149,7 @@ const Card = styled.section`
     align-items: flex-end;
 
     h4 {
+      width: 100px;
       font-size: 14px;
       font-weight: 700;
       text-align: end;

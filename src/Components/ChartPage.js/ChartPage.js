@@ -19,7 +19,6 @@ import AlertWindow from '../../Common/AlertWindow';
 export default function ChartPage() {
   const [myChart, setMyChart] = useState([]);
   const [totalValue, setTotalValue] = useState(0);
-  const [productsNumber, setProductsNumber] = useState(myChart.length);
   const token = localStorage.getItem('token');
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
@@ -36,7 +35,7 @@ export default function ChartPage() {
         );
         setMyChart(productsChoosed.data);
         const total = productsChoosed.data.reduce((acc, curr) => {
-          return acc + curr.price;
+          return acc + curr.price * curr.amount;
         }, 0);
         setTotalValue(total);
         return;
@@ -58,8 +57,6 @@ export default function ChartPage() {
               {myChart.map((product, index) => (
                 <ProductInChart
                   key={index}
-                  productsNumber={productsNumber}
-                  setProductsNumber={setProductsNumber}
                   totalValue={totalValue}
                   setTotalValue={setTotalValue}
                   product={product}
@@ -68,10 +65,7 @@ export default function ChartPage() {
                 />
               ))}
             </div>
-            <OrderSummary
-              productsNumber={productsNumber}
-              totalValue={totalValue}
-            />
+            <OrderSummary totalValue={totalValue} />
           </>
         ) : (
           <EmptyChart />
@@ -82,13 +76,18 @@ export default function ChartPage() {
   );
 }
 
-function OrderSummary({ productsNumber, totalValue }) {
+function OrderSummary({ totalValue }) {
   const [isDone, setIsDone] = useState(false);
   return (
     <Container isDone={isDone}>
       <div>
-        <p>{productsNumber} Itens</p>
-        <span>{totalValue}</span>
+        <p>TOTAL:</p>
+        <span>
+          {(totalValue / 100).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        </span>
       </div>
 
       <button onClick={() => setIsDone(true)}>

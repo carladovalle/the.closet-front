@@ -35,6 +35,10 @@ export default function ChartPage() {
           config
         );
         setMyChart(productsChoosed.data);
+        const total = productsChoosed.data.reduce((acc, curr) => {
+          return acc + curr.price;
+        }, 0);
+        setTotalValue(total);
       } catch (error) {
         alert('error.response.data');
       }
@@ -58,6 +62,7 @@ export default function ChartPage() {
                   totalValue={totalValue}
                   setTotalValue={setTotalValue}
                   product={product}
+                  config={config}
                 />
               ))}
             </div>

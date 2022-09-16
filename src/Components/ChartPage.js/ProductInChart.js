@@ -2,7 +2,9 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
+import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function ProductInChart({
@@ -10,21 +12,31 @@ export default function ProductInChart({
   setProductsNumber,
   totalValue,
   setTotalValue,
+  product,
+  config,
 }) {
   const [countProduct, setCountProduct] = useState(1);
-  const valor = 259.99;
+  const { _id, name, price, image } = product;
+  const navigate = useNavigate();
+
+  async function removeProduct() {
+    try {
+      await axios.delete(`http://localhost:5000/chart/${_id}`, config);
+      navigate('/chart');
+    } catch (error) {
+      alert(error.response.data);
+      navigate('/');
+    }
+  }
 
   return (
     <Card countProduct={countProduct}>
       <div>
-        <ion-icon name="close-circle-outline" />
-        <img
-          src="https://imgcentauro-a.akamaihd.net/230x230/96943362.jpg"
-          alt=""
-        />
+        <ion-icon name="close-circle-outline" onClick={removeProduct} />
+        <img src={image} alt="Foto do produto" />
         <article>
-          <h2>Tênis Manero</h2>
-          <h3>{valor}</h3>
+          <h2>{name}</h2>
+          <h3>{price}</h3>
         </article>
       </div>
       <aside>
@@ -35,7 +47,7 @@ export default function ProductInChart({
               if (countProduct > 1) {
                 setProductsNumber(productsNumber - 1);
                 setCountProduct(countProduct - 1);
-                setTotalValue(totalValue - valor);
+                setTotalValue(totalValue - price);
               }
             }}
           />
@@ -45,12 +57,12 @@ export default function ProductInChart({
             onClick={() => {
               setCountProduct(countProduct + 1);
               setProductsNumber(productsNumber + 1);
-              setTotalValue(totalValue + valor);
+              setTotalValue(totalValue + price);
             }}
           />
         </div>
         <h4>
-          Total: <strong>{(valor * countProduct).toFixed(2)}</strong>
+          Total: <strong>{(price * countProduct).toFixed(2)}</strong>
         </h4>
       </aside>
     </Card>

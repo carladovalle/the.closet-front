@@ -12,7 +12,6 @@ import UserContext from '../../Contexts/UserContext';
 
 export default function App() {
   const [tokenInfo, setTokenInfo] = useState({});
-  console.log(tokenInfo);
 
   return (
     <UserContext.Provider value={{ tokenInfo, setTokenInfo }}>

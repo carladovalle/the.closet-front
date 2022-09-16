@@ -5,12 +5,14 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import UserContext from '../../Contexts/UserContext';
 
 export default function ToggleMenu({ isOpened, setIsOpened }) {
+  const { tokenInfo } = useContext(UserContext);
   const navigate = useNavigate();
-  const user = true;
 
   return (
     <>
@@ -18,8 +20,8 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
         <button onClick={() => setIsOpened(false)}>X</button>
         <div>
           <ion-icon name="person" />
-          {user ? (
-            <h3>Olá, Fulano!!</h3>
+          {tokenInfo.token ? (
+            <h3>Olá, {tokenInfo.name}!!</h3>
           ) : (
             <h3 onClick={() => navigate('/login')}>Login / Cadastro</h3>
           )}

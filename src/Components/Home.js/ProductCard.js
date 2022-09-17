@@ -9,16 +9,18 @@
 
 import styled from 'styled-components';
 
-export default function Product() {
+export default function Product({ name, price, image }) {
   return (
     <ProductStyle>
-      <img
-        src="https://static.netshoes.com.br/produtos/tenis-casual-ds-leve-e-confortavel/14/1YM-0010-014/1YM-0010-014_zoom1.jpg?ts=1650568742&ims=544x"
-        alt="product"
-      />
+      <img src={image} alt="product" />
       <div>
-        <h3>Tênis masculino casual manero</h3>
-        <p>R$ 599,90</p>
+        <h3>{name}</h3>
+        <p>
+          {(price / 100).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        </p>
       </div>
     </ProductStyle>
   );

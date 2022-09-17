@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
@@ -9,17 +10,20 @@
 
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import BottomMenu from '../../Common/BottomMenu';
 import TopMenu from '../../Common/TopBar/TopMenu';
-import ProductCard from './ProductCard';
 import femaleBanner from '../../assets/banner-fem.png';
 import maleBanner from '../../assets/banner-masc.png';
 import winterBanner from '../../assets/banner-winter.png';
 import summerBanner from '../../assets/banner-summer.png';
 import shoesBanner from '../../assets/banner-shoes.png';
+import ProductCard from './ProductCard.js';
 
 export default function SectionPage() {
   const { category } = useParams();
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   function selectBanner() {
     switch (category) {
@@ -38,15 +42,30 @@ export default function SectionPage() {
     }
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const products = await axios.get(
+          `https://back-projeto14-the-closet.herokuapp.com/search/?keyword=${category}`
+        );
+        setFilteredProducts(products.data);
+      } catch (error) {
+        alert(error.response.data);
+      }
+    }
+    fetchData();
+  }, [category]);
+
   return (
     <>
       <TopMenu />
       <Wrapper>
         <img src={selectBanner()} alt="banner" />
-        <ProductsContainer>
-          <ProductCard />
-        </ProductsContainer>
-        <h1>PÁGINA PRINCIPAL EM CONSTRUÇÃO</h1>
+        <div>
+          {filteredProducts.map(({ name, price, image }, index) => (
+            <ProductCard key={index} name={name} price={price} image={image} />
+          ))}
+        </div>
       </Wrapper>
       <BottomMenu />
     </>
@@ -60,20 +79,9 @@ const Wrapper = styled.main`
   flex-direction: column;
   padding: 50px 0;
 
-  > h1 {
-    margin-bottom: 10px;
-    margin-left: 20px;
-    font-size: 28px;
-    font-weight: 500;
-    color: #5b3e40;
+  > img {
+    margin-bottom: 15px;
+    width: 100%;
+    height: 200px;
   }
-`;
-
-const ProductsContainer = styled.div`
-  width: 100%;
-  padding: 15px 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
 `;

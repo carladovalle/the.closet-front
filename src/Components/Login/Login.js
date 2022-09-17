@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Form from '../../Common/Form';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
-import UserContext from '../../Contexts/SearchContext';
+import UserContext from '../../Contexts/UserContext';
 
 export default function Login() {
   const {setTokenInfo} = useContext(UserContext)

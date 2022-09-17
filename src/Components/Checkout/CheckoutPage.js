@@ -15,16 +15,15 @@ export default function Product() {
   const [nameComment,setNameComment] = useState("");
   const [comment,setComment] = useState("");
   const [reviews, setReviews] = useState({});
-  console.log(product)
 
   useEffect(() => {
 
     async function getProduct() {
 
       try {
-        const produtos = await axios.get("http://localhost:5000/product");
-        console.log(produtos.data);
-        setProduct(produtos.data);
+        const { data } = await axios.get("http://localhost:5000/product");
+        //console.log(data.color);
+        setProduct(data);
       } catch (error) {
         console.log(error.response);
       }
@@ -41,7 +40,7 @@ export default function Product() {
     });
   }
 
-  async function addCart() {
+  async function checkout() {
     
     const { color, size } = productData;
 
@@ -50,46 +49,13 @@ export default function Product() {
     }
 
     try {
-      const { data } = await axios.post('http://localhost:5000/cart', {
+      const { data } = await axios.post('http://localhost:5000/checkout', {
         color,
         size
       }, config);
-      alert('Produto adicionado com sucesso no carrinho!');
+      alert('Compra efetuada com sucesso!');
       navigate('/');
       console.log(data.token);
-    } catch (error) {
-      alert(error.response.data);
-    }
-  }
-
-  async function addWishlist() {
-
-    const { color, size } = productData;
-
-    const config = {
-      headers: {Authorization: `Bearer ${token}`}
-    }
-    
-    try {
-      const { data } = await axios.post('http://localhost:5000/wishlist', {
-        color,
-        size
-      }, config);
-      alert('Produto adicionado com sucesso na lista de desejos!');
-      navigate('/');
-      console.log(data.token);
-    } catch (error) {
-      alert(error.response.data);
-    }
-  }
-
-  async function addComment() {
-    try {
-      await axios.post('http://localhost:5000/reviews', {
-        nameComment,
-        comment
-      });
-      alert('Comentário adicionado com sucesso');
     } catch (error) {
       alert(error.response.data);
     }
@@ -99,52 +65,17 @@ export default function Product() {
     <>
         <HeaderMenu />
         <Wrapper>
-          <PrincipalInformation>
-            <div className="zoom">
-              <img src={product.image} />
-            </div>
+          <OrderSummary>
+            <img src={product.image} />
             <Infos>
                 <h1>{product.name}</h1>
                 <h2>R$ {product.price}</h2>
-                <h6> ou R$ {product.price}</h6>
-                <h5>FRETE GRÁTIS</h5>
-                <h3>{product.description}</h3>
-                <h4>Cor:</h4>
-                <select id="color" name="color" onChange={handleForm}>
-                  { product.length === 0 ? "" : 
-                  product.color.map((value) => <option>{value}</option>)}
-                </select>
-                <h4>Tamanho:</h4>
-                <select id="size" name="size" onChange={handleForm}>
-                  { product.length === 0 ? "" : 
-                  product.size.map((value) => <option>{value}</option>)}
-                </select>
-                <Options>
-                  <button onClick={() => addCart()}>Adicionar ao carrinho</button>
-                  <div className="wishlist" 
-                    onClick={() => addWishlist()}
-                  >
-                      <ion-icon name="heart-outline" onClick={() => addWishlist()} />
-                  </div>
-                </Options>
+                <h2> ou R$ {product.price}</h2>
+                <h4>Cor: (colocar cor escolhida)</h4>
+                <h4>Tamanho: (colocar tamanho escolhido)</h4>
+                <button>Adicionar ao carrinho</button>
             </Infos>
-          </PrincipalInformation>
-          <Reviews>
-          <form>
-              <h1>Avaliações</h1>
-                <input 
-                  placeholder="Digite seu nome" 
-                  value={nameComment} 
-                  onChange={e => setNameComment(e.target.value)} 
-                />
-                <input 
-                  placeholder="Digite seu comentário" 
-                  value={comment} 
-                  onChange={e => setComment(e.target.value)} 
-                />
-              <button onClick={addComment}>Enviar comentário</button>
-            </form>
-          </Reviews>
+          </OrderSummary>
         </Wrapper>
         <BottomMenu />
     </>
@@ -161,28 +92,21 @@ const Wrapper = styled.main`
   align-items: center;
 
   h1 {
-    margin-bottom: 10px;
-    font-size: 24px;
+    margin-bottom: 12px;
+    font-size: 10px;
     font-weight: 700;
     color: #5b3e40;
   }
 
   h2 {
-    font-size: 20px;
+    font-size: 10px;
     font-weight: 700;
     color: #d4a373;
     margin-bottom: 5px
   }
 
-  h3 {
-    font-size: 15px;
-    font-weight: 400;
-    color: #d4a373;
-    word-wrap: break-word;
-  }
-
   h4 {
-    font-size: 18px;
+    font-size: 10px;
     font-weight: 500;
     color: #d4a373;
     margin-bottom: 10px;
@@ -196,33 +120,9 @@ const Wrapper = styled.main`
       margin-bottom: 10px;
   }
 
-  h6 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #d4a373;
-    margin-bottom: 10px
-  }
-
-  .zoom {
-	overflow: hidden;
-  }
-
-  .zoom img {
-	max-width: 100%;
-	-moz-transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	transition: all 0.3s;
-  }
-
-  .zoom:hover img {
-	-moz-transform: scale(1.1);
-	-webkit-transform: scale(1.1);
-	transform: scale(1.1);
-  }
-
   img {
-    width: 320px;
-    height: 320px;
+    width: 90px;
+    height: 90px;
     margin-right: 24px;
     border-radius: 5px;
     box-shadow: 0 2px 4px 1px rgba(30, 54, 5, 0.315);
@@ -259,11 +159,6 @@ const Wrapper = styled.main`
     height: 30px;
     color: #d4a373;
     margin-left: 30px;
-
-    &:hover {
-      cursor: pointer;
-      filter: brightness(0.9);
-    }
   }
 
   button {
@@ -299,9 +194,10 @@ const Options = styled.div`
   flex-direction: row;
 `
 
-const PrincipalInformation = styled.div`
+const OrderSummary = styled.div`
   display: flex;
   margin-top: 100px;
+  background: red;
 `;
 
 const Reviews = styled.div`

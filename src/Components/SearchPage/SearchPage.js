@@ -8,40 +8,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
-// import axios from 'axios';
-import axios from 'axios';
-import { useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
 import ProductResults from './ProductResults';
 import searchGif from '../../assets/search.gif';
+import SearchBar from '../../Common/SearchBar';
+import SearchContext from '../../Contexts/SearchContext';
 
 export default function SearchPage() {
-  const [search, setSearch] = useState('');
-  const [productsList, setProductsList] = useState([]);
-
-  function handleSearch(e) {
-    setSearch(e.target.value);
-  }
-
-  async function searchItem(e) {
-    e.preventDefault();
-    if (!search) {
-      alert('Por gentileza, preencha o campo de pesquisa para efetuar a busca');
-      return;
-    }
-    const query = search.replace(' ', '+');
-
-    try {
-      const filteredProducts = await axios.get(
-        `https://back-projeto14-the-closet.herokuapp.com/search/?keyword=${query}`
-      );
-      setProductsList(filteredProducts.data);
-    } catch (error) {
-      alert(error.response.data);
-    }
-  }
+  const { productsList } = useContext(SearchContext);
 
   return (
     <>
@@ -54,15 +31,7 @@ export default function SearchPage() {
             do produto ou alguma especificação.
           </span>
         </div>
-        <form onSubmit={searchItem}>
-          <ion-icon name="search-outline" />
-          <input
-            type="search"
-            placeholder="Pesquise o produto dos sonhos"
-            value={search}
-            onChange={handleSearch}
-          />
-        </form>
+        <SearchBar />
         <section>
           {productsList.length > 0 ? (
             productsList.map(({ name, price, image }, index) => (
@@ -105,32 +74,11 @@ const Wrapper = styled.main`
   }
 
   span {
+    display: block;
     margin-top: 10px;
     font-size: 12px;
     color: #d4a373;
-  }
-
-  form {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    margin-top: 30px;
-
-    input {
-      width: 46%;
-      height: 30px;
-      border: 1px solid #5b3e40;
-      border-radius: 50px;
-      outline: none;
-      transition: all 0.6s;
-      padding-left: 13px;
-
-      &:focus {
-        width: 90%;
-      }
-    }
+    margin-bottom: 30px;
   }
 
   section {

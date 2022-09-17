@@ -8,15 +8,18 @@
 /* eslint-disable react/react-in-jsx-scope */
 
 import styled from 'styled-components';
-
 import BottomMenu from '../../Common/BottomMenu';
+import SearchBar from '../../Common/SearchBar';
 import TopMenu from '../../Common/TopBar/TopMenu';
+import Banner from './Banner';
 
 export default function Home() {
   return (
     <>
       <TopMenu />
       <Wrapper>
+        <Banner />
+        <SearchBar />
         <h1>PÁGINA PRINCIPAL EM CONSTRUÇÃO</h1>
       </Wrapper>
       <BottomMenu />

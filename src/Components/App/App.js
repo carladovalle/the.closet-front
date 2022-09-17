@@ -8,14 +8,14 @@ import ChartPage from '../ChartPage.js/ChartPage';
 import SearchPage from '../SearchPage/SearchPage';
 import SignUp from '../SignUp/SignUp';
 import Login from '../Login/Login';
-import UserContext from '../../Contexts/UserContext';
+import SearchContext from '../../Contexts/SearchContext';
 import Home from '../Home.js/Home';
 
 export default function App() {
-  const [tokenInfo, setTokenInfo] = useState({});
+  const [productsList, setProductsList] = useState({});
 
   return (
-    <UserContext.Provider value={{ tokenInfo, setTokenInfo }}>
+    <SearchContext.Provider value={{ productsList, setProductsList }}>
       <Reset />
       <GlobalStyle />
       <BrowserRouter>
@@ -27,6 +27,6 @@ export default function App() {
           <Route path="/chart" element={<ChartPage />} />
         </Routes>
       </BrowserRouter>
-    </UserContext.Provider>
+    </SearchContext.Provider>
   );
 }

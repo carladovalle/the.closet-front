@@ -64,7 +64,7 @@ const Container = styled.header`
 
 const BannerLayout = styled.nav`
   width: 100%;
-  height: 200px;
+  height: 50vw;
   display: flex;
   align-items: center;
   overflow-x: auto;

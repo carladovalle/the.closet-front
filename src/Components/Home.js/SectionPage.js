@@ -80,8 +80,24 @@ const Wrapper = styled.main`
   padding: 50px 0;
 
   > img {
-    margin-bottom: 15px;
+    margin-bottom: 40px;
     width: 100%;
-    height: 200px;
+    height: 50vw;
+    object-fit: cover;
+  }
+
+  h2 {
+    font-size: 20px;
+    color: #543827;
+    font-weight: 500;
+    margin: 20px 0 20px 20px;
+    font-style: oblique;
+  }
+
+  div {
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 `;

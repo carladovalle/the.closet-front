@@ -29,7 +29,7 @@ export default function Login() {
         password,
       });
       alert('Login feito com sucesso! :)');
-      navigate('/');
+      navigate('/product');
       setToken(data.token);
       console.log(data.token);
     } catch (error) {

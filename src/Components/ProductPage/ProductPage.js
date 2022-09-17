@@ -105,8 +105,14 @@ export default function Product() {
             </div>
             <Infos>
                 <h1>{product.name}</h1>
-                <h2>R$ {product.price}</h2>
-                <h6> ou R$ {product.price}</h6>
+                <h2>R$ {((product.price)/100).toLocaleString('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                })}</h2>
+                <h6> ou R$ {((product.price)/100/6).toLocaleString('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                })}</h6>
                 <h5>FRETE GRÁTIS</h5>
                 <h3>{product.description}</h3>
                 <h4>Cor:</h4>

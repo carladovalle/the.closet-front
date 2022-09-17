@@ -46,22 +46,27 @@ export default function Banner() {
   }
 
   return (
-    <BannerLayout ref={carousel}>
-      <ion-icon name="chevron-back-circle" onClick={scrollLeft} />
-      <img src={banner3} alt="banner-frete" />
-      <img src={banner2} alt="banner-frete" />
-      <img src={banner1} alt="banner-frete" />
-      <ion-icon name="chevron-forward-circle" onClick={scrollRight} />
-    </BannerLayout>
+    <Container>
+      <BannerLayout ref={carousel}>
+        <ion-icon name="chevron-back-circle" onClick={scrollLeft} />
+        <img src={banner3} alt="banner-frete" />
+        <img src={banner2} alt="banner-frete" />
+        <img src={banner1} alt="banner-frete" />
+        <ion-icon name="chevron-forward-circle" onClick={scrollRight} />
+      </BannerLayout>
+    </Container>
   );
 }
+
+const Container = styled.header`
+  position: relative;
+`;
 
 const BannerLayout = styled.nav`
   width: 100%;
   height: 200px;
   display: flex;
   align-items: center;
-  position: relative;
   overflow-x: auto;
   scroll-behavior: smooth;
 
@@ -69,12 +74,13 @@ const BannerLayout = styled.nav`
     flex: none;
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 
   ion-icon:nth-of-type(1) {
     font-size: 30px;
     color: black;
-    position: fixed;
+    position: absolute;
     left: 10px;
     top: calc();
     opacity: 80%;
@@ -83,7 +89,7 @@ const BannerLayout = styled.nav`
   ion-icon:nth-of-type(2) {
     font-size: 30px;
     color: black;
-    position: fixed;
+    position: absolute;
     right: 10px;
     top: calc();
     opacity: 80%;

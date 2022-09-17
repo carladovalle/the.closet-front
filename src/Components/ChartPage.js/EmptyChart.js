@@ -2,9 +2,12 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function EmptyChart() {
+  const navigate = useNavigate();
+
   return (
     <Wrapper>
       <span>
@@ -12,7 +15,7 @@ export default function EmptyChart() {
         nossas ofertas!
       </span>
       <ion-icon name="bag-handle-outline" />
-      <button>Escolher produtos</button>
+      <button onClick={() => navigate('/')}>Escolher produtos</button>
     </Wrapper>
   );
 }

@@ -58,6 +58,7 @@ const SearchLayout = styled.form`
   justify-content: center;
   align-items: center;
   gap: 5px;
+  margin: 15px 0;
 
   input {
     width: 46%;

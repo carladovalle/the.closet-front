@@ -12,6 +12,7 @@ import BottomMenu from '../../Common/BottomMenu';
 import SearchBar from '../../Common/SearchBar';
 import TopMenu from '../../Common/TopBar/TopMenu';
 import Banner from './Banner';
+import Product from './Product';
 
 export default function Home() {
   return (
@@ -20,6 +21,14 @@ export default function Home() {
       <Wrapper>
         <Banner />
         <SearchBar />
+        <ProductsContainer>
+          <Product />
+          <Product />
+          <Product />
+          <Product />
+          <Product />
+          <Product />
+        </ProductsContainer>
         <h1>PÁGINA PRINCIPAL EM CONSTRUÇÃO</h1>
       </Wrapper>
       <BottomMenu />
@@ -28,24 +37,11 @@ export default function Home() {
 }
 
 const Wrapper = styled.main`
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 65px 0;
-
-  > div {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    border-radius: 6px;
-    overflow-y: auto;
-    margin-bottom: 35px;
-
-    ::-webkit-scrollbar {
-      display: none;
-    }
-  }
 
   > h1 {
     margin-bottom: 10px;
@@ -54,4 +50,13 @@ const Wrapper = styled.main`
     font-weight: 500;
     color: #5b3e40;
   }
+`;
+
+const ProductsContainer = styled.div`
+  width: 100%;
+  padding: 15px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 `;

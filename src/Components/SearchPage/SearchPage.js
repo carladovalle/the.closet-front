@@ -78,11 +78,10 @@ const Wrapper = styled.main`
     margin-top: 10px;
     font-size: 12px;
     color: #d4a373;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 
   section {
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;

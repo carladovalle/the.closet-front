@@ -27,8 +27,9 @@ export default function Product({ name, price, image }) {
 }
 
 const ProductStyle = styled.div`
-  width: 150px;
-  height: 200px;
+  width: 100px;
+  flex: none;
+  height: 140px;
   background-color: #ffffff;
   margin-bottom: 8px;
   border-radius: 8px;

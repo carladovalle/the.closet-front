@@ -8,11 +8,13 @@
 /* eslint-disable react/react-in-jsx-scope */
 
 import styled from 'styled-components';
+import WishButton from '../../Common/WishButton';
 
 export default function Product({ name, price, image }) {
   return (
     <ProductStyle>
       <img src={image} alt="product" />
+      <WishButton />
       <div>
         <h3>{name}</h3>
         <p>
@@ -30,6 +32,7 @@ const ProductStyle = styled.div`
   width: 100px;
   flex: none;
   height: 140px;
+  position: relative;
   background-color: #ffffff;
   margin-bottom: 8px;
   border-radius: 8px;

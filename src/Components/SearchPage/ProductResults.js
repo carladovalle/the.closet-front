@@ -2,12 +2,14 @@
 /* eslint-disable react/jsx-filename-extension */
 
 import styled from 'styled-components';
+import WishButton from '../../Common/WishButton';
 
 /* eslint-disable react/react-in-jsx-scope */
 export default function ProductResults({ name, price, image }) {
   return (
     <ProductCard>
       <img src={image} alt="tenis" />
+      <WishButton />
       <div>
         <h2>{name}</h2>
         <h3>FRETE GRÁTIS</h3>
@@ -36,6 +38,7 @@ const ProductCard = styled.article`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  position: relative;
   gap: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 2px rgba(87, 54, 5, 0.315);

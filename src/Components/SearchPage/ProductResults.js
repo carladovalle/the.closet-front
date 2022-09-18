@@ -11,7 +11,7 @@ export default function ProductResults({ name, price, image, id, inWishlist }) {
   return (
     <ProductCard onClick={() => navigate(`/product/${id}`)}>
       <img src={image} alt="tenis" />
-      <WishButton inWishlist={inWishlist} />
+      <WishButton inWishlist={inWishlist} id={id} />
       <div>
         <h2>{name}</h2>
         <h3>FRETE GRÁTIS</h3>

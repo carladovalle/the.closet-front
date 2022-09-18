@@ -16,7 +16,7 @@ export default function Product({ name, price, image, inWishlist, id }) {
   return (
     <ProductStyle onClick={() => navigate(`/product/${id}`)}>
       <img src={image} alt="product" />
-      <WishButton inWishlist={inWishlist} />
+      <WishButton inWishlist={inWishlist} id={id} />
       <div>
         <h3>{name}</h3>
         <p>

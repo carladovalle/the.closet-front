@@ -5,11 +5,13 @@
 /* eslint-disable react/react-in-jsx-scope */
 
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import TokenContext from '../Contexts/TokenContext';
 
 export default function WishButton({ inWishlist, id }) {
   const [isLiked, setIsLiked] = useState(false);
+  const { token } = useContext(TokenContext);
 
   useEffect(() => {
     if (inWishlist) {
@@ -40,13 +42,9 @@ export default function WishButton({ inWishlist, id }) {
       setIsLiked(true);
       try {
         await axios.post(
-          'https://back-projeto14-the-closet.herokuapp.com/wishlist',
-          id,
-          'config'
-        );
-        await axios.put(
-          'https://back-projeto14-the-closet.herokuapp.com/wishlist',
-          'config'
+          `https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`,
+          {},
+          { headers: { Authorization: token } }
         );
       } catch (error) {
         alert(error.response.data);

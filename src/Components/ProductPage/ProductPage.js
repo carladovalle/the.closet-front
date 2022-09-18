@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
@@ -68,7 +68,7 @@ export default function Product() {
     }
     
     try {
-      const { data } = await axios.post('https://back-projeto14-the-closet.herokuapp.com/wishlist', id, config);
+      const { data } = await axios.post(`https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`, {}, config);
       alert('Produto adicionado com sucesso na lista de desejos!');
       navigate('/');
       console.log(data.token);
@@ -82,7 +82,7 @@ export default function Product() {
     event.preventDefault();
 
     try {
-      await axios.put('https://back-projeto14-the-closet.herokuapp.com/product', {
+      await axios.put(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`, {
         nameComment,
         comment
       });

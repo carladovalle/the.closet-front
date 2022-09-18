@@ -9,22 +9,20 @@ import HeaderMenu from '../../Common/TopBar/TopMenu';
 import TokenContext from "../../Contexts/TokenContext";
 
 export default function Product() {
-
+  const {id} = useParams()
   const [product, setProduct] = useState([]);
   const { token } = useContext(TokenContext);
   const [productData, setProductData] = useState({});
   const navigate = useNavigate();
   const [nameComment,setNameComment] = useState("");
   const [comment,setComment] = useState("");
-  console.log(product)
 
   useEffect(() => {
 
     async function getProduct() {
 
       try {
-        const produtos = await axios.get("http://localhost:5000/product");
-        console.log(produtos.data);
+        const produtos = await axios.get(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`);
         setProduct(produtos.data);
       } catch (error) {
         console.log(error.response);
@@ -51,7 +49,7 @@ export default function Product() {
     }
 
     try {
-      const { data } = await axios.post('http://localhost:5000/cart', {
+      const { data } = await axios.post('https://back-projeto14-the-closet.herokuapp.com/cart', {
         color,
         size
       }, config);
@@ -65,17 +63,12 @@ export default function Product() {
 
   async function addWishlist() {
 
-    const { color, size } = productData;
-
     const config = {
       headers: {Authorization: `Bearer ${token}`}
     }
     
     try {
-      const { data } = await axios.post('http://localhost:5000/wishlist', {
-        color,
-        size
-      }, config);
+      const { data } = await axios.post('https://back-projeto14-the-closet.herokuapp.com/wishlist', id, config);
       alert('Produto adicionado com sucesso na lista de desejos!');
       navigate('/');
       console.log(data.token);
@@ -89,7 +82,7 @@ export default function Product() {
     event.preventDefault();
 
     try {
-      await axios.put('http://localhost:5000/product', {
+      await axios.put('https://back-projeto14-the-closet.herokuapp.com/product', {
         nameComment,
         comment
       });

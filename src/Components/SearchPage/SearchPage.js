@@ -34,14 +34,18 @@ export default function SearchPage() {
         <SearchBar />
         <section>
           {productsList.length > 0 ? (
-            productsList.map(({ name, price, image }, index) => (
-              <ProductResults
-                key={index}
-                name={name}
-                price={price}
-                image={image}
-              />
-            ))
+            productsList.map(
+              ({ name, price, image, _id, inWishlist }, index) => (
+                <ProductResults
+                  key={index}
+                  name={name}
+                  price={price}
+                  image={image}
+                  id={_id}
+                  inWishlist={inWishlist}
+                />
+              )
+            )
           ) : (
             <>
               <span>

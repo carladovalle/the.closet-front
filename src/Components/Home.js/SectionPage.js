@@ -62,9 +62,18 @@ export default function SectionPage() {
       <Wrapper>
         <img src={selectBanner()} alt="banner" />
         <div>
-          {filteredProducts.map(({ name, price, image }, index) => (
-            <ProductCard key={index} name={name} price={price} image={image} />
-          ))}
+          {filteredProducts.map(
+            ({ name, price, image, _id, inWishlist }, index) => (
+              <ProductCard
+                key={index}
+                name={name}
+                price={price}
+                image={image}
+                id={_id}
+                inWishlist={inWishlist}
+              />
+            )
+          )}
         </div>
       </Wrapper>
       <BottomMenu />

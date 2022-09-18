@@ -24,7 +24,7 @@ export default function Product() {
     async function getProduct() {
 
       try {
-        const { data } = await axios.get("http://localhost:5000/product");
+        const { data } = await axios.get("https://back-projeto14-the-closet.herokuapp.com/product");
         //console.log(data.color);
         setProduct(data);
       } catch (error) {
@@ -52,7 +52,7 @@ export default function Product() {
     }
 
     try {
-      const { data } = await axios.post('http://localhost:5000/checkout', {
+      const { data } = await axios.post('https://back-projeto14-the-closet.herokuapp.com/checkout', {
         color,
         size
       }, config);

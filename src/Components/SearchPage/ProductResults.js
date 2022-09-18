@@ -1,15 +1,17 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import WishButton from '../../Common/WishButton';
 
 /* eslint-disable react/react-in-jsx-scope */
-export default function ProductResults({ name, price, image }) {
+export default function ProductResults({ name, price, image, id, inWishlist }) {
+  const navigate = useNavigate();
   return (
-    <ProductCard>
+    <ProductCard onClick={() => navigate(`/product/${id}`)}>
       <img src={image} alt="tenis" />
-      <WishButton />
+      <WishButton inWishlist={inWishlist} />
       <div>
         <h2>{name}</h2>
         <h3>FRETE GRÁTIS</h3>

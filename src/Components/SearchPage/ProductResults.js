@@ -39,6 +39,7 @@ const ProductCard = styled.article`
   gap: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 2px rgba(87, 54, 5, 0.315);
+  overflow: hidden;
 
   img {
     width: 120px;

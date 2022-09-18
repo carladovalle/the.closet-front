@@ -11,30 +11,34 @@ import ProductPage from '../ProductPage/ProductPage';
 import CheckoutPage from '../Checkout/CheckoutPage';
 import SignUp from '../SignUp/SignUp';
 import Login from '../Login/Login';
+import SearchContext from '../../Contexts/SearchContext';
 import TokenContext from "../../Contexts/TokenContext";
 import Home from '../Home.js/Home';
+import SectionPage from '../Home.js/SectionPage';
 
 export default function App() {
 
+  const [productsList, setProductsList] = useState({});
   const [token, setToken] = useState('');
 
   return (
-    <>
-    <TokenContext.Provider value={{token, setToken}}>
+    <SearchContext.Provider value={{ productsList, setProductsList }}>
+      <TokenContext.Provider value={{token, setToken}}>
         <Reset />
         <GlobalStyle />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/section/:category" element={<SectionPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/product" element={<ProductPage/>} />
             <Route path="/chart" element={<ChartPage />} />
+            <Route path="/product" element={<ProductPage/>} />
             <Route path="/checkout" element={<CheckoutPage/>} />
           </Routes>
         </BrowserRouter>
-      </TokenContext.Provider>
-    </>
+       </TokenContext.Provider>
+     </SearchContext.Provider>
   );
 }

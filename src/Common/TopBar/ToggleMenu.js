@@ -49,23 +49,23 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
           )}
         </div>
         <ul>
-          <li>
+          <li onClick={() => navigate('/section/masculino')}>
             Moda Masculina
             <ion-icon name="chevron-forward-outline" />
           </li>
-          <li>
+          <li onClick={() => navigate('/section/feminino')}>
             Moda Feminina
             <ion-icon name="chevron-forward-outline" />
           </li>
-          <li>
+          <li onClick={() => navigate('/section/inverno')}>
             Inverno
             <ion-icon name="chevron-forward-outline" />
           </li>
-          <li>
+          <li onClick={() => navigate('/section/verao')}>
             Verão
             <ion-icon name="chevron-forward-outline" />
           </li>
-          <li>
+          <li onClick={() => navigate('/section/calcados')}>
             Calçados
             <ion-icon name="chevron-forward-outline" />
           </li>

@@ -18,10 +18,11 @@ import SectionPage from '../Home.js/SectionPage';
 export default function App() {
   const [productsList, setProductsList] = useState({});
   const [token, setToken] = useState('');
+  const [username, setUsername] = useState('');
 
   return (
     <SearchContext.Provider value={{ productsList, setProductsList }}>
-      <TokenContext.Provider value={{ token, setToken }}>
+      <TokenContext.Provider value={{ token, setToken, username, setUsername }}>
         <Reset />
         <GlobalStyle />
         <BrowserRouter>

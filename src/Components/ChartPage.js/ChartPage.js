@@ -6,7 +6,7 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -16,18 +16,16 @@ import EmptyChart from './EmptyChart';
 import ProductInChart from './ProductInChart';
 import checkout from '../../assets/checkchart.png';
 import AlertWindow from '../../Common/AlertWindow';
+import TokenContext from '../../Contexts/TokenContext';
 
 export default function ChartPage() {
   const [myChart, setMyChart] = useState([]);
   const [totalValue, setTotalValue] = useState(0);
-  const storedData = localStorage.getItem('userData');
-  let config;
-  let userData;
+  const { token } = useContext(TokenContext);
+  const config = { headers: { Authorization: `Bearer ${token}` } };
 
   useEffect(() => {
     async function fetchData() {
-      userData = JSON.parse(storedData);
-      config = { headers: { Authorization: `Bearer ${userData.token}` } };
       try {
         const productsChoosed = await axios.get(
           'https://back-projeto14-the-closet.herokuapp.com/chart',
@@ -43,12 +41,12 @@ export default function ChartPage() {
         alert(error.response.data);
       }
     }
-    if (storedData) {
+    if (token) {
       fetchData();
     }
   }, []);
 
-  if (!storedData) {
+  if (!token) {
     return <AlertWindow />;
   }
 

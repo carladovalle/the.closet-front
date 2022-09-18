@@ -8,28 +8,21 @@
 /* eslint-disable react/react-in-jsx-scope */
 
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import TokenContext from '../../Contexts/TokenContext';
 
 export default function ToggleMenu({ isOpened, setIsOpened }) {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState();
-  const storedData = localStorage.getItem('userData');
-
-  useEffect(() => {
-    if (storedData) {
-      setUserInfo(JSON.parse(localStorage.getItem('userData')));
-    }
-  }, []);
+  const { token, username } = useContext(TokenContext);
 
   async function logout() {
     try {
       await axios.delete(
-        `https://back-projeto14-the-closet.herokuapp.com/sessions/${userInfo.token}`
+        `https://back-projeto14-the-closet.herokuapp.com/sessions/${token}`
       );
-      alert(`Até mais, ${userInfo.name}`);
-      localStorage.clear();
+      alert(`Até mais, ${username}`);
       window.location.reload();
     } catch (error) {
       alert(error.response.data);
@@ -42,8 +35,8 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
         <button onClick={() => setIsOpened(false)}>X</button>
         <div>
           <ion-icon name="person" />
-          {userInfo ? (
-            <h3>Olá, {userInfo.name}!!</h3>
+          {username ? (
+            <h3>Olá, {username}!!</h3>
           ) : (
             <h3 onClick={() => navigate('/login')}>Login / Cadastro</h3>
           )}
@@ -71,7 +64,7 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
           </li>
         </ul>
         <footer>
-          {storedData ? (
+          {token ? (
             <>
               <p onClick={logout}>Precisa ir? Clique aqui para sair.</p>
               <em>(mas volta logo, tá?)</em>

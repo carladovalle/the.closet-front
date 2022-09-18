@@ -20,6 +20,7 @@ import Banner from './Banner';
 import ProductCard from './ProductCard';
 
 export default function Home() {
+  const [allProducts, setAllProducts] = useState([]);
   const [maleProducts, setMaleProducts] = useState([]);
   const [femaleProducts, setFemaleProducts] = useState([]);
   const [shoes, setShoes] = useState([]);
@@ -28,6 +29,9 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
+        const products = await axios.get(
+          'https://back-projeto14-the-closet.herokuapp.com/products'
+        );
         const maleStuff = await axios.get(
           'https://back-projeto14-the-closet.herokuapp.com/search/?keyword=masculino'
         );
@@ -40,6 +44,7 @@ export default function Home() {
         setMaleProducts(maleStuff.data.slice(0, 7));
         setFemaleProducts(femaleStuff.data.slice(0, 7));
         setShoes(searchedShoes.data.slice(-7));
+        setAllProducts(products.data);
       } catch (error) {
         alert(error.response.data);
       }
@@ -117,6 +122,16 @@ export default function Home() {
         </Category>
         <ProductsContainer>
           <h2>Todos os produtos</h2>
+          <div>
+            {allProducts.map(({ name, price, image }, index) => (
+              <ProductCard
+                name={name}
+                price={price}
+                image={image}
+                key={index}
+              />
+            ))}
+          </div>
         </ProductsContainer>
         <h1>PÁGINA PRINCIPAL EM CONSTRUÇÃO</h1>
       </Wrapper>
@@ -150,7 +165,7 @@ const Wrapper = styled.main`
 
 const ProductsContainer = styled.div`
   width: 100%;
-  padding: 15px 0;
+  padding: 20px 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

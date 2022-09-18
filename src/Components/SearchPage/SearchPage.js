@@ -11,7 +11,6 @@
 // import axios from 'axios';
 import axios from 'axios';
 import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
@@ -36,7 +35,7 @@ export default function SearchPage() {
 
     try {
       const filteredProducts = await axios.get(
-        `http://localhost:5000/search/?keyword=${query}`
+        `https://back-projeto14-the-closet.herokuapp.com/search/?keyword=${query}`
       );
       setProductsList(filteredProducts.data);
     } catch (error) {
@@ -66,8 +65,13 @@ export default function SearchPage() {
         </form>
         <section>
           {productsList.length > 0 ? (
-            productsList.map(({ name }, index) => (
-              <ProductResults key={index} name={name} />
+            productsList.map(({ name, price, image }, index) => (
+              <ProductResults
+                key={index}
+                name={name}
+                price={price}
+                image={image}
+              />
             ))
           ) : (
             <>

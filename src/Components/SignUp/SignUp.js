@@ -45,11 +45,14 @@ export default function SignUp() {
     }
 
     try {
-      await axios.post('http://localhost:5000/signup', {
-        name,
-        email,
-        password,
-      });
+      await axios.post(
+        'https://back-projeto14-the-closet.herokuapp.com/signup',
+        {
+          name,
+          email,
+          password,
+        }
+      );
       alert('Usuário criado com sucesso! :)');
       navigate('/login');
     } catch (error) {
@@ -110,7 +113,7 @@ export default function SignUp() {
             <button>Cadastrar</button>
           </Form>
         </LoginContainer>
-        <span onClick={() => navigate('/')}>
+        <span onClick={() => navigate('/login')}>
           Já possui um usuário? Faça já seu login!
         </span>
       </Wrapper>

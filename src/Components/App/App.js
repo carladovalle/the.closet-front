@@ -1,14 +1,18 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import { GlobalStyle, Reset } from '../../Common/globalStyle';
+import ChartPage from '../ChartPage.js/ChartPage';
 import SearchPage from '../SearchPage/SearchPage';
 import ProductPage from '../ProductPage/ProductPage';
 import CheckoutPage from '../Checkout/CheckoutPage';
 import SignUp from '../SignUp/SignUp';
 import Login from '../Login/Login';
 import TokenContext from "../../Contexts/TokenContext";
+import Home from '../Home.js/Home';
 
 export default function App() {
 
@@ -21,11 +25,13 @@ export default function App() {
         <GlobalStyle />
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/product" element={<ProductPage token={token} />} />
-            <Route path="/checkout" element={<CheckoutPage token={token} />} />
+            <Route path="/product" element={<ProductPage/>} />
+            <Route path="/chart" element={<ChartPage />} />
+            <Route path="/checkout" element={<CheckoutPage/>} />
           </Routes>
         </BrowserRouter>
       </TokenContext.Provider>

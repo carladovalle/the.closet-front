@@ -1,3 +1,5 @@
+/* eslint-disable*/
+
 import axios from 'axios';
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +8,7 @@ import Form from '../../Common/Form';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
 import TokenContext from "../../Contexts/TokenContext";
+
 
 export default function Login() {
   const [loginData, setLoginData] = useState({});
@@ -24,14 +27,14 @@ export default function Login() {
     const { email, password } = loginData;
 
     try {
-      const { data } = await axios.post('http://localhost:5000/login', {
+      const { data } = await axios.post('https://back-projeto14-the-closet.herokuapp.com/login', {
         email,
         password,
       });
       alert('Login feito com sucesso! :)');
-      navigate('/product');
       setToken(data.token);
-      console.log(data.token);
+      localStorage.setItem("userData", JSON.stringify(data))
+      navigate('/');
     } catch (error) {
       alert(error.response.data);
     }

@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
@@ -5,12 +7,34 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function ToggleMenu({ isOpened, setIsOpened }) {
   const navigate = useNavigate();
-  const user = true;
+  const [userInfo, setUserInfo] = useState();
+  const storedData = localStorage.getItem('userData');
+
+  useEffect(() => {
+    if (storedData) {
+      setUserInfo(JSON.parse(localStorage.getItem('userData')));
+    }
+  }, []);
+
+  async function logout() {
+    try {
+      await axios.delete(
+        `https://back-projeto14-the-closet.herokuapp.com/sessions/${userInfo.token}`
+      );
+      alert(`Até mais, ${userInfo.name}`);
+      localStorage.clear();
+      window.location.reload();
+    } catch (error) {
+      alert(error.response.data);
+    }
+  }
 
   return (
     <>
@@ -18,31 +42,27 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
         <button onClick={() => setIsOpened(false)}>X</button>
         <div>
           <ion-icon name="person" />
-          {user ? (
-            <h3>Olá, Fulano!!</h3>
+          {userInfo ? (
+            <h3>Olá, {userInfo.name}!!</h3>
           ) : (
             <h3 onClick={() => navigate('/login')}>Login / Cadastro</h3>
           )}
         </div>
         <ul>
           <li>
-            Camisetas
+            Moda Masculina
             <ion-icon name="chevron-forward-outline" />
           </li>
           <li>
-            Calças
-            <ion-icon name="chevron-forward-outline" />
-          </li>
-          <li>
-            Bermudas
-            <ion-icon name="chevron-forward-outline" />
-          </li>
-          <li>
-            Vestidos
+            Moda Feminina
             <ion-icon name="chevron-forward-outline" />
           </li>
           <li>
             Inverno
+            <ion-icon name="chevron-forward-outline" />
+          </li>
+          <li>
+            Verão
             <ion-icon name="chevron-forward-outline" />
           </li>
           <li>
@@ -51,7 +71,15 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
           </li>
         </ul>
         <footer>
-          © 2022 - Desenvolvido por Carla do Valle e Filipe Garrote
+          {storedData ? (
+            <>
+              <p onClick={logout}>Precisa ir? Clique aqui para sair.</p>
+              <em>(mas volta logo, tá?)</em>
+            </>
+          ) : (
+            ''
+          )}
+          <span>© 2022 - Desenvolvido por Carla do Valle e Filipe Garrote</span>
         </footer>
       </Toggle>
       <Background isOpened={isOpened} />
@@ -116,12 +144,29 @@ const Toggle = styled.section`
   }
 
   footer {
-    width: 90%;
-    font-size: 15px;
-    padding-left: 20px;
-    color: #312223;
+    width: 100%;
+    padding-left: 10px;
     position: absolute;
     bottom: 50px;
+
+    p {
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: underline;
+      color: #ffffff;
+    }
+
+    em {
+      display: block;
+      font-size: 13px;
+      color: #ffffff;
+      margin-bottom: 50px;
+    }
+
+    span {
+      font-size: 15px;
+      color: #312223;
+    }
   }
 `;
 

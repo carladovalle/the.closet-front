@@ -14,7 +14,6 @@ export default function Product() {
   const navigate = useNavigate();
   const [nameComment,setNameComment] = useState("");
   const [comment,setComment] = useState("");
-  const [reviews, setReviews] = useState({});
   console.log(product)
 
   useEffect(() => {
@@ -83,9 +82,12 @@ export default function Product() {
     }
   }
 
-  async function addComment() {
+  async function addComment(event) {
+
+    event.preventDefault();
+
     try {
-      await axios.post('http://localhost:5000/reviews', {
+      await axios.put('http://localhost:5000/product', {
         nameComment,
         comment
       });
@@ -118,8 +120,8 @@ export default function Product() {
                 <h4>Cor:</h4>
                 <select id="color" name="color" onChange={handleForm}>
                   { product.length === 0 ? "" : 
-                  product.color.map((value) => <option>{value}</option>)}
-                </select>
+                    product.color.map((value) => <option>{value}</option>)}
+                  </select>
                 <h4>Tamanho:</h4>
                 <select id="size" name="size" onChange={handleForm}>
                   { product.length === 0 ? "" : 
@@ -136,20 +138,27 @@ export default function Product() {
             </Infos>
           </PrincipalInformation>
           <Reviews>
-          <form>
-              <h1>Avaliações</h1>
-                <input 
-                  placeholder="Digite seu nome" 
-                  value={nameComment} 
-                  onChange={e => setNameComment(e.target.value)} 
-                />
-                <input 
-                  placeholder="Digite seu comentário" 
-                  value={comment} 
-                  onChange={e => setComment(e.target.value)} 
-                />
-              <button onClick={addComment}>Enviar comentário</button>
-            </form>
+            <div className='reviews' id="comments" name="comments" onChange={handleForm}>
+              <h1>Avaliações de clientes</h1>
+                    { product.length === 0 ? "" : 
+                    product.comments.map((value) => <p>
+                      {value.nameComment}: {value.comment}
+                      </p>)}
+              </div>
+            <form>
+                <h1>Avalie este produto</h1>
+                  <input 
+                    placeholder="Digite seu nome" 
+                    value={nameComment} 
+                    onChange={(e) => setNameComment(e.target.value)} 
+                  />
+                  <input 
+                    placeholder="Digite seu comentário" 
+                    value={comment} 
+                    onChange={(e) => setComment(e.target.value)} 
+                  />
+                <button onClick={addComment}>Enviar comentário</button>
+              </form>
           </Reviews>
         </Wrapper>
         <BottomMenu />
@@ -163,7 +172,6 @@ const Wrapper = styled.main`
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   h1 {
@@ -311,6 +319,37 @@ const PrincipalInformation = styled.div`
 `;
 
 const Reviews = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  h1 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .reviews {
+    margin-left: 0px;
+    margin-bottom: 50px;
+    margin-top: 0px;
+
+    p {
+      display: flex;
+      flex-direction: column;
+      font-size: 15px;
+      font-weight: 400;
+      color: #343a40;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+  }
+
+  form {
+    margin-top: 0;
+    margin-left: 50px;
+  }
 
   input {
     border: none;
@@ -321,17 +360,16 @@ const Reviews = styled.div`
   }
 
   button {
-    width: 150px;
+    width: 130px;
     height: 30px;
     border: none;
     border-radius: 11px;
-    background-image: linear-gradient(#d4a373 60%, #fefae0);
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     margin: 10px 0;
     color: #fefae0;
     font-size: 12px;
-    font-weight: 700;
-    margin-bottom: 100px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    background-color: red;
 
     &:hover {
       cursor: pointer;

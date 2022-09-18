@@ -7,12 +7,16 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import WishButton from '../../Common/WishButton';
 
-export default function Product({ name, price, image }) {
+export default function Product({ name, price, image, inWishlist, id }) {
+  const navigate = useNavigate();
   return (
-    <ProductStyle>
+    <ProductStyle onClick={() => navigate(`/product/${id}`)}>
       <img src={image} alt="product" />
+      <WishButton inWishlist={inWishlist} />
       <div>
         <h3>{name}</h3>
         <p>
@@ -30,6 +34,7 @@ const ProductStyle = styled.div`
   width: 100px;
   flex: none;
   height: 140px;
+  position: relative;
   background-color: #ffffff;
   margin-bottom: 8px;
   border-radius: 8px;

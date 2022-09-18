@@ -64,14 +64,18 @@ export default function Home() {
             <span onClick={() => navigate('/section/feminino')}>veja mais</span>
           </header>
           <div>
-            {femaleProducts.map(({ name, price, image }, index) => (
-              <ProductCard
-                name={name}
-                price={price}
-                image={image}
-                key={index}
-              />
-            ))}
+            {femaleProducts.map(
+              ({ name, price, image, _id, inWishlist }, index) => (
+                <ProductCard
+                  name={name}
+                  price={price}
+                  image={image}
+                  key={index}
+                  inWishlist={inWishlist}
+                  id={_id}
+                />
+              )
+            )}
             <ion-icon
               name="chevron-forward-circle-sharp"
               onClick={() => navigate('/section/feminino')}
@@ -86,14 +90,18 @@ export default function Home() {
             </span>
           </header>
           <div>
-            {maleProducts.map(({ name, price, image }, index) => (
-              <ProductCard
-                name={name}
-                price={price}
-                image={image}
-                key={index}
-              />
-            ))}
+            {maleProducts.map(
+              ({ name, price, image, _id, inWishlist }, index) => (
+                <ProductCard
+                  name={name}
+                  price={price}
+                  image={image}
+                  key={index}
+                  inWishlist={inWishlist}
+                  id={_id}
+                />
+              )
+            )}
             <ion-icon
               name="chevron-forward-circle-sharp"
               onClick={() => navigate('/section/masculino')}
@@ -106,12 +114,14 @@ export default function Home() {
             <span onClick={() => navigate('/section/calcados')}>veja mais</span>
           </header>
           <div>
-            {shoes.map(({ name, price, image }, index) => (
+            {shoes.map(({ name, price, image, _id, inWishlist }, index) => (
               <ProductCard
                 name={name}
                 price={price}
                 image={image}
                 key={index}
+                inWishlist={inWishlist}
+                id={_id}
               />
             ))}
             <ion-icon
@@ -123,14 +133,18 @@ export default function Home() {
         <ProductsContainer>
           <h2>Todos os produtos</h2>
           <div>
-            {allProducts.map(({ name, price, image }, index) => (
-              <ProductCard
-                name={name}
-                price={price}
-                image={image}
-                key={index}
-              />
-            ))}
+            {allProducts.map(
+              ({ name, price, image, _id, inWishlist }, index) => (
+                <ProductCard
+                  name={name}
+                  price={price}
+                  image={image}
+                  key={index}
+                  inWishlist={inWishlist}
+                  id={_id}
+                />
+              )
+            )}
           </div>
         </ProductsContainer>
         <h1>PÁGINA PRINCIPAL EM CONSTRUÇÃO</h1>

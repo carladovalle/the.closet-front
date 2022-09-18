@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
@@ -9,6 +11,7 @@
 
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import SearchBar from '../../Common/SearchBar';
@@ -20,6 +23,7 @@ export default function Home() {
   const [maleProducts, setMaleProducts] = useState([]);
   const [femaleProducts, setFemaleProducts] = useState([]);
   const [shoes, setShoes] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -52,7 +56,7 @@ export default function Home() {
         <Category>
           <header>
             <h2>Produtos Femininos</h2>
-            <span>veja mais</span>
+            <span onClick={() => navigate('/section/feminino')}>veja mais</span>
           </header>
           <div>
             {femaleProducts.map(({ name, price, image }, index) => (
@@ -63,13 +67,18 @@ export default function Home() {
                 key={index}
               />
             ))}
-            <ion-icon name="chevron-forward-circle-sharp" />
+            <ion-icon
+              name="chevron-forward-circle-sharp"
+              onClick={() => navigate('/section/feminino')}
+            />
           </div>
         </Category>
         <Category>
           <header>
             <h2>Produtos Masculinos</h2>
-            <span>veja mais</span>
+            <span onClick={() => navigate('/section/masculino')}>
+              veja mais
+            </span>
           </header>
           <div>
             {maleProducts.map(({ name, price, image }, index) => (
@@ -80,13 +89,16 @@ export default function Home() {
                 key={index}
               />
             ))}
-            <ion-icon name="chevron-forward-circle-sharp" />
+            <ion-icon
+              name="chevron-forward-circle-sharp"
+              onClick={() => navigate('/section/masculino')}
+            />
           </div>
         </Category>
         <Category>
           <header>
             <h2>Calçados</h2>
-            <span>veja mais</span>
+            <span onClick={() => navigate('/section/calcados')}>veja mais</span>
           </header>
           <div>
             {shoes.map(({ name, price, image }, index) => (
@@ -97,7 +109,10 @@ export default function Home() {
                 key={index}
               />
             ))}
-            <ion-icon name="chevron-forward-circle-sharp" />
+            <ion-icon
+              name="chevron-forward-circle-sharp"
+              onClick={() => navigate('/section/calcados')}
+            />
           </div>
         </Category>
         <ProductsContainer>

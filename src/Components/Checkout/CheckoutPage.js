@@ -11,54 +11,62 @@ import TokenContext from "../../Contexts/TokenContext";
 
 export default function Product() {
 
-  const [product, setProduct] = useState([]);
   const { token } = useContext(TokenContext);
-  const [productData, setProductData] = useState({});
+  const [checkoutData, setCheckoutData] = useState({});
   const navigate = useNavigate();
-  const [nameComment,setNameComment] = useState("");
-  const [comment,setComment] = useState("");
-  const [reviews, setReviews] = useState({});
-
-  useEffect(() => {
-
-    async function getProduct() {
-
-      try {
-        const { data } = await axios.get("https://back-projeto14-the-closet.herokuapp.com/product");
-        //console.log(data.color);
-        setProduct(data);
-      } catch (error) {
-        console.log(error.response);
-      }
-    }
-
-    getProduct();
-    
-  }, []);
 
   function handleForm(e) {
-    setProductData({
-      ...productData,
+    setCheckoutData({
+      ...checkoutData,
       [e.target.name]: e.target.value,
     });
   }
 
-  async function checkout() {
-    
-    const { color, size } = productData;
+  async function checkout(event) {
+
+    event.preventDefault();
+
+    const {
+      cpf,
+      name,
+      lastName,
+      PhoneNumber,
+      emailAdress,
+      confirmEmailAdress,
+      cep,
+      state,
+      city,
+      district,
+      adress,
+      number,
+      complement,
+      reference
+    } = checkoutData;
 
     const config = {
       headers: {Authorization: `Bearer ${token}`}
     }
 
     try {
-      const { data } = await axios.post('https://back-projeto14-the-closet.herokuapp.com/checkout', {
-        color,
-        size
+      const checkout = await axios.post('https://back-projeto14-the-closet.herokuapp.com/checkout', {
+        cpf,
+        name,
+        lastName,
+        PhoneNumber,
+        emailAdress,
+        confirmEmailAdress,
+        cep,
+        state,
+        city,
+        district,
+        adress,
+        number,
+        complement,
+        reference
       }, config);
       alert('Compra efetuada com sucesso!');
       navigate('/');
-      console.log(data.token);
+      console.log(checkout.data);
     } catch (error) {
       alert(error.response.data);
     }
@@ -68,17 +76,131 @@ export default function Product() {
     <>
         <HeaderMenu />
         <Wrapper>
-          <OrderSummary>
-            <img src={product.image} />
-            <Infos>
-                <h1>{product.name}</h1>
-                <h2>R$ {product.price}</h2>
-                <h2> ou R$ {product.price}</h2>
-                <h4>Cor: (colocar cor escolhida)</h4>
-                <h4>Tamanho: (colocar tamanho escolhido)</h4>
-                <button>Adicionar ao carrinho</button>
-            </Infos>
-          </OrderSummary>
+        <PersonalInformation>
+            <h1>Informações de contato</h1>
+            <form>
+              <input
+                    type="text"
+                    name="cpf"
+                    id="cpf"
+                    placeholder="CPF"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Nome"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="text"
+                    name="lastName"
+                    id="lastName"
+                    placeholder="Sobrenome"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="tel"
+                    name="phoneNumber"
+                    id="phoneNumber"
+                    placeholder="Número de telefone"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="email"
+                    name="emailAdress"
+                    id="emailAdress"
+                    placeholder="Email"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="email"
+                    name="confirmEmailAdress"
+                    id="confirmEmailAdress"
+                    placeholder="Confirme seu email"
+                    onChange={handleForm}
+                    required
+                />
+            </form>
+            </PersonalInformation>
+            <DeliveryAddress>
+              <h1>Endereço de Entrega</h1>
+              <form>
+                <input
+                    type="text"
+                    name="cep"
+                    id="cep"
+                    placeholder="CEP"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="text"
+                    name="state"
+                    id="state"
+                    placeholder="Estado"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="text"
+                    name="city"
+                    id="city"
+                    placeholder="Cidade"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="text"
+                    name="district"
+                    id="district"
+                    placeholder="Bairro"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="text"
+                    name="adress"
+                    id="adress"
+                    placeholder="Endereço"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="text"
+                    name="number"
+                    id="number"
+                    placeholder="Número"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="text"
+                    name="complement"
+                    id="complement"
+                    placeholder="Complemento"
+                    onChange={handleForm}
+                    required
+                />
+                <input
+                    type="text"
+                    name="reference"
+                    id="reference"
+                    placeholder="Referência"
+                    onChange={handleForm}
+                    required
+                />
+              </form>
+            </DeliveryAddress>
+
+          
+            <button type="submit" onClick={checkout}>Efetuar compra</button>
         </Wrapper>
         <BottomMenu />
     </>
@@ -91,130 +213,31 @@ const Wrapper = styled.main`
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
+
   h1 {
-    margin-bottom: 12px;
-    font-size: 10px;
-    font-weight: 700;
-    color: #5b3e40;
+    font-size: 18px;
+    margin-bottom: 10px;
   }
 
   h2 {
-    font-size: 10px;
-    font-weight: 700;
-    color: #d4a373;
-    margin-bottom: 5px
+    font-size: 14px;
+    margin-left: 10px;
+    margin-top: 5px;
   }
 
-  h4 {
-    font-size: 10px;
-    font-weight: 500;
-    color: #d4a373;
-    margin-bottom: 10px;
-    margin-top: 10px;
-  }
-
-  h5 {
-      font-size: 10px;
-      font-weight: 700;
-      color: green;
-      margin-bottom: 10px;
-  }
-
-  img {
-    width: 90px;
-    height: 90px;
-    margin-right: 24px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px 1px rgba(30, 54, 5, 0.315);
+  .option {
+    display: flex;
+    flex-direction: row;
   }
 
   form {
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    flex-direction: column;
-    margin-top: 40px;
-  }
-
-  select {
-    border: none;
-    border-bottom: 1px solid #c3c3c3;
-    background-color: inherit;
-
-    &:hover {
-      cursor: pointer;
-      filter: brightness(0.9);
-    }
-  }
-
-  .wishlist {
-    &:hover {
-      cursor: pointer;
-      filter: brightness(0.9);
-    }
-  }
-
-  ion-icon {
-    width: 30px;
-    height: 30px;
-    color: #d4a373;
-    margin-left: 30px;
+    margin-bottom: 20px;
   }
 
   button {
     width: 40%;
-    height: 30px;
-    border: none;
-    border-radius: 11px;
-    background-image: linear-gradient(#d4a373 60%, #fefae0);
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-    margin: 10px 0;
-    color: #fefae0;
-    font-size: 12px;
-    font-weight: 700;
-
-    &:hover {
-      cursor: pointer;
-      filter: brightness(0.9);
-    }
-    &:active {
-      filter: brightness(0.85);
-      transform: scale(95%);
-    }
-  }
-`;
-
-const Infos = styled.div`
-    width: 400px;
-    height: 100px;
-`
-
-const Options = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-const OrderSummary = styled.div`
-  display: flex;
-  margin-top: 100px;
-  background: red;
-`;
-
-const Reviews = styled.div`
-
-  input {
-    border: none;
-    border-bottom: 1px solid #c3c3c3;
-    background-color: inherit;
-    margin-bottom: 10px;
-    margin-top: 10px;
-  }
-
-  button {
-    width: 150px;
     height: 30px;
     border: none;
     border-radius: 11px;
@@ -235,4 +258,53 @@ const Reviews = styled.div`
       transform: scale(95%);
     }
   }
-`
+`;
+
+const PersonalInformation = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
+
+  input {
+      margin-right: 10px;
+      margin-bottom: 10px;
+      width: 180px;
+      height: 50px;
+    }
+`;
+
+const DeliveryAddress = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  input {
+      margin-right: 10px;
+      margin-bottom: 10px;
+      width: 180px;
+      height: 50px;
+    }
+`;
+
+
+const DeliveryType = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  input {
+    margin-bottom: 10px;
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+const PaymentMethods = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  input {
+    margin-bottom: 10px;
+    width: 20px;
+    height: 20px;
+  }
+  
+`;

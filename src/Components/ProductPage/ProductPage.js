@@ -42,19 +42,14 @@ export default function Product() {
 
   async function addCart() {
     
-    const { color, size } = productData;
-
     const config = {
       headers: {Authorization: `Bearer ${token}`}
     }
 
     try {
-      const { data } = await axios.post('https://back-projeto14-the-closet.herokuapp.com/cart', {
-        color,
-        size
-      }, config);
+      const { data } = await axios.post(`https://back-projeto14-the-closet.herokuapp.com/chart/${id}`, product, config);
       alert('Produto adicionado com sucesso no carrinho!');
-      navigate('/');
+      navigate('/chart');
       console.log(data.token);
     } catch (error) {
       alert(error.response.data);
@@ -86,7 +81,7 @@ export default function Product() {
         nameComment,
         comment
       });
-      alert('Comentário adicionado com sucesso');
+      alert('Comentário adicionado com sucesso!');
     } catch (error) {
       alert(error.response.data);
     }
@@ -286,6 +281,7 @@ const Wrapper = styled.main`
     color: #fefae0;
     font-size: 12px;
     font-weight: 700;
+    margin-bottom: 30px;
 
     &:hover {
       cursor: pointer;
@@ -318,6 +314,7 @@ const Reviews = styled.div`
   flex-direction: row;
   margin-top: 50px;
   margin-bottom: 50px;
+  margin-top: 150px;
 
   h1 {
     margin-bottom: 10px;
@@ -328,7 +325,6 @@ const Reviews = styled.div`
   .reviews {
     margin-left: 0px;
     margin-bottom: 50px;
-    margin-top: 0px;
 
     p {
       display: flex;

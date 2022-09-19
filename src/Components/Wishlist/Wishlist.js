@@ -11,6 +11,7 @@
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
 import ProductWish from './ProductWish';
@@ -20,6 +21,8 @@ import AlertWindow from '../../Common/AlertWindow';
 export default function Wishlist() {
   const [wishlistProducts, setWishlistProducts] = useState([]);
   const { token } = useContext(TokenContext);
+  const navigate = useNavigate();
+  const config = { headers: { Authorization: `Bearer ${token}` } };
 
   useEffect(() => {
     async function fetchData() {
@@ -42,6 +45,26 @@ export default function Wishlist() {
     return <AlertWindow page="à Wishlist" />;
   }
 
+  async function cleanWishlist() {
+    try {
+      if (
+        window.confirm(
+          'Você tem certeza que quer tirar TODOS os itens da sua wishlist?'
+        )
+      ) {
+        await axios.delete(`http://localhost:5000/wishlist/clean`, config);
+        const newProductsChoosed = await axios.get(
+          'http://localhost:5000/wishlist',
+          config
+        );
+        setWishlistProducts(newProductsChoosed.data);
+      }
+    } catch (error) {
+      alert(error.response.data);
+      navigate('/');
+    }
+  }
+
   return (
     <>
       <HeaderMenu />
@@ -57,6 +80,7 @@ export default function Wishlist() {
                 image={image}
                 id={_id}
                 setWishlistProducts={setWishlistProducts}
+                config={config}
               />
             ))
           ) : (
@@ -67,6 +91,11 @@ export default function Wishlist() {
               </span>
               <button>Encontrar produtos</button>
             </>
+          )}
+          {wishlistProducts.length > 0 ? (
+            <div onClick={cleanWishlist}>Remover todos os itens</div>
+          ) : (
+            ''
           )}
         </section>
       </Wrapper>
@@ -99,6 +128,20 @@ const Wrapper = styled.main`
       font-size: 22px;
       text-align: center;
       color: #c3c3c3;
+    }
+
+    > div {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 210px;
+      height: 40px;
+      border-radius: 40px;
+      background-color: #e97171;
+      box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.3);
+      font-weight: 500;
+      color: #fefae0;
     }
   }
 `;

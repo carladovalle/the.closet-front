@@ -1,23 +1,23 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/react-in-jsx-scope */
 
 import axios from 'axios';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import TokenContext from '../../Contexts/TokenContext';
 
-/* eslint-disable react/react-in-jsx-scope */
 export default function ProductWish({
   name,
   price,
   image,
   id,
   setWishlistProducts,
+  config,
 }) {
   const navigate = useNavigate();
-  const { token } = useContext(TokenContext);
-  const config = { headers: { Authorization: `Bearer ${token}` } };
 
   async function deleteWishProduct() {
     try {
@@ -28,7 +28,7 @@ export default function ProductWish({
       ) {
         await axios.delete(`http://localhost:5000/wishlist/${id}`, config);
         const newProductsChoosed = await axios.get(
-          'http://localhost:5000/chart',
+          'http://localhost:5000/wishlist',
           config
         );
         setWishlistProducts(newProductsChoosed.data);
@@ -40,10 +40,10 @@ export default function ProductWish({
   }
 
   return (
-    <ProductCard onClick={() => navigate(`/product/${id}`)}>
-      <img src={image} alt="tenis" />
-      <ion-icon name="close-circle" onClick={deleteWishProduct} />
-      <div>
+    <ProductCard>
+      <img src={image} alt="tenis" onClick={() => navigate(`/product/${id}`)} />
+      <ion-icon name="trash" onClick={deleteWishProduct} />
+      <div onClick={() => navigate(`/product/${id}`)}>
         <h2>{name}</h2>
         <h3>FRETE GRÁTIS</h3>
         <h4>
@@ -83,7 +83,7 @@ const ProductCard = styled.article`
   ion-icon {
     position: absolute;
     font-size: 22px;
-    top: 10px;
+    bottom: 10px;
     right: 10px;
     color: rgba(71, 18, 4, 0.6);
   }

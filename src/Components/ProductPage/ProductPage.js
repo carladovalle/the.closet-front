@@ -22,7 +22,7 @@ export default function Product() {
     async function getProduct() {
 
       try {
-        const produtos = await axios.get(`http://localhost:5000/product/${id}`);
+        const produtos = await axios.get(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`);
         setProduct(produtos.data);
       } catch (error) {
         console.log(error.response);
@@ -49,7 +49,7 @@ export default function Product() {
     }
 
     try {
-      const { data } = await axios.post('http://localhost:5000/cart', {
+      const { data } = await axios.post('https://back-projeto14-the-closet.herokuapp.com/cart', {
         color,
         size
       }, config);
@@ -68,7 +68,7 @@ export default function Product() {
     }
     
     try {
-      const { data } = await axios.post(`http://localhost:5000/wishlist/${id}`, {}, config);
+      const { data } = await axios.post(`https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`, {}, config);
       alert('Produto adicionado com sucesso na lista de desejos!');
       navigate('/');
       console.log(data.token);
@@ -82,7 +82,7 @@ export default function Product() {
     event.preventDefault();
 
     try {
-      await axios.put(`http://localhost:5000/product/${id}`, {
+      await axios.put(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`, {
         nameComment,
         comment
       });

@@ -26,9 +26,9 @@ export default function ProductInChart({
           'Você tem certeza que quer tirar esse item do seu carrinho?'
         )
       ) {
-        await axios.delete(`http://localhost:5000/chart/${_id}`, config);
+        await axios.delete(`https://back-projeto14-the-closet.herokuapp.com/chart/${_id}`, config);
         const newProductsChoosed = await axios.get(
-          'http://localhost:5000/chart',
+          'https://back-projeto14-the-closet.herokuapp.com/chart',
           config
         );
         setMyChart(newProductsChoosed.data);
@@ -47,7 +47,7 @@ export default function ProductInChart({
 
     try {
       await axios.put(
-        `http://localhost:5000/chart/${_id}`,
+        `https://back-projeto14-the-closet.herokuapp.com/chart/${_id}`,
         { amount: countProduct - 1 },
         config
       );
@@ -62,7 +62,7 @@ export default function ProductInChart({
 
     try {
       await axios.put(
-        `http://localhost:5000/chart/${_id}`,
+        `https://back-projeto14-the-closet.herokuapp.com/chart/${_id}`,
         { amount: countProduct + 1 },
         config
       );

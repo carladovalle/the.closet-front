@@ -26,9 +26,12 @@ export default function ProductWish({
           'Você tem certeza que quer tirar esse item da sua wishlist?'
         )
       ) {
-        await axios.delete(`http://localhost:5000/wishlist/${id}`, config);
+        await axios.delete(
+          `https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`,
+          config
+        );
         const newProductsChoosed = await axios.get(
-          'http://localhost:5000/wishlist',
+          'https://back-projeto14-the-closet.herokuapp.com/wishlist',
           config
         );
         setWishlistProducts(newProductsChoosed.data);

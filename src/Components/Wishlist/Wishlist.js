@@ -29,7 +29,7 @@ export default function Wishlist() {
     async function fetchData() {
       try {
         const filteredProducts = await axios.get(
-          'http://localhost:5000/wishlist',
+          'https://back-projeto14-the-closet.herokuapp.com/wishlist',
           { headers: { Authorization: token } }
         );
         setWishlistProducts(filteredProducts.data);
@@ -53,9 +53,12 @@ export default function Wishlist() {
           'Você tem certeza que quer tirar TODOS os itens da sua wishlist?'
         )
       ) {
-        await axios.delete(`http://localhost:5000/wishlist/clean`, config);
+        await axios.delete(
+          `https://back-projeto14-the-closet.herokuapp.com/wishlist/clean`,
+          config
+        );
         const newProductsChoosed = await axios.get(
-          'http://localhost:5000/wishlist',
+          'https://back-projeto14-the-closet.herokuapp.com/wishlist',
           config
         );
         setWishlistProducts(newProductsChoosed.data);

@@ -20,7 +20,7 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
   async function logout() {
     try {
       await axios.delete(
-        `http://localhost:5000/sessions/${token}`
+        `https://back-projeto14-the-closet.herokuapp.com/sessions/${token}`
       );
       alert(`Até mais, ${username}`);
       window.location.reload();

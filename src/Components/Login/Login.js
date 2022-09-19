@@ -27,7 +27,7 @@ export default function Login() {
     const { email, password } = loginData;
 
     try {
-      const { data } = await axios.post('http://localhost:5000/login', {
+      const { data } = await axios.post('https://back-projeto14-the-closet.herokuapp.com/login', {
         email,
         password,
       });

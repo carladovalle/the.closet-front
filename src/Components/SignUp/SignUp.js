@@ -46,7 +46,7 @@ export default function SignUp() {
 
     try {
       await axios.post(
-        'http://localhost:5000/signup',
+        'https://back-projeto14-the-closet.herokuapp.com/signup',
         {
           name,
           email,

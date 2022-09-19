@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import WishButton from '../../Common/WishButton';
 
-export default function Product({ name, price, image, inWishlist, id }) {
+export default function Product({ name, price, image, id }) {
   const navigate = useNavigate();
   return (
     <ProductStyle>
@@ -22,7 +22,7 @@ export default function Product({ name, price, image, inWishlist, id }) {
         alt="product"
         onClick={() => navigate(`/product/${id}`)}
       />
-      <WishButton inWishlist={inWishlist} id={id} />
+      <WishButton id={id} />
       <div>
         <h1>{name}</h1>
         <h2>Frete Grátis</h2>
@@ -30,11 +30,14 @@ export default function Product({ name, price, image, inWishlist, id }) {
           {(price / 100).toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL',
-          })} </h3>
-          <h4>ou {(price / 100 / 6).toLocaleString('pt-BR', {
+          })}{' '}
+        </h3>
+        <h4>
+          ou{' '}
+          {(price / 100 / 6).toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL',
-          })} 
+          })}
         </h4>
       </div>
     </ProductStyle>
@@ -42,8 +45,9 @@ export default function Product({ name, price, image, inWishlist, id }) {
 }
 
 const ProductStyle = styled.div`
-  width: 110px;
-  height: 150px;
+  width: 120px;
+  flex: none;
+  height: 170px;
   position: relative;
   background-color: #ffffff;
   margin-bottom: 8px;
@@ -51,12 +55,13 @@ const ProductStyle = styled.div`
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
   flex-direction: column;
+  padding-bottom: 10px;
 
   img {
-    width: 100%;
-    height: 70px;
+    width: 70%;
     object-fit: cover;
     border-radius: 8px;
     margin-top: 6px;
@@ -64,7 +69,7 @@ const ProductStyle = styled.div`
 
   div {
     width: 100%;
-    height: 65px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -88,14 +93,12 @@ const ProductStyle = styled.div`
       font-size: 12px;
       font-weight: 500;
       color: #706f6f;
-      margin-top: -6px;
     }
 
     h4 {
       font-size: 10px;
       font-weight: 500;
       color: #706f6f;
-      margin-top: -11px;
     }
   }
 `;

@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 
@@ -6,13 +9,13 @@ import styled from 'styled-components';
 import WishButton from '../../Common/WishButton';
 
 /* eslint-disable react/react-in-jsx-scope */
-export default function ProductResults({ name, price, image, id, inWishlist }) {
+export default function ProductResults({ name, price, image, id }) {
   const navigate = useNavigate();
   return (
-    <ProductCard onClick={() => navigate(`/product/${id}`)}>
-      <img src={image} alt="tenis" />
-      <WishButton inWishlist={inWishlist} id={id} />
-      <div>
+    <ProductCard>
+      <img src={image} alt="tenis" onClick={() => navigate(`/product/${id}`)} />
+      <WishButton id={id} />
+      <div onClick={() => navigate(`/product/${id}`)}>
         <h2>{name}</h2>
         <h3>FRETE GRÁTIS</h3>
         <h4>

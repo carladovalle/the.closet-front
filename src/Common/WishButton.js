@@ -7,6 +7,7 @@
 
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TokenContext from '../Contexts/TokenContext';
 
@@ -14,6 +15,7 @@ export default function WishButton({ id }) {
   const [isLiked, setIsLiked] = useState(false);
   const { token } = useContext(TokenContext);
   const config = { headers: { Authorization: token } };
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -48,13 +50,14 @@ export default function WishButton({ id }) {
     if (!isLiked) {
       try {
         await axios.post(
-          `http://localhost:5000/wishlist/${id}`,
+          `https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`,
           {},
           config
         );
         setIsLiked(true);
       } catch (error) {
         alert(error.response.data);
+        navigate('/login');
       }
     }
   }

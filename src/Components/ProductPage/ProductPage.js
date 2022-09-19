@@ -22,7 +22,7 @@ export default function Product() {
     async function getProduct() {
 
       try {
-        const produtos = await axios.get(`http://localhost:5000/product/${id}`);
+        const produtos = await axios.get(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`);
         setProduct(produtos.data);
       } catch (error) {
         console.log(error.response);
@@ -47,12 +47,12 @@ export default function Product() {
     }
 
     try {
-      const { data } = await axios.post(`http://localhost:5000/chart/${id}`, product, config);
+      await axios.post(`https://back-projeto14-the-closet.herokuapp.com/chart/${id}`, product, config);
       alert('Produto adicionado com sucesso no carrinho!');
       navigate('/chart');
-      console.log(data.token);
     } catch (error) {
       alert(error.response.data);
+      navigate('/login');
     }
   }
 
@@ -63,10 +63,9 @@ export default function Product() {
     }
     
     try {
-      const { data } = await axios.post(`http://localhost:5000/wishlist/${id}`, {}, config);
+      await axios.post(`https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`, {}, config);
       alert('Produto adicionado com sucesso na lista de desejos!');
       navigate('/');
-      console.log(data.token);
     } catch (error) {
       alert(error.response.data);
     }
@@ -77,11 +76,13 @@ export default function Product() {
     event.preventDefault();
 
     try {
-      await axios.put(`http://localhost:5000/product/${id}`, {
+      await axios.put(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`, {
         nameComment,
         comment
       });
       alert('Comentário adicionado com sucesso!');
+      const newProducts = await axios.get(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`);
+        setProduct(newProducts.data);
     } catch (error) {
       alert(error.response.data);
     }
@@ -101,7 +102,7 @@ export default function Product() {
                   style: 'currency',
                   currency: 'BRL',
                 })}</h2>
-                <h6> ou {((product.price)/100/6).toLocaleString('pt-BR', {
+                <h6> ou 6x de {((product.price)/100/6).toLocaleString('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',
                 })}</h6>
@@ -111,12 +112,12 @@ export default function Product() {
                 <h4>Cor:</h4>
                   <select id="color" name="color" onChange={handleForm}>
                     { product.length === 0 ? "" : 
-                      product.color.map((value) => <option value="#5b3e40">{value}</option>)}
+                      product.color.map((value, index) => <option key={index} >{value}</option>)}
                     </select>
                   <h4>Tamanho:</h4>
                   <select id="size" name="size" onChange={handleForm}>
                     { product.length === 0 ? "" : 
-                    product.size.map((value) => <option>{value}</option>)}
+                    product.size.map((value, index) => <option key={index} >{value}</option>)}
                   </select>
                 </Choices>
                 <Options>
@@ -133,7 +134,7 @@ export default function Product() {
             <div className='reviews' id="comments" name="comments" onChange={handleForm}>
               <h1>Avaliações de clientes</h1>
                     { product.length === 0 ? "" : 
-                    product.comments.map((value) => <p>
+                    product.comments.map((value, index) => <p key={index} >
                       {value.nameComment}: {value.comment}
                       </p>)}
               </div>
@@ -214,7 +215,13 @@ const Wrapper = styled.main`
   }
 
   .zoom {
-	overflow: hidden;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 1px rgba(30, 54, 5, 0.315);
   }
 
   .zoom img {
@@ -231,11 +238,7 @@ const Wrapper = styled.main`
   }
 
   img {
-    width: 200px;
-    height: 200px;
-    margin-right: 24px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px 1px rgba(30, 54, 5, 0.315);
+    width: 45%;
   }
 
   form {
@@ -288,7 +291,6 @@ const Wrapper = styled.main`
     color: #fefae0;
     font-size: 12px;
     font-weight: 700;
-    margin-bottom: 30px;
 
     &:hover {
       cursor: pointer;
@@ -302,9 +304,10 @@ const Wrapper = styled.main`
 `;
 
 const Infos = styled.div`
-    width: 400px;
-    height: 100px;
+    width: 100%;
+    height: auto;
     margin-top: 40px;
+    padding: 0 20px;
 `
 
 const Choices = styled.div`
@@ -315,13 +318,14 @@ const Choices = styled.div`
 
 const Options = styled.div`
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   margin-top: 25px;
 `
 
 const PrincipalInformation = styled.div`
   display: flex;
-  margin-top: 100px;
+  margin-top: 50px;
   flex-direction: column;
 `;
 
@@ -330,7 +334,6 @@ const Reviews = styled.div`
   flex-direction: column;
   margin-top: 50px;
   margin-bottom: 150px;
-  margin-top: 250px;
   border: 1px solid #d4a373;
   border-radius: 5px;
   background-color: #FFFFFF;

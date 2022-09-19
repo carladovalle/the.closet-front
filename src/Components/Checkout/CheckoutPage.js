@@ -44,37 +44,10 @@ export default function CheckoutPage() {
 
     event.preventDefault();
 
-    // const {
-    //   cpf,
-    //   name,
-    //   lastName,
-    //   PhoneNumber,
-    //   emailAdress,
-    //   confirmEmailAdress,
-    //   cep,
-    //   state,
-    //   city,
-    //   district,
-    //   adress,
-    //   number,
-    //   complement,
-    //   reference,
-    //   paymentMethods,
-    //   numberCard,
-    //   nameCard,
-    //   dateCard,
-    //   codeCard,
-    //   cpfCard,
-    //   installments
-    // } = checkoutData;
-
     try {
-      await axios.post('http://localhost:5000/checkout', checkoutData, config);
-      
+      await axios.put('http://localhost:5000/checkout', {buyerData: checkoutData, order: productsInChart}, config);
       setIsDone(true)
-      console.log(isDone)
-      
-      
+      await axios.delete('http://localhost:5000/chart', config)
     } catch (error) {
       alert(error.response.data);
     }

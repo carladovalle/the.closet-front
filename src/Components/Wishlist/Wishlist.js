@@ -15,9 +15,10 @@ import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
 import ProductWish from './ProductWish';
 import TokenContext from '../../Contexts/TokenContext';
+import AlertWindow from '../../Common/AlertWindow';
 
 export default function Wishlist() {
-  const [wishlistProducts, setWishlistProducts] = useState();
+  const [wishlistProducts, setWishlistProducts] = useState([]);
   const { token } = useContext(TokenContext);
 
   useEffect(() => {
@@ -32,8 +33,14 @@ export default function Wishlist() {
         alert(error.response.data);
       }
     }
-    fetchData();
+    if (token) {
+      fetchData();
+    }
   }, []);
+
+  if (!token) {
+    return <AlertWindow page="à Wishlist" />;
+  }
 
   return (
     <>
@@ -42,18 +49,16 @@ export default function Wishlist() {
         <h1>Wishlist</h1>
         <section>
           {wishlistProducts.length > 0 ? (
-            wishlistProducts.map(
-              ({ name, price, image, _id, inWishlist }, index) => (
-                <ProductWish
-                  key={index}
-                  name={name}
-                  price={price}
-                  image={image}
-                  id={_id}
-                  inWishlist={inWishlist}
-                />
-              )
-            )
+            wishlistProducts.map(({ name, price, image, _id }, index) => (
+              <ProductWish
+                key={index}
+                name={name}
+                price={price}
+                image={image}
+                id={_id}
+                setWishlistProducts={setWishlistProducts}
+              />
+            ))
           ) : (
             <>
               <span>
@@ -78,7 +83,7 @@ const Wrapper = styled.main`
   padding: 65px 20px;
 
   h1 {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     font-size: 28px;
     font-weight: 500;
     color: #5b3e40;
@@ -88,7 +93,7 @@ const Wrapper = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
 
     span {
       font-size: 22px;

@@ -1,17 +1,48 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 
+import axios from 'axios';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import WishButton from '../../Common/WishButton';
+import TokenContext from '../../Contexts/TokenContext';
 
 /* eslint-disable react/react-in-jsx-scope */
-export default function ProductWish({ name, price, image, id, inWishlist }) {
+export default function ProductWish({
+  name,
+  price,
+  image,
+  id,
+  setWishlistProducts,
+}) {
   const navigate = useNavigate();
+  const { token } = useContext(TokenContext);
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+
+  async function deleteWishProduct() {
+    try {
+      if (
+        window.confirm(
+          'Você tem certeza que quer tirar esse item da sua wishlist?'
+        )
+      ) {
+        await axios.delete(`http://localhost:5000/wishlist/${id}`, config);
+        const newProductsChoosed = await axios.get(
+          'http://localhost:5000/chart',
+          config
+        );
+        setWishlistProducts(newProductsChoosed.data);
+      }
+    } catch (error) {
+      alert(error.response.data);
+      navigate('/');
+    }
+  }
+
   return (
     <ProductCard onClick={() => navigate(`/product/${id}`)}>
       <img src={image} alt="tenis" />
-      <WishButton inWishlist={inWishlist} id={id} />
+      <ion-icon name="close-circle" onClick={deleteWishProduct} />
       <div>
         <h2>{name}</h2>
         <h3>FRETE GRÁTIS</h3>
@@ -48,6 +79,13 @@ const ProductCard = styled.article`
 
   img {
     width: 120px;
+  }
+  ion-icon {
+    position: absolute;
+    font-size: 22px;
+    top: 10px;
+    right: 10px;
+    color: rgba(71, 18, 4, 0.6);
   }
 
   div {

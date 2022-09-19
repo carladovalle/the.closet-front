@@ -22,7 +22,7 @@ export default function Product() {
     async function getProduct() {
 
       try {
-        const produtos = await axios.get(`http://localhost:5000/product/${id}`);
+        const produtos = await axios.get(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`);
         setProduct(produtos.data);
       } catch (error) {
         console.log(error.response);
@@ -47,12 +47,12 @@ export default function Product() {
     }
 
     try {
-      const { data } = await axios.post(`http://localhost:5000/chart/${id}`, product, config);
+      await axios.post(`https://back-projeto14-the-closet.herokuapp.com/chart/${id}`, product, config);
       alert('Produto adicionado com sucesso no carrinho!');
       navigate('/chart');
-      console.log(data.token);
     } catch (error) {
       alert(error.response.data);
+      navigate('/login');
     }
   }
 
@@ -63,10 +63,9 @@ export default function Product() {
     }
     
     try {
-      const { data } = await axios.post(`http://localhost:5000/wishlist/${id}`, {}, config);
+      await axios.post(`https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`, {}, config);
       alert('Produto adicionado com sucesso na lista de desejos!');
       navigate('/');
-      console.log(data.token);
     } catch (error) {
       alert(error.response.data);
     }
@@ -77,12 +76,12 @@ export default function Product() {
     event.preventDefault();
 
     try {
-      await axios.put(`http://localhost:5000/product/${id}`, {
+      await axios.put(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`, {
         nameComment,
         comment
       });
       alert('Comentário adicionado com sucesso!');
-      const newProducts = await axios.get(`http://localhost:5000/product/${id}`);
+      const newProducts = await axios.get(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`);
         setProduct(newProducts.data);
     } catch (error) {
       alert(error.response.data);
@@ -113,12 +112,12 @@ export default function Product() {
                 <h4>Cor:</h4>
                   <select id="color" name="color" onChange={handleForm}>
                     { product.length === 0 ? "" : 
-                      product.color.map((value) => <option value="#5b3e40">{value}</option>)}
+                      product.color.map((value, index) => <option key={index} >{value}</option>)}
                     </select>
                   <h4>Tamanho:</h4>
                   <select id="size" name="size" onChange={handleForm}>
                     { product.length === 0 ? "" : 
-                    product.size.map((value) => <option>{value}</option>)}
+                    product.size.map((value, index) => <option key={index} >{value}</option>)}
                   </select>
                 </Choices>
                 <Options>
@@ -135,7 +134,7 @@ export default function Product() {
             <div className='reviews' id="comments" name="comments" onChange={handleForm}>
               <h1>Avaliações de clientes</h1>
                     { product.length === 0 ? "" : 
-                    product.comments.map((value) => <p>
+                    product.comments.map((value, index) => <p key={index} >
                       {value.nameComment}: {value.comment}
                       </p>)}
               </div>

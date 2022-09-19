@@ -46,7 +46,7 @@ export default function SectionPage() {
     async function fetchData() {
       try {
         const products = await axios.get(
-          `http://localhost:5000/search/?keyword=${category}`
+          `https://back-projeto14-the-closet.herokuapp.com/search/?keyword=${category}`
         );
         setFilteredProducts(products.data);
       } catch (error) {
@@ -62,18 +62,15 @@ export default function SectionPage() {
       <Wrapper>
         <img src={selectBanner()} alt="banner" />
         <div>
-          {filteredProducts.map(
-            ({ name, price, image, _id, inWishlist }, index) => (
-              <ProductCard
-                key={index}
-                name={name}
-                price={price}
-                image={image}
-                id={_id}
-                inWishlist={inWishlist}
-              />
-            )
-          )}
+          {filteredProducts.map(({ name, price, image, _id }, index) => (
+            <ProductCard
+              key={index}
+              name={name}
+              price={price}
+              image={image}
+              id={_id}
+            />
+          ))}
         </div>
       </Wrapper>
       <BottomMenu />
@@ -95,18 +92,11 @@ const Wrapper = styled.main`
     object-fit: cover;
   }
 
-  h2 {
-    font-size: 20px;
-    color: #543827;
-    font-weight: 500;
-    margin: 20px 0 20px 20px;
-    font-style: oblique;
-  }
-
-  div {
+  > div {
     padding: 0 20px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 15px;
   }
 `;

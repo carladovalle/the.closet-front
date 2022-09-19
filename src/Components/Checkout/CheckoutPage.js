@@ -23,7 +23,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     async function fetchData(){
       try {
-        const boughtProducts = await axios.get("http://localhost:5000/chart", config)
+        const boughtProducts = await axios.get("https://back-projeto14-the-closet.herokuapp.com/chart", config)
         setProductsInChart(boughtProducts.data)
       } catch (error) {
         alert(error.response.data)
@@ -45,9 +45,9 @@ export default function CheckoutPage() {
     event.preventDefault();
 
     try {
-      await axios.put('http://localhost:5000/checkout', {buyerData: checkoutData, order: productsInChart}, config);
+      await axios.put('https://back-projeto14-the-closet.herokuapp.com/checkout', {buyerData: checkoutData, order: productsInChart}, config);
       setIsDone(true)
-      await axios.delete('http://localhost:5000/chart', config)
+      await axios.delete('https://back-projeto14-the-closet.herokuapp.com/checkout', config)
     } catch (error) {
       alert(error.response.data);
     }
@@ -213,16 +213,17 @@ export default function CheckoutPage() {
               <h1>Forma de Entrega</h1>
               <div className="pay">
               <input
-                    type="checkbox"
+                    type="radio"
                     name="deliveryType"
                     value="Expresso"
                     onChange={handleForm}
+                    checked
               />
               <h3>Expresso - Em até 7 dias úteis</h3>
               </div>
               <div className="pay">             
               <input
-                    type="checkbox"
+                    type="radio"
                     name="deliveryType"
                     value="Agendada"
                     onChange={handleForm}
@@ -234,16 +235,17 @@ export default function CheckoutPage() {
               <h1>Forma de Pagamento</h1>
               <div className="pay">
               <input
-                    type="checkbox"
+                    type="radio"
                     name="paymentMethods"
                     value="Pix"
                     onChange={handleForm}
+                    checked
               />
               <h3>Pix</h3>
               </div>
               <div className="pay">             
               <input
-                    type="checkbox"
+                    type="radio"
                     name="paymentMethods"
                     value="Cartão de Crédito"
                     onChange={handleForm}
@@ -439,6 +441,7 @@ const PaymentMethods = styled.div`
   margin-left: 50px;
 
   h3 {
+    width: 250px;
     font-size: 15px;
     color: #495057;
     margin-left: 5px;

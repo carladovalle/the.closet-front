@@ -45,11 +45,14 @@ export default function SignUp() {
     }
 
     try {
-      await axios.post('http://localhost:5000/signup', {
-        name,
-        email,
-        password,
-      });
+      await axios.post(
+        'https://back-projeto14-the-closet.herokuapp.com/signup',
+        {
+          name,
+          email,
+          password,
+        }
+      );
       alert('Usuário criado com sucesso! :)');
       navigate('/login');
     } catch (error) {

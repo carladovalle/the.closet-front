@@ -31,7 +31,7 @@ export default function SearchBar() {
 
     try {
       const filteredProducts = await axios.get(
-        `http://localhost:5000/search/?keyword=${query}`
+        `https://back-projeto14-the-closet.herokuapp.com/search/?keyword=${query}`
       );
       setProductsList(filteredProducts.data);
     } catch (error) {

@@ -30,8 +30,8 @@ export default function OrderSummary({ checkoutData, productsInChart }) {
         </div>
         <article>
           <h3>Produtos:</h3>
-          {productsInChart.map((item) => (
-            <div>
+          {productsInChart.map((item, index) => (
+            <div key={index}>
               <p>{`${item.amount}x ${item.name}`}</p>
               <p>
                 {(item.price / 100).toLocaleString('pt-BR', {

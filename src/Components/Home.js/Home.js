@@ -29,15 +29,17 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const products = await axios.get('http://localhost:5000/products');
+        const products = await axios.get(
+          'https://back-projeto14-the-closet.herokuapp.com/products'
+        );
         const maleStuff = await axios.get(
-          'http://localhost:5000/search/?keyword=masculino'
+          'https://back-projeto14-the-closet.herokuapp.com/search/?keyword=masculino'
         );
         const femaleStuff = await axios.get(
-          'http://localhost:5000/search/?keyword=feminino'
+          'https://back-projeto14-the-closet.herokuapp.com/search/?keyword=feminino'
         );
         const searchedShoes = await axios.get(
-          'http://localhost:5000/search/?keyword=calcados'
+          'https://back-projeto14-the-closet.herokuapp.com/search/?keyword=calcados'
         );
         setMaleProducts(maleStuff.data.slice(0, 7));
         setFemaleProducts(femaleStuff.data.slice(0, 7));
@@ -58,7 +60,7 @@ export default function Home() {
         <SearchBar />
         <Category>
           <header>
-            <h2>Produtos Femininos</h2>
+            <h5>Produtos Femininos</h5>
             <span onClick={() => navigate('/section/feminino')}>veja mais</span>
           </header>
           <div>
@@ -82,7 +84,7 @@ export default function Home() {
         </Category>
         <Category>
           <header>
-            <h2>Produtos Masculinos</h2>
+            <h5>Produtos Masculinos</h5>
             <span onClick={() => navigate('/section/masculino')}>
               veja mais
             </span>
@@ -108,7 +110,7 @@ export default function Home() {
         </Category>
         <Category>
           <header>
-            <h2>Calçados</h2>
+            <h5>Calçados</h5>
             <span onClick={() => navigate('/section/calcados')}>veja mais</span>
           </header>
           <div>
@@ -129,7 +131,7 @@ export default function Home() {
           </div>
         </Category>
         <ProductsContainer>
-          <h2>Todos os produtos</h2>
+          <h5>Todos os produtos</h5>
           <div>
             {allProducts.map(
               ({ name, price, image, _id, inWishlist }, index) => (
@@ -167,27 +169,11 @@ const Wrapper = styled.main`
   flex-direction: column;
   padding: 50px 0;
 
-  > h1 {
-    margin-bottom: 10px;
-    margin-left: 20px;
-    font-size: 28px;
-    font-weight: 500;
-    color: #5b3e40;
-  }
-
-  h2 {
+  h5 {
     font-size: 17px;
     font-weight: 500;
     color: #5b3e40;
     margin-bottom: 10px;
-  }
-
-  h3 {
-    font-size: 10px;
-    font-weight: 500;
-    color: #5b3e40;
-    margin-bottom: 15px;
-    text-align: center;
   }
 `;
 
@@ -198,6 +184,7 @@ const ProductsContainer = styled.div`
   > div {
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     overflow-x: auto;
     gap: 15px;
@@ -277,4 +264,14 @@ const Footer = styled.section`
   align-items: center;
   flex-direction: column;
   border-top: 1px solid #706f6f;
+
+  && {
+    h3 {
+      font-size: 10px;
+      font-weight: 500;
+      color: #5b3e40;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+  }
 `;

@@ -13,36 +13,14 @@ import banner3 from '../../assets/banner3.png';
 export default function Banner() {
   const carousel = useRef();
 
-  function scrollLeft() {
-    switch (carousel.current.scrollLeft) {
-      case 0:
-        break;
-      case carousel.current.offsetWidth:
-        carousel.current.scrollLeft -= carousel.current.offsetWidth;
-        break;
-      case carousel.current.offsetWidth * 2:
-        carousel.current.scrollLeft -= carousel.current.offsetWidth;
-        break;
-      default:
-        carousel.current.scrollLeft = 0;
-        break;
-    }
+  function scrollLeft(e) {
+    e.preventDefault();
+    carousel.current.scrollLeft -= carousel.current.offsetWidth;
   }
 
-  function scrollRight() {
-    switch (carousel.current.scrollLeft) {
-      case 0:
-        carousel.current.scrollLeft += carousel.current.offsetWidth;
-        break;
-      case carousel.current.offsetWidth:
-        carousel.current.scrollLeft += carousel.current.offsetWidth;
-        break;
-      case carousel.current.offsetWidth * 2:
-        break;
-      default:
-        carousel.current.scrollLeft = 0;
-        break;
-    }
+  function scrollRight(e) {
+    e.preventDefault();
+    carousel.current.scrollLeft += carousel.current.offsetWidth;
   }
 
   return (

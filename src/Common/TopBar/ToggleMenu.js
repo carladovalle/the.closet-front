@@ -8,14 +8,19 @@
 /* eslint-disable react/react-in-jsx-scope */
 
 import axios from 'axios';
-import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import TokenContext from '../../Contexts/TokenContext';
 
 export default function ToggleMenu({ isOpened, setIsOpened }) {
+  const { category } = useParams();
   const navigate = useNavigate();
   const { token, username } = useContext(TokenContext);
+
+  useEffect(() => {
+    setIsOpened(false);
+  }, [category]);
 
   async function logout() {
     try {
@@ -42,6 +47,10 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
           )}
         </div>
         <ul>
+          <li onClick={() => navigate('/')}>
+            Página Inicial
+            <ion-icon name="chevron-forward-outline" />
+          </li>
           <li onClick={() => navigate('/section/masculino')}>
             Moda Masculina
             <ion-icon name="chevron-forward-outline" />
@@ -75,7 +84,7 @@ export default function ToggleMenu({ isOpened, setIsOpened }) {
           <span>© 2022 - Desenvolvido por Carla do Valle e Filipe Garrote</span>
         </footer>
       </Toggle>
-      <Background isOpened={isOpened} />
+      <Background isOpened={isOpened} onClick={() => setIsOpened(false)} />
     </>
   );
 }
@@ -88,6 +97,7 @@ const Toggle = styled.section`
   display: flex;
   flex-direction: column;
   position: fixed;
+  top: 0;
   bottom: 0;
   left: ${(props) => (props.isOpened ? '0' : '-400px')};
   transition: all 0.5s linear;
@@ -122,7 +132,7 @@ const Toggle = styled.section`
     margin-bottom: 20px;
     color: #ffffff;
     box-shadow: -4px 0 8px 2px rgba(0, 0, 0, 0.4);
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 500;
     padding-left: 20px;
   }
@@ -133,7 +143,7 @@ const Toggle = styled.section`
     gap: 10px;
     padding: 10px 20px;
     color: #d4a373;
-    font-size: 24px;
+    font-size: 18px;
   }
 
   footer {
@@ -167,8 +177,8 @@ const Background = styled.div`
   background-color: rgba(0, 0, 0, 1);
   opacity: ${(props) => (props.isOpened ? '0.6' : '0')};
   position: fixed;
-  top: 0;
-  right: ${(props) => (props.isOpened ? '0' : '-500px')};
+  top: ${(props) => (props.isOpened ? '0' : '-10000px')};
+  right: ${(props) => (props.isOpened ? '0' : '-10000px')};
   height: 100vh;
   width: 100%;
   transition: opacity 0.5s;

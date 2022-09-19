@@ -18,34 +18,42 @@ export default function Product({ name, price, image, inWishlist, id }) {
       <img src={image} alt="product" />
       <WishButton inWishlist={inWishlist} id={id} />
       <div>
-        <h3>{name}</h3>
-        <p>
+        <h1>{name}</h1>
+        <h2>Frete Grátis</h2>
+        <h3>
           {(price / 100).toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL',
-          })}
-        </p>
+          })} </h3>
+          <h4>ou {(price / 100 / 6).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })} 
+        </h4>
       </div>
     </ProductStyle>
   );
 }
 
 const ProductStyle = styled.div`
-  width: 100px;
-  flex: none;
-  height: 140px;
+  width: 110px;
+  height: 150px;
   position: relative;
   background-color: #ffffff;
   margin-bottom: 8px;
   border-radius: 8px;
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 
   img {
     width: 100%;
-    height: 80px;
+    height: 70px;
     object-fit: cover;
     border-radius: 8px;
+    margin-top: 6px;
   }
 
   div {
@@ -53,16 +61,35 @@ const ProductStyle = styled.div`
     height: 65px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+
+    h1 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #706f6f;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 12px;
+      font-weight: 400;
+      color: green;
+    }
 
     h3 {
       font-size: 12px;
       font-weight: 500;
       color: #706f6f;
+      margin-top: -6px;
     }
 
-    p {
-      font-size: 15px;
-      font-weight: 700;
+    h4 {
+      font-size: 10px;
+      font-weight: 500;
+      color: #706f6f;
+      margin-top: -11px;
     }
   }
 `;

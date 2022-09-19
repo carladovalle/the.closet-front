@@ -26,11 +26,11 @@ export default function WishButton({ inWishlist, id }) {
       setIsLiked(false);
       try {
         await axios.delete(
-          'https://back-projeto14-the-closet.herokuapp.com/wishlist',
+          'http://localhost:5000/wishlist',
           'config'
         );
         await axios.put(
-          'https://back-projeto14-the-closet.herokuapp.com/wishlist',
+          'http://localhost:5000/wishlist',
           'config'
         );
       } catch (error) {
@@ -42,7 +42,7 @@ export default function WishButton({ inWishlist, id }) {
       setIsLiked(true);
       try {
         await axios.post(
-          `https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`,
+          `http://localhost:5000/wishlist/${id}`,
           {},
           { headers: { Authorization: token } }
         );

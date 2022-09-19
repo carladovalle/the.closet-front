@@ -46,7 +46,7 @@ export default function SectionPage() {
     async function fetchData() {
       try {
         const products = await axios.get(
-          `https://back-projeto14-the-closet.herokuapp.com/search/?keyword=${category}`
+          `http://localhost:5000/search/?keyword=${category}`
         );
         setFilteredProducts(products.data);
       } catch (error) {

@@ -337,7 +337,7 @@ const Reviews = styled.div`
   border: 1px solid #d4a373;
   border-radius: 5px;
   background-color: #FFFFFF;
-  width: 60%;
+  width: 90%;
 
   h1 {
     margin-bottom: 12px;

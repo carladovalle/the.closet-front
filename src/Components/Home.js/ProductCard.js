@@ -30,11 +30,14 @@ export default function Product({ name, price, image, inWishlist, id }) {
           {(price / 100).toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL',
-          })} </h3>
-          <h4>ou {(price / 100 / 6).toLocaleString('pt-BR', {
+          })}{' '}
+        </h3>
+        <h4>
+          ou{' '}
+          {(price / 100 / 6).toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL',
-          })} 
+          })}
         </h4>
       </div>
     </ProductStyle>
@@ -42,8 +45,9 @@ export default function Product({ name, price, image, inWishlist, id }) {
 }
 
 const ProductStyle = styled.div`
-  width: 110px;
-  height: 150px;
+  width: 120px;
+  flex: none;
+  height: 170px;
   position: relative;
   background-color: #ffffff;
   margin-bottom: 8px;
@@ -51,12 +55,13 @@ const ProductStyle = styled.div`
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   display: flex;
-  justify-content: center;
+  padding-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
   flex-direction: column;
 
   img {
-    width: 100%;
-    height: 70px;
+    width: 70%;
     object-fit: cover;
     border-radius: 8px;
     margin-top: 6px;

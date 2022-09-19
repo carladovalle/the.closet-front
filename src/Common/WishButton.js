@@ -18,7 +18,7 @@ export default function WishButton({ id }) {
   useEffect(() => {
     async function fetchData() {
       const likedProducts = await axios.get(
-        'https://back-projeto14-the-closet.herokuapp.com/wishlist',
+        'http://localhost:5000/wishlist',
         config
       );
       const hasProduct = likedProducts.data
@@ -35,10 +35,7 @@ export default function WishButton({ id }) {
   async function handleWishlist() {
     if (isLiked) {
       try {
-        await axios.delete(
-          `https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`,
-          config
-        );
+        await axios.delete(`http://localhost:5000/wishlist/${id}`, config);
         setIsLiked(false);
       } catch (error) {
         alert(error.response.data);
@@ -47,11 +44,7 @@ export default function WishButton({ id }) {
 
     if (!isLiked) {
       try {
-        await axios.post(
-          `http://localhost:5000/wishlist/${id}`,
-          {},
-          config
-        );
+        await axios.post(`http://localhost:5000/wishlist/${id}`, {}, config);
         setIsLiked(true);
       } catch (error) {
         alert(error.response.data);

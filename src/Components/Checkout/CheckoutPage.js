@@ -8,79 +8,66 @@ import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
 import TokenContext from "../../Contexts/TokenContext";
+import OrderSummary from './OrderSummary';
 
-export default function Product() {
+export default function CheckoutPage() {
 
   const { token } = useContext(TokenContext);
   const [checkoutData, setCheckoutData] = useState({});
   const navigate = useNavigate();
+  const [isDone, setIsDone] = useState(true)
+
+  useEffect(() => {
+    
+  }, [])
   
   function handleForm(e) {
     setCheckoutData({
       ...checkoutData,
       [e.target.name]: e.target.value,
     });
+    console.log(checkoutData)
   }
 
   async function checkout(event) {
 
     event.preventDefault();
 
-    const {
-      cpf,
-      name,
-      lastName,
-      PhoneNumber,
-      emailAdress,
-      confirmEmailAdress,
-      cep,
-      state,
-      city,
-      district,
-      adress,
-      number,
-      complement,
-      reference,
-      paymentMethods,
-      numberCard,
-      nameCard,
-      dateCard,
-      codeCard,
-      cpfCard,
-      installments
-    } = checkoutData;
+    // const {
+    //   cpf,
+    //   name,
+    //   lastName,
+    //   PhoneNumber,
+    //   emailAdress,
+    //   confirmEmailAdress,
+    //   cep,
+    //   state,
+    //   city,
+    //   district,
+    //   adress,
+    //   number,
+    //   complement,
+    //   reference,
+    //   paymentMethods,
+    //   numberCard,
+    //   nameCard,
+    //   dateCard,
+    //   codeCard,
+    //   cpfCard,
+    //   installments
+    // } = checkoutData;
 
     const config = {
       headers: {Authorization: `Bearer ${token}`}
     }
 
     try {
-      const checkout = await axios.post('http://localhost:5000/checkout', {
-        cpf,
-        name,
-        lastName,
-        PhoneNumber,
-        emailAdress,
-        confirmEmailAdress,
-        cep,
-        state,
-        city,
-        district,
-        adress,
-        number,
-        complement,
-        reference,
-        paymentMethods,
-        numberCard,
-        nameCard,
-        dateCard,
-        codeCard,
-        cpfCard,
-        installments
-      }, config);
-      alert('Compra efetuada com sucesso!');
-      navigate('/');
-      console.log(checkout.data);
+      await axios.post('http://localhost:5000/checkout', checkoutData, config);
+      
+      setIsDone(true)
+      console.log(isDone)
+      
+      
     } catch (error) {
       alert(error.response.data);
     }
@@ -88,8 +75,9 @@ export default function Product() {
 
   return (
     <>
+        {isDone ? <OrderSummary checkoutData={checkoutData}/> : ""}
         <HeaderMenu />
-        <Wrapper>
+        <Wrapper isDone={isDone}>
         <Infos>
         <PersonalInformation>
             <h1>Informações de Contato</h1>
@@ -247,7 +235,7 @@ export default function Product() {
               <input
                     type="checkbox"
                     name="deliveryType"
-                    id="express"
+                    value="Expresso"
                     onChange={handleForm}
               />
               <h3>Expresso - Em até 7 dias úteis</h3>
@@ -256,7 +244,7 @@ export default function Product() {
               <input
                     type="checkbox"
                     name="deliveryType"
-                    id="scheduled"
+                    value="Agendada"
                     onChange={handleForm}
               />
               <h3>Agendado - Em até 30 dias úteis</h3>
@@ -268,7 +256,7 @@ export default function Product() {
               <input
                     type="checkbox"
                     name="paymentMethods"
-                    id="pix"
+                    value="Pix"
                     onChange={handleForm}
               />
               <h3>Pix</h3>
@@ -277,7 +265,7 @@ export default function Product() {
               <input
                     type="checkbox"
                     name="paymentMethods"
-                    id="card"
+                    value="Cartão de Crédito"
                     onChange={handleForm}
               />
               <h3>Cartão de crédito - Em até 10 vezes sem juros</h3>
@@ -335,14 +323,16 @@ export default function Product() {
             </Card>
             </Infos>
             <button type="submit" onClick={checkout}>Efetuar compra</button>
+            
         </Wrapper>
         <BottomMenu />
+        
     </>
   );
 }
 
 const Wrapper = styled.main`
-  height: 100%;
+  height: ${props => props.isDone ? "0" : "100%"};
   width: 100%;
   overflow-y: scroll;
   display: flex;
@@ -404,8 +394,6 @@ const Infos = styled.div`
   background-color: black;
   display: flex;
   flex-direction: column;
-  margin-left: 180px;
-  margin-right: 180px;
   border: 1px solid #d4a373;
   border-radius: 5px;
   background-color: #FFFFFF;
@@ -430,7 +418,7 @@ const PersonalInformation = styled.div`
   input {
       margin-right: 10px;
       margin-bottom: 10px;
-      width: 50%;
+      width: 90%;
       height: 35px;
       border: 1px solid #ced4da;
 
@@ -449,14 +437,14 @@ const DeliveryAddress = styled.div`
   input {
       margin-right: 10px;
       margin-bottom: 10px;
-      width: 50%;
+      width: 90%;
       height: 35px;
       border: 1px solid #ced4da;
   }
   select {
     margin-right: 10px;
     margin-bottom: 10px;
-    width: 50%;
+    width: 90%;
     height: 35px;
     background-color: #FFFFFF;
     border: 1px solid #ced4da;
@@ -520,7 +508,7 @@ const Card = styled.div`
   input {
       margin-right: 10px;
       margin-bottom: 10px;
-      width: 50%;
+      width: 90%;
       height: 35px;
       border: 1px solid #ced4da;
       color: #495057;
@@ -528,7 +516,7 @@ const Card = styled.div`
   select {
     margin-right: 10px;
     margin-bottom: 10px;
-    width: 50%;
+    width: 90%;
     height: 35px;
     background-color: #FFFFFF;
     border: 1px solid #ced4da;

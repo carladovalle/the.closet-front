@@ -26,7 +26,7 @@ export default function ProductInChart({
           'Você tem certeza que quer tirar esse item do seu carrinho?'
         )
       ) {
-        await axios.delete(`https://back-projeto14-the-closet.herokuapp.com/chart/${_id}`, config);
+        await axios.delete(`http://localhost:5000/chart/${_id}`, config);
         const newProductsChoosed = await axios.get(
           'http://localhost:5000/chart',
           config

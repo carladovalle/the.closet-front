@@ -29,9 +29,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const products = await axios.get(
-          'http://localhost:5000/products'
-        );
+        const products = await axios.get('http://localhost:5000/products');
         const maleStuff = await axios.get(
           'http://localhost:5000/search/?keyword=masculino'
         );
@@ -151,7 +149,10 @@ export default function Home() {
           <h3>© 2022 the-closet.com</h3>
           <h3>THE CLOSET LTDA | CNPJ 99.999.999/0001-99</h3>
           <h3>Av. Driven, São Paulo</h3>
-          <h3>Formas de pagamento aceitas: cartões de crédito (Visa, MasterCard, Elo e American Express) e Pix.</h3>
+          <h3>
+            Formas de pagamento aceitas: cartões de crédito (Visa, MasterCard,
+            Elo e American Express) e Pix.
+          </h3>
         </Footer>
       </Wrapper>
       <BottomMenu />
@@ -193,20 +194,14 @@ const Wrapper = styled.main`
 const ProductsContainer = styled.div`
   width: 100%;
   padding: 20px 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
 
   > div {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     overflow-x: auto;
     gap: 15px;
-    padding: 0 20px;
     margin-bottom: 30px;
-    flex-direction: row;
 
     ion-icon {
       font-size: 36px;
@@ -276,10 +271,10 @@ const Category = styled.section`
 const Footer = styled.section`
   width: 100%;
   height: 150px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   border-top: 1px solid #706f6f;
-`
+`;

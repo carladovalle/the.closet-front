@@ -30,16 +30,16 @@ export default function Home() {
     async function fetchData() {
       try {
         const products = await axios.get(
-          'https://back-projeto14-the-closet.herokuapp.com/products'
+          'http://localhost:5000/products'
         );
         const maleStuff = await axios.get(
-          'https://back-projeto14-the-closet.herokuapp.com/search/?keyword=masculino'
+          'http://localhost:5000/search/?keyword=masculino'
         );
         const femaleStuff = await axios.get(
-          'https://back-projeto14-the-closet.herokuapp.com/search/?keyword=feminino'
+          'http://localhost:5000/search/?keyword=feminino'
         );
         const searchedShoes = await axios.get(
-          'https://back-projeto14-the-closet.herokuapp.com/search/?keyword=calcados'
+          'http://localhost:5000/search/?keyword=calcados'
         );
         setMaleProducts(maleStuff.data.slice(0, 7));
         setFemaleProducts(femaleStuff.data.slice(0, 7));
@@ -147,7 +147,12 @@ export default function Home() {
             )}
           </div>
         </ProductsContainer>
-        <h1>PÁGINA PRINCIPAL EM CONSTRUÇÃO</h1>
+        <Footer>
+          <h3>© 2022 the-closet.com</h3>
+          <h3>THE CLOSET LTDA | CNPJ 99.999.999/0001-99</h3>
+          <h3>Av. Driven, São Paulo</h3>
+          <h3>Formas de pagamento aceitas: cartões de crédito (Visa, MasterCard, Elo e American Express) e Pix.</h3>
+        </Footer>
       </Wrapper>
       <BottomMenu />
     </>
@@ -175,6 +180,14 @@ const Wrapper = styled.main`
     color: #5b3e40;
     margin-bottom: 10px;
   }
+
+  h3 {
+    font-size: 10px;
+    font-weight: 500;
+    color: #5b3e40;
+    margin-bottom: 15px;
+    text-align: center;
+  }
 `;
 
 const ProductsContainer = styled.div`
@@ -184,6 +197,40 @@ const ProductsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
+
+  > div {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    flex-direction: row;
+
+    ion-icon {
+      font-size: 36px;
+      flex: none;
+      color: rgba(0, 0, 0, 0.3);
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    span {
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+  }
 `;
 
 const Category = styled.section`
@@ -225,3 +272,14 @@ const Category = styled.section`
     }
   }
 `;
+
+const Footer = styled.section`
+  width: 100%;
+  height: 150px;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-top: 1px solid #706f6f;
+`

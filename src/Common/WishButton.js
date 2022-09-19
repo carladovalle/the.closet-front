@@ -48,7 +48,7 @@ export default function WishButton({ id }) {
     if (!isLiked) {
       try {
         await axios.post(
-          `https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`,
+          `http://localhost:5000/wishlist/${id}`,
           {},
           config
         );

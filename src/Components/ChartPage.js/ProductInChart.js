@@ -28,7 +28,7 @@ export default function ProductInChart({
       ) {
         await axios.delete(`https://back-projeto14-the-closet.herokuapp.com/chart/${_id}`, config);
         const newProductsChoosed = await axios.get(
-          'https://back-projeto14-the-closet.herokuapp.com/chart',
+          'http://localhost:5000/chart',
           config
         );
         setMyChart(newProductsChoosed.data);
@@ -47,7 +47,7 @@ export default function ProductInChart({
 
     try {
       await axios.put(
-        `https://back-projeto14-the-closet.herokuapp.com/chart/${_id}`,
+        `http://localhost:5000/chart/${_id}`,
         { amount: countProduct - 1 },
         config
       );
@@ -62,7 +62,7 @@ export default function ProductInChart({
 
     try {
       await axios.put(
-        `https://back-projeto14-the-closet.herokuapp.com/chart/${_id}`,
+        `http://localhost:5000/chart/${_id}`,
         { amount: countProduct + 1 },
         config
       );

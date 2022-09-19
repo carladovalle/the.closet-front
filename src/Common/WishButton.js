@@ -23,9 +23,9 @@ export default function WishButton({ id }) {
         'https://back-projeto14-the-closet.herokuapp.com/wishlist',
         config
       );
-      const hasProduct = likedProducts.data
-        .map((value) => value.productId)
-        .find((value) => value === id);
+      const hasProduct = likedProducts.data.find(
+        (value) => value.productId === id
+      );
 
       if (hasProduct) {
         setIsLiked(true);

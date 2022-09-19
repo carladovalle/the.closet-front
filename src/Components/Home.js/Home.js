@@ -227,7 +227,7 @@ const Category = styled.section`
     align-items: center;
     overflow-x: auto;
     gap: 15px;
-    padding: 0 20px;
+    padding: 5px 20px;
     margin-bottom: 30px;
 
     ion-icon {

@@ -24,7 +24,7 @@ export default function WishButton({ id }) {
         config
       );
       const hasProduct = likedProducts.data
-        .map((value) => value._id)
+        .map((value) => value.productId)
         .find((value) => value === id);
 
       if (hasProduct) {

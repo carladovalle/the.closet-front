@@ -5,7 +5,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import styled from 'styled-components';
 
-export default function OrderSummary({ checkoutData }) {
+export default function OrderSummary({ checkoutData, productsInChart }) {
   return (
     <Wrapper>
       <section>
@@ -18,10 +18,17 @@ export default function OrderSummary({ checkoutData }) {
         </div>
         <article>
           <h3>Produtos:</h3>
-          <div>
-            <p>5x Tênis Masculino Manero Bacanao </p>
-            <p>R$ 300,00</p>
-          </div>
+          {productsInChart.map((item) => (
+            <div>
+              <p>{`${item.amount}x ${item.name}`}</p>
+              <p>
+                {(item.price / 100).toLocaleString('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                })}
+              </p>
+            </div>
+          ))}
           <div>
             <p>TOTAL:</p>
             <p>R$1908,00</p>

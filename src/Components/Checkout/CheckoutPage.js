@@ -11,14 +11,25 @@ import TokenContext from "../../Contexts/TokenContext";
 import OrderSummary from './OrderSummary';
 
 export default function CheckoutPage() {
-
+  const [productsInChart, setProductsInChart] = useState([])
   const { token } = useContext(TokenContext);
   const [checkoutData, setCheckoutData] = useState({});
   const navigate = useNavigate();
-  const [isDone, setIsDone] = useState(true)
+  const [isDone, setIsDone] = useState(false)
+  const config = {
+    headers: {Authorization: `Bearer ${token}`}
+  }
 
   useEffect(() => {
-    
+    async function fetchData(){
+      try {
+        const boughtProducts = await axios.get("http://localhost:5000/chart", config)
+        setProductsInChart(boughtProducts.data)
+      } catch (error) {
+        alert(error.response.data)
+      }
+    }
+    fetchData()
   }, [])
   
   function handleForm(e) {
@@ -57,10 +68,6 @@ export default function CheckoutPage() {
     //   installments
     // } = checkoutData;
 
-    const config = {
-      headers: {Authorization: `Bearer ${token}`}
-    }
-
     try {
       await axios.post('http://localhost:5000/checkout', checkoutData, config);
       
@@ -75,7 +82,7 @@ export default function CheckoutPage() {
 
   return (
     <>
-        {isDone ? <OrderSummary checkoutData={checkoutData}/> : ""}
+        {isDone ? <OrderSummary checkoutData={checkoutData} productsInChart={productsInChart}/> : ""}
         <HeaderMenu />
         <Wrapper isDone={isDone}>
         <Infos>

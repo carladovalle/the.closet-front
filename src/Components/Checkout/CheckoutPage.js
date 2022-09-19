@@ -14,7 +14,7 @@ export default function Product() {
   const { token } = useContext(TokenContext);
   const [checkoutData, setCheckoutData] = useState({});
   const navigate = useNavigate();
-
+  
   function handleForm(e) {
     setCheckoutData({
       ...checkoutData,
@@ -40,7 +40,14 @@ export default function Product() {
       adress,
       number,
       complement,
-      reference
+      reference,
+      paymentMethods,
+      numberCard,
+      nameCard,
+      dateCard,
+      codeCard,
+      cpfCard,
+      installments
     } = checkoutData;
 
     const config = {
@@ -48,7 +55,7 @@ export default function Product() {
     }
 
     try {
-      const checkout = await axios.post('https://back-projeto14-the-closet.herokuapp.com/checkout', {
+      const checkout = await axios.post('http://localhost:5000/checkout', {
         cpf,
         name,
         lastName,
@@ -62,7 +69,14 @@ export default function Product() {
         adress,
         number,
         complement,
-        reference
+        reference,
+        paymentMethods,
+        numberCard,
+        nameCard,
+        dateCard,
+        codeCard,
+        cpfCard,
+        installments
       }, config);
       alert('Compra efetuada com sucesso!');
       navigate('/');
@@ -76,8 +90,9 @@ export default function Product() {
     <>
         <HeaderMenu />
         <Wrapper>
+        <Infos>
         <PersonalInformation>
-            <h1>Informações de contato</h1>
+            <h1>Informações de Contato</h1>
             <form>
               <input
                     type="text"
@@ -104,12 +119,12 @@ export default function Product() {
                     required
                 />
                 <input
-                    type="tel"
+                    type="text"
                     name="phoneNumber"
                     id="phoneNumber"
-                    placeholder="Número de telefone"
+                    placeholder="Telefone"
                     onChange={handleForm}
-                    required
+                    
                 />
                 <input
                     type="email"
@@ -140,14 +155,42 @@ export default function Product() {
                     onChange={handleForm}
                     required
                 />
-                <input
+                <select
                     type="text"
                     name="state"
                     id="state"
-                    placeholder="Estado"
                     onChange={handleForm}
                     required
-                />
+                >
+                <option value="" disabled selected>Estado</option>
+                <option value="AC">AC</option>
+                <option value="AL">AL</option>
+                <option value="AM">AM</option>
+                <option value="AP">AP</option>
+                <option value="BA">BA</option>
+                <option value="CE">CE</option>
+                <option value="DF">DF</option>
+                <option value="ES">ES</option>
+                <option value="GO">GO</option>
+                <option value="MA">MA</option>
+                <option value="MG">MG</option>
+                <option value="MS">MS</option>
+                <option value="MT">MT</option>
+                <option value="PA">PA</option>
+                <option value="PB">PB</option>
+                <option value="PE">PE</option>
+                <option value="PI">PI</option>
+                <option value="PR">PR</option>
+                <option value="RJ">RJ</option>
+                <option value="RN">RN</option>
+                <option value="RO">RO</option>
+                <option value="RR">RR</option>
+                <option value="RS">RS</option>
+                <option value="SP">SP</option>
+                <option value="SC">SC</option>
+                <option value="SE">SE</option>
+                <option value="TO">TO</option>
+                </select>
                 <input
                     type="text"
                     name="city"
@@ -198,8 +241,99 @@ export default function Product() {
                 />
               </form>
             </DeliveryAddress>
-
-          
+            <DeliveryType>
+              <h1>Forma de Entrega</h1>
+              <div className="pay">
+              <input
+                    type="checkbox"
+                    name="deliveryType"
+                    id="express"
+                    onChange={handleForm}
+              />
+              <h3>Expresso - Em até 7 dias úteis</h3>
+              </div>
+              <div className="pay">             
+              <input
+                    type="checkbox"
+                    name="deliveryType"
+                    id="scheduled"
+                    onChange={handleForm}
+              />
+              <h3>Agendado - Em até 30 dias úteis</h3>
+              </div>
+            </DeliveryType>
+            <PaymentMethods>
+              <h1>Forma de Pagamento</h1>
+              <div className="pay">
+              <input
+                    type="checkbox"
+                    name="paymentMethods"
+                    id="pix"
+                    onChange={handleForm}
+              />
+              <h3>Pix</h3>
+              </div>
+              <div className="pay">             
+              <input
+                    type="checkbox"
+                    name="paymentMethods"
+                    id="card"
+                    onChange={handleForm}
+              />
+              <h3>Cartão de crédito - Em até 10 vezes sem juros</h3>
+              </div>
+            </PaymentMethods>
+            <Card>
+              <input
+                    type="text"
+                    name="numberCard"
+                    id="numberCard"
+                    placeholder="Número do cartão"
+                    onChange={handleForm}
+              />
+              <input
+                    type="text"
+                    name="nameCard"
+                    id="nameCard"
+                    placeholder="Nome impresso no cartão"
+                    onChange={handleForm}
+              />
+              <input
+                    type="date"
+                    name="dateCard"
+                    id="dateCard"
+                    placeholder="Data de vencimento"
+                    onChange={handleForm}
+              />
+              <input
+                    type="text"
+                    name="codeCard"
+                    id="codeCard"
+                    placeholder="Código de segurança"
+                    onChange={handleForm}
+              />
+              <input
+                    type="text"
+                    name="cpfCard"
+                    id="cpfCard"
+                    placeholder="CPF"
+                    onChange={handleForm}
+              />
+              <select
+                    type="text"
+                    name="installments"
+                    id="installments"
+                    onChange={handleForm}
+              >
+                  <option value="" disabled selected>Parcelas</option>
+                  <option value="2">2</option>
+                  <option value="4">4</option>
+                  <option value="6">6</option>
+                  <option value="8">8</option>
+                  <option value="10">10</option>
+                </select>
+            </Card>
+            </Infos>
             <button type="submit" onClick={checkout}>Efetuar compra</button>
         </Wrapper>
         <BottomMenu />
@@ -215,10 +349,12 @@ const Wrapper = styled.main`
   flex-direction: column;
   align-items: center;
 
-
   h1 {
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    color: #5b3e40;
+    font-weight: 500;
+    text-align: start;
   }
 
   h2 {
@@ -234,10 +370,13 @@ const Wrapper = styled.main`
 
   form {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   button {
-    width: 40%;
+    width: 60%;
     height: 30px;
     border: none;
     border-radius: 11px;
@@ -248,6 +387,7 @@ const Wrapper = styled.main`
     font-size: 12px;
     font-weight: 700;
     margin-bottom: 100px;
+    margin-top: 30px;
 
     &:hover {
       cursor: pointer;
@@ -260,51 +400,138 @@ const Wrapper = styled.main`
   }
 `;
 
+const Infos = styled.div`
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  margin-left: 180px;
+  margin-right: 180px;
+  border: 1px solid #d4a373;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+  width: 90%;
+  margin-top: 80px;
+`
+
 const PersonalInformation = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
+  margin-top: 20px;
+  margin-left: 50px;
+
+  h1 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #5b3e40;
+    font-weight: 500;
+    text-align: start;
+  }
 
   input {
       margin-right: 10px;
       margin-bottom: 10px;
-      width: 180px;
-      height: 50px;
+      width: 50%;
+      height: 35px;
+      border: 1px solid #ced4da;
+
+      &::placeholder {
+        color: #495057;
+      }
     }
 `;
 
 const DeliveryAddress = styled.div`
   display: flex;
   flex-direction: column;
+  color: #495057;
+  margin-left: 50px;
 
   input {
       margin-right: 10px;
       margin-bottom: 10px;
-      width: 180px;
-      height: 50px;
-    }
-`;
-
-
-const DeliveryType = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  input {
+      width: 50%;
+      height: 35px;
+      border: 1px solid #ced4da;
+  }
+  select {
+    margin-right: 10px;
     margin-bottom: 10px;
-    width: 20px;
-    height: 20px;
+    width: 50%;
+    height: 35px;
+    background-color: #FFFFFF;
+    border: 1px solid #ced4da;
+    color: #495057;
   }
 `;
 
 const PaymentMethods = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
+  margin-left: 50px;
 
+  h3 {
+    font-size: 15px;
+    color: #495057;
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+  .pay {
+    display: flex;
+    flex-direction: row;
+  }
   input {
     margin-bottom: 10px;
     width: 20px;
     height: 20px;
   }
-  
 `;
+
+const DeliveryType = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  margin-left: 50px;
+
+  h3 {
+    font-size: 15px;
+    color: #495057;
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+  .pay {
+    display: flex;
+    flex-direction: row;
+  }
+  input {
+    margin-bottom: 10px;
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: #495057;
+  margin-left: 50px;
+  margin-bottom: 20px;
+
+  input {
+      margin-right: 10px;
+      margin-bottom: 10px;
+      width: 50%;
+      height: 35px;
+      border: 1px solid #ced4da;
+      color: #495057;
+  }
+  select {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 50%;
+    height: 35px;
+    background-color: #FFFFFF;
+    border: 1px solid #ced4da;
+    color: #495057;
+  }
+`

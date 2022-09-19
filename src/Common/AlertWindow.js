@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
@@ -6,7 +7,7 @@ import styled from 'styled-components';
 import BottomMenu from './BottomMenu';
 import TopMenu from './TopBar/TopMenu';
 
-export default function AlertWindow() {
+export default function AlertWindow({ page }) {
   const navigate = useNavigate();
 
   return (
@@ -14,7 +15,7 @@ export default function AlertWindow() {
       <TopMenu />
       <Alert>
         <ion-icon name="alert-circle" />
-        <h1>Para ter acesso a esta página, você precisa fazer o login.</h1>
+        <h1>Para ter acesso {page}, você precisa fazer o login.</h1>
         <div>
           <button onClick={() => navigate('/login')}>Login</button>
           <button onClick={() => navigate('/signup')}>Cadastro</button>

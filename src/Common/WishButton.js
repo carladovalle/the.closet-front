@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/button-has-type */
@@ -9,43 +10,49 @@ import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TokenContext from '../Contexts/TokenContext';
 
-export default function WishButton({ inWishlist, id }) {
+export default function WishButton({ id }) {
   const [isLiked, setIsLiked] = useState(false);
   const { token } = useContext(TokenContext);
+  const config = { headers: { Authorization: token } };
 
   useEffect(() => {
-    if (inWishlist) {
-      setIsLiked(true);
-    } else {
-      setIsLiked(false);
+    async function fetchData() {
+      const likedProducts = await axios.get(
+        'https://back-projeto14-the-closet.herokuapp.com/wishlist',
+        config
+      );
+      const hasProduct = likedProducts.data
+        .map((value) => value._id)
+        .find((value) => value === id);
+
+      if (hasProduct) {
+        setIsLiked(true);
+      }
     }
+    fetchData();
   }, []);
 
   async function handleWishlist() {
     if (isLiked) {
-      setIsLiked(false);
       try {
         await axios.delete(
-          'http://localhost:5000/wishlist',
-          'config'
+          `https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`,
+          config
         );
-        await axios.put(
-          'http://localhost:5000/wishlist',
-          'config'
-        );
+        setIsLiked(false);
       } catch (error) {
         alert(error.response.data);
       }
     }
 
     if (!isLiked) {
-      setIsLiked(true);
       try {
         await axios.post(
           `http://localhost:5000/wishlist/${id}`,
           {},
-          { headers: { Authorization: token } }
+          config
         );
+        setIsLiked(true);
       } catch (error) {
         alert(error.response.data);
       }

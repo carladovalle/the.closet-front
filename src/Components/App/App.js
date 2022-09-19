@@ -14,6 +14,7 @@ import SearchContext from '../../Contexts/SearchContext';
 import TokenContext from '../../Contexts/TokenContext';
 import Home from '../Home.js/Home';
 import SectionPage from '../Home.js/SectionPage';
+import Wishlist from '../Wishlist/Wishlist';
 
 export default function App() {
   const [productsList, setProductsList] = useState({});
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/chart" element={<ChartPage />} />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/wishlist" element={<Wishlist />} />
           </Routes>
         </BrowserRouter>
       </TokenContext.Provider>

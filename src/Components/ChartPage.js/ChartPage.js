@@ -47,7 +47,7 @@ export default function ChartPage() {
   }, []);
 
   if (!token) {
-    return <AlertWindow />;
+    return <AlertWindow page="ao Carrinho" />;
   }
 
   return (

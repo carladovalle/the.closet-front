@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
@@ -14,12 +16,16 @@ import WishButton from '../../Common/WishButton';
 export default function Product({ name, price, image, inWishlist, id }) {
   const navigate = useNavigate();
   return (
-    <ProductStyle onClick={() => navigate(`/product/${id}`)}>
-      <img src={image} alt="product" />
+    <ProductStyle>
+      <img
+        src={image}
+        alt="product"
+        onClick={() => navigate(`/product/${id}`)}
+      />
       <WishButton inWishlist={inWishlist} id={id} />
       <div>
-        <h3>{name}</h3>
-        <p>
+        <h3 onClick={() => navigate(`/product/${id}`)}>{name}</h3>
+        <p onClick={() => navigate(`/product/${id}`)}>
           {(price / 100).toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL',

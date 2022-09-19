@@ -30,16 +30,16 @@ export default function Home() {
     async function fetchData() {
       try {
         const products = await axios.get(
-          'https://back-projeto14-the-closet.herokuapp.com/products'
+          'http://localhost:5000/products'
         );
         const maleStuff = await axios.get(
-          'https://back-projeto14-the-closet.herokuapp.com/search/?keyword=masculino'
+          'http://localhost:5000/search/?keyword=masculino'
         );
         const femaleStuff = await axios.get(
-          'https://back-projeto14-the-closet.herokuapp.com/search/?keyword=feminino'
+          'http://localhost:5000/search/?keyword=feminino'
         );
         const searchedShoes = await axios.get(
-          'https://back-projeto14-the-closet.herokuapp.com/search/?keyword=calcados'
+          'http://localhost:5000/search/?keyword=calcados'
         );
         setMaleProducts(maleStuff.data.slice(0, 7));
         setFemaleProducts(femaleStuff.data.slice(0, 7));

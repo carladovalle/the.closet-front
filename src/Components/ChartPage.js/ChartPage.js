@@ -28,7 +28,7 @@ export default function ChartPage() {
     async function fetchData() {
       try {
         const productsChoosed = await axios.get(
-          'https://back-projeto14-the-closet.herokuapp.com/chart',
+          'http://localhost:5000/chart',
           config
         );
         setMyChart(productsChoosed.data);

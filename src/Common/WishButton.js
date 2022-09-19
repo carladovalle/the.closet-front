@@ -23,29 +23,23 @@ export default function WishButton({ inWishlist, id }) {
 
   async function handleWishlist() {
     if (isLiked) {
-      setIsLiked(false);
       try {
-        await axios.delete(
-          'https://back-projeto14-the-closet.herokuapp.com/wishlist',
-          'config'
-        );
-        await axios.put(
-          'https://back-projeto14-the-closet.herokuapp.com/wishlist',
-          'config'
-        );
+        await axios.delete('http://localhost:5000/wishlist', 'config');
+        await axios.put('http://localhost:5000/wishlist', 'config');
+        setIsLiked(false);
       } catch (error) {
         alert(error.response.data);
       }
     }
 
     if (!isLiked) {
-      setIsLiked(true);
       try {
         await axios.post(
-          `https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`,
+          `http://localhost:5000/wishlist/${id}`,
           {},
           { headers: { Authorization: token } }
         );
+        setIsLiked(true);
       } catch (error) {
         alert(error.response.data);
       }

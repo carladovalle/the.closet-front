@@ -17,6 +17,7 @@ import HeaderMenu from '../../Common/TopBar/TopMenu';
 import ProductWish from './ProductWish';
 import TokenContext from '../../Contexts/TokenContext';
 import AlertWindow from '../../Common/AlertWindow';
+import EmptyWishlist from './EmptyWishlist';
 
 export default function Wishlist() {
   const [wishlistProducts, setWishlistProducts] = useState([]);
@@ -69,7 +70,7 @@ export default function Wishlist() {
     <>
       <HeaderMenu />
       <Wrapper>
-        <h1>Wishlist</h1>
+        <h1>Minha Wishlist</h1>
         <section>
           {wishlistProducts.length > 0 ? (
             wishlistProducts.map(({ name, price, image, _id }, index) => (
@@ -84,13 +85,7 @@ export default function Wishlist() {
               />
             ))
           ) : (
-            <>
-              <span>
-                Infelizmente, não há produtos na sua wishlist. Dê uma olhadinha
-                nos nossos produtos e escolha seus favoritos
-              </span>
-              <button>Encontrar produtos</button>
-            </>
+            <EmptyWishlist />
           )}
           {wishlistProducts.length > 0 ? (
             <div onClick={cleanWishlist}>Remover todos os itens</div>

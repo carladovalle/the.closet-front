@@ -11,7 +11,7 @@ export default function OrderSummary({ checkoutData, productsInChart }) {
   const navigate = useNavigate();
   const total = (
     productsInChart.reduce((acc, curr) => {
-      return acc + curr.price;
+      return acc + curr.price * curr.amount;
     }, 0) / 100
   ).toLocaleString('pt-BR', {
     style: 'currency',

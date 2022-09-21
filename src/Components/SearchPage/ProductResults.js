@@ -6,7 +6,6 @@
 
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import WishButton from '../../Common/WishButton';
 
 /* eslint-disable react/react-in-jsx-scope */
 export default function ProductResults({ name, price, image, id }) {
@@ -14,7 +13,6 @@ export default function ProductResults({ name, price, image, id }) {
   return (
     <ProductCard>
       <img src={image} alt="tenis" onClick={() => navigate(`/product/${id}`)} />
-      <WishButton id={id} />
       <div onClick={() => navigate(`/product/${id}`)}>
         <h2>{name}</h2>
         <h3>FRETE GRÁTIS</h3>

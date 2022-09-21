@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable prefer-destructuring */
@@ -13,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import WishButton from '../../Common/WishButton';
 
-export default function Product({ name, price, image, id }) {
+export default function Product({ name, price, image, id, userWishlist }) {
   const navigate = useNavigate();
   return (
     <ProductStyle>
@@ -22,8 +23,8 @@ export default function Product({ name, price, image, id }) {
         alt="product"
         onClick={() => navigate(`/product/${id}`)}
       />
-      <WishButton id={id} />
-      <div>
+      <WishButton id={id} userWishlist={userWishlist} />
+      <div onClick={() => navigate(`/product/${id}`)}>
         <h1>{name}</h1>
         <h2>Frete Grátis</h2>
         <h3>

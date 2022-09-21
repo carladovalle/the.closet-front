@@ -76,13 +76,13 @@ export default function Wishlist() {
         <h1>Minha Wishlist</h1>
         <section>
           {wishlistProducts.length > 0 ? (
-            wishlistProducts.map(({ name, price, image, _id }, index) => (
+            wishlistProducts.map(({ name, price, image, productId }, index) => (
               <ProductWish
                 key={index}
                 name={name}
                 price={price}
                 image={image}
-                id={_id}
+                id={productId}
                 setWishlistProducts={setWishlistProducts}
                 config={config}
               />

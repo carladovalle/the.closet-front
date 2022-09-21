@@ -20,10 +20,13 @@ export default function App() {
   const [productsList, setProductsList] = useState({});
   const [token, setToken] = useState('');
   const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
 
   return (
     <SearchContext.Provider value={{ productsList, setProductsList }}>
-      <TokenContext.Provider value={{ token, setToken, username, setUsername }}>
+      <TokenContext.Provider
+        value={{ token, setToken, username, setUsername, userId, setUserId }}
+      >
         <Reset />
         <GlobalStyle />
         <BrowserRouter>

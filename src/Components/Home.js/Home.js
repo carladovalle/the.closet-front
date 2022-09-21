@@ -65,13 +65,13 @@ export default function Home() {
           </header>
           <div>
             {femaleProducts.map(
-              ({ name, price, image, _id, inWishlist }, index) => (
+              ({ name, price, image, _id, userWishlist }, index) => (
                 <ProductCard
                   name={name}
                   price={price}
                   image={image}
                   key={index}
-                  inWishlist={inWishlist}
+                  userWishlist={userWishlist}
                   id={_id}
                 />
               )
@@ -91,13 +91,13 @@ export default function Home() {
           </header>
           <div>
             {maleProducts.map(
-              ({ name, price, image, _id, inWishlist }, index) => (
+              ({ name, price, image, _id, userWishlist }, index) => (
                 <ProductCard
                   name={name}
                   price={price}
                   image={image}
                   key={index}
-                  inWishlist={inWishlist}
+                  userWishlist={userWishlist}
                   id={_id}
                 />
               )
@@ -114,13 +114,13 @@ export default function Home() {
             <span onClick={() => navigate('/section/calcados')}>veja mais</span>
           </header>
           <div>
-            {shoes.map(({ name, price, image, _id, inWishlist }, index) => (
+            {shoes.map(({ name, price, image, _id, userWishlist }, index) => (
               <ProductCard
                 name={name}
                 price={price}
                 image={image}
                 key={index}
-                inWishlist={inWishlist}
+                userWishlist={userWishlist}
                 id={_id}
               />
             ))}
@@ -134,14 +134,14 @@ export default function Home() {
           <h5>Todos os produtos</h5>
           <div>
             {allProducts.map(
-              ({ name, price, image, _id, inWishlist }, index) => (
+              ({ name, price, image, _id, userWishlist }, index) => (
                 <ProductCard
                   name={name}
                   price={price}
                   image={image}
                   key={index}
-                  inWishlist={inWishlist}
                   id={_id}
+                  userWishlist={userWishlist}
                 />
               )
             )}

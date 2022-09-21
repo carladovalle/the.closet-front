@@ -4,7 +4,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -19,6 +19,10 @@ export default function ProductInChart({
   const [countProduct, setCountProduct] = useState(amount);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setCountProduct(amount);
+  }, [amount]);
+
   async function removeProduct() {
     try {
       if (
@@ -26,14 +30,12 @@ export default function ProductInChart({
           'Você tem certeza que quer tirar esse item do seu carrinho?'
         )
       ) {
-        await axios.delete(
-          `https://back-projeto14-the-closet.herokuapp.com/chart/${_id}`,
-          config
-        );
+        await axios.delete(`https://back-projeto14-the-closet.herokuapp.com/chart/${_id}`, config);
         const newProductsChoosed = await axios.get(
           'https://back-projeto14-the-closet.herokuapp.com/chart',
           config
         );
+
         setMyChart(newProductsChoosed.data);
         setTotalValue(totalValue - countProduct * price);
       }

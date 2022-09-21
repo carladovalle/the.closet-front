@@ -23,10 +23,11 @@ export default function CheckoutPage() {
   useEffect(() => {
     async function fetchData(){
       try {
-        const boughtProducts = await axios.get("https://back-projeto14-the-closet.herokuapp.com/chart", config)
-        setProductsInChart(boughtProducts.data)
+        const boughtProducts = await axios.get("https://back-projeto14-the-closet.herokuapp.com/chart", config);
+        setProductsInChart(boughtProducts.data);
       } catch (error) {
-        alert(error.response.data)
+        alert(error.response.data);
+        navigate("/login");
       }
     }
     fetchData()
@@ -50,6 +51,7 @@ export default function CheckoutPage() {
       await axios.delete('https://back-projeto14-the-closet.herokuapp.com/checkout', config)
     } catch (error) {
       alert(error.response.data);
+      navigate("/login");
     }
   }
 
@@ -296,6 +298,7 @@ export default function CheckoutPage() {
                     onChange={handleForm}
               >
                   <option value="" disabled selected>Parcelas</option>
+                  <option value="0">0</option>
                   <option value="2">2</option>
                   <option value="4">4</option>
                   <option value="6">6</option>

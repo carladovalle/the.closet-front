@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomMenu from '../../Common/BottomMenu';
 import HeaderMenu from '../../Common/TopBar/TopMenu';
+import WishButton from '../../Common/WishButton';
 import TokenContext from "../../Contexts/TokenContext";
 
 export default function Product() {
@@ -16,6 +17,7 @@ export default function Product() {
   const navigate = useNavigate();
   const [nameComment,setNameComment] = useState("");
   const [comment,setComment] = useState("");
+  console.log(product.userWishlist)
 
   useEffect(() => {
 
@@ -56,20 +58,20 @@ export default function Product() {
     }
   }
 
-  async function addWishlist() {
+  // async function addWishlist() {
 
-    const config = {
-      headers: {Authorization: `Bearer ${token}`}
-    }
+  //   const config = {
+  //     headers: {Authorization: `Bearer ${token}`}
+  //   }
     
-    try {
-      await axios.post(`https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`, {}, config);
-      alert('Produto adicionado com sucesso na lista de desejos!');
-      navigate('/');
-    } catch (error) {
-      alert(error.response.data);
-    }
-  }
+  //   try {
+  //     await axios.post(`https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`, {}, config);
+  //     alert('Produto adicionado com sucesso na lista de desejos!');
+  //     navigate('/');
+  //   } catch (error) {
+  //     alert(error.response.data);
+  //   }
+  // }
 
   async function addComment(event) {
 
@@ -121,12 +123,8 @@ export default function Product() {
                   </select>
                 </Choices>
                 <Options>
-                  <button onClick={() => addCart()}>Adicionar ao carrinho</button>
-                  <div className="wishlist" 
-                    onClick={() => addWishlist()}
-                  >
-                      <ion-icon name="heart-outline" onClick={() => addWishlist()} />
-                  </div>
+                  <button className='chartButton' onClick={() => addCart()}>Adicionar ao carrinho</button>
+                  {product.userWishlist ? <WishButton id={id} userWishlist={product.userWishlist} productPage/> : ""}
                 </Options>
             </Infos>
           </PrincipalInformation>
@@ -267,40 +265,7 @@ const Wrapper = styled.main`
       filter: brightness(0.9);
     }
   }
-
-  ion-icon {
-    width: 30px;
-    height: 30px;
-    color: #d4a373;
-    margin-left: 30px;
-
-    &:hover {
-      cursor: pointer;
-      filter: brightness(0.9);
-    }
-  }
-
-  button {
-    width: 40%;
-    height: 30px;
-    border: none;
-    border-radius: 11px;
-    background-image: linear-gradient(#d4a373 60%, #fefae0);
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-    margin: 10px 0;
-    color: #fefae0;
-    font-size: 12px;
-    font-weight: 700;
-
-    &:hover {
-      cursor: pointer;
-      filter: brightness(0.9);
-    }
-    &:active {
-      filter: brightness(0.85);
-      transform: scale(95%);
-    }
-  }
+  
 `;
 
 const Infos = styled.div`
@@ -321,6 +286,28 @@ const Options = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 25px;
+
+  .chartButton {
+    width: 40%;
+    height: 30px;
+    border: none;
+    border-radius: 11px;
+    background-image: linear-gradient(#d4a373 60%, #fefae0);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    margin: 10px 0;
+    color: #fefae0;
+    font-size: 12px;
+    font-weight: 700;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(0.9);
+    }
+    &:active {
+      filter: brightness(0.85);
+      transform: scale(95%);
+    }
+  }
 `
 
 const PrincipalInformation = styled.div`

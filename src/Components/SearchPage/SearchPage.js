@@ -34,25 +34,21 @@ export default function SearchPage() {
         <SearchBar />
         <section>
           {productsList.length > 0 ? (
-            productsList.map(
-              ({ name, price, image, _id, inWishlist }, index) => (
-                <ProductResults
-                  key={index}
-                  name={name}
-                  price={price}
-                  image={image}
-                  id={_id}
-                  inWishlist={inWishlist}
-                />
-              )
-            )
+            productsList.map(({ name, price, image, _id }, index) => (
+              <ProductResults
+                key={index}
+                name={name}
+                price={price}
+                image={image}
+                id={_id}
+              />
+            ))
           ) : (
             <>
               <span>
                 Infelizmente, não há produtos para mostrar, ainda. Por
                 gentileza, faça uma nova busca
               </span>
-              {/* <ion-icon name="sad-outline" /> */}
               <img src={searchGif} alt="gif" width="130px" />
             </>
           )}

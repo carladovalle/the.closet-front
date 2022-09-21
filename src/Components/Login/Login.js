@@ -13,7 +13,7 @@ import TokenContext from "../../Contexts/TokenContext";
 export default function Login() {
   const [loginData, setLoginData] = useState({});
   const navigate = useNavigate();
-  const { setToken, setUsername } = useContext(TokenContext);
+  const { setToken, setUsername, setUserId } = useContext(TokenContext);
 
   function handleForm(e) {
     setLoginData({
@@ -34,6 +34,7 @@ export default function Login() {
       alert('Login feito com sucesso! :)');
       setToken(data.token);
       setUsername(data.name);
+      setUserId(data.userId);
       navigate('/');
     } catch (error) {
       alert(error.response.data);

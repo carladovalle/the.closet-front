@@ -19,29 +19,6 @@ export default function WishButton({ id, userWishlist, productPage }) {
   const config = { headers: { Authorization: token } };
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const likedProducts = await axios.get(
-  //       'https://back-projeto14-the-closet.herokuapp.com/wishlist',
-  //       config
-  //     );
-  //     const hasProduct = likedProducts.data.find(
-  //       (value) => value.productId === id
-  //     );
-
-  //     if (hasProduct) {
-  //       setIsLiked(true);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (isWishlisted) {
-  //     setIsLiked(true);
-  //   }
-  // }, []);
-
   async function handleWishlist() {
     if (isLiked) {
       try {
@@ -62,7 +39,6 @@ export default function WishButton({ id, userWishlist, productPage }) {
 
     if (!isLiked) {
       try {
-        console.log('oi');
         await axios.post(
           `https://back-projeto14-the-closet.herokuapp.com/wishlist/${id}`,
           {},

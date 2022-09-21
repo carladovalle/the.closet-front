@@ -17,7 +17,6 @@ export default function Product() {
   const navigate = useNavigate();
   const [nameComment,setNameComment] = useState("");
   const [comment,setComment] = useState("");
-  console.log(product.userWishlist)
 
   useEffect(() => {
 
@@ -27,7 +26,7 @@ export default function Product() {
         const produtos = await axios.get(`https://back-projeto14-the-closet.herokuapp.com/product/${id}`);
         setProduct(produtos.data);
       } catch (error) {
-        console.log(error.response);
+        alert(error.response.data);
       }
     }
 

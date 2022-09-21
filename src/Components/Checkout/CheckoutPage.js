@@ -38,7 +38,6 @@ export default function CheckoutPage() {
       ...checkoutData,
       [e.target.name]: e.target.value,
     });
-    console.log(checkoutData)
   }
 
   async function checkout(event) {

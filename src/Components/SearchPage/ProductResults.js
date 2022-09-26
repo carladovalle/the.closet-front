@@ -54,6 +54,7 @@ const ProductCard = styled.article`
   div {
     display: flex;
     flex-direction: column;
+    width: 60%;
     gap: 2px;
 
     h2 {

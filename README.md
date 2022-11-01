@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# the.closet
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+O the.closet foi um projeto realizado por mim e pela Carla Valle, durante a última semana do "Módulo 3: back-end e MongoDB", do bootcamp da Driven Education. Trata-se de um e-commerce totalmente idealizado e desenvolvido por nós, desde o layout até os detalhes de cada funcionalidade. O front-end da aplicação foi inteiramente desenvolvido em React.js, utilizando tecnologias/ferramentas como styled-components, axios, ContextAPI e react-router-dom. Já o back-end foi feito em Node.js, utilizando express, para conexão do servidor; a lib JOI, para a validação de inputs; a lib bcrypt, para o armazenamento de dados sensíveis com segurança; e banco de dados NoSQL MongoDB, para armazenamento de dados dos usuários e de produtos.
 
-## Available Scripts
+<div align="center">
+  <img src="https://i.postimg.cc/138PKx9K/the-closet.png" />
+</div>
 
-In the project directory, you can run:
+Teste a aplicação através do link: https://projeto14-the-closet-front.vercel.app/
 
-### `npm start`
+## Sobre
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Essa aplicação foi desenvolvida para dispositivos móveis, através da qual é possível realizar quaisquer funcionalidades encontradas em aplicações similares. Friso que os produtos constantes da aplicação, bem como seus preços, são meramente ilustrativos e, portanto, não é possível realizar quaisquer transações financeiras. Listo, a seguir, as funcionalidades implementadas:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Cadastro de usuário;
+- Login;
+- Listagem de todos os produtos existentes, bem como o agrupamento desses em categorias (Masculina, Feminina, Verão, Inverno e Calçados);
+- Busca de produtos em página própria ou pela barra de pesquisa na página principal, viabilizada por meio de requisições feitas para o banco de dados (mongoDB);
+- Página de produto com sua imagem, preço, cores e tamanhos disponíveis e comentários de usuários;
+- Avaliação de produtos através de comentários realizados pelos usuários na página dos produtos;
+- Inclusão/Remoção de itens na lista de desejos, através do ícone em formato de coração, presente nos cards de produtos ou em sua página;
+- Inclusão/Remoção de itens no carrinho de compras, possibilitando ao usuário escolher a quantidade desejada de cada item;
+- Checkout para finalização da compra, no qual são inseridos os dados pessoais/financeiros e o endereço de entrega. Ao fim, é exibida ao usuário uma janela com o resumo do pedido, cujos dados são salvos em banco de dados que serão utilizados, futuramente, na construção de uma página de histórico de compras.
 
-### `npm test`
+## Tecnologias
+As seguintes ferramentas, tecnologias e frameworks foram utilizadas na construção desse projeto:<br>
+<p>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/styled-components%20-%2320232a.svg?&style=for-the-badge&color=b8679e&logo=styled-components&logoColor=%3a3a3a'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/axios%20-%2320232a.svg?&style=for-the-badge&color=informational'>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/react-app%20-%2320232a.svg?&style=for-the-badge&color=60ddf9&logo=react&logoColor=%2361DAFB"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/react_route%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/react-context%20api%20-%2320232a.svg?&style=for-the-badge&logo=react"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/react-day%20js%20-%2320232a.svg?&style=for-the-badge&logo=react"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/node-node%20js%20-%2320232a.svg?&style=for-the-badge&logo=Node.js"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/node-express-%2320232a.svg?&style=for-the-badge&logo=Node.js"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/node-JOI-%2320232a.svg?&style=for-the-badge&logo=Node.js"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/node-bcrypt-%2320232a.svg?&style=for-the-badge&logo=Node.js"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/.env-%2320232a.svg?&style=for-the-badge&logo=.ENV"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/mongoDB-%2320232a.svg?&style=for-the-badge&logo=mongodb"/>
+</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Como rodar a aplicação:
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Clone o repositório front-end através do endereço: https://github.com/FilipeGarroteDev/the.closet-front
+2. Instale as dependências:
+```bash
+npm i
+```
+3. Rode o front-end através do comando:
+```bash
+npm start
+```
+4. Opcionalmente, a build do projeto pode ser feita através do comando:
+```bash
+npm run build
+```
+5. Clone o repositório back-end através do endereço: https://github.com/FilipeGarroteDev/the.closet-back
+6. Instale as dependências:
+```bash
+npm i
+```
+7. Adicionae, no arquivo .env, na raiz do projeto, a seguinte linha:
+```bash
+PORT = [PORTA DE SUA PREFERÊNCIA]
+```
+8. Rode o back-end através do comando:
+```bash
+node src/index.js
+```
+9. Finalmente, acesse http://localhost:3000 no seu browser favorito (a não ser que seja o Internet Explorer. Nesse caso, você precisa rever suas decisões)
